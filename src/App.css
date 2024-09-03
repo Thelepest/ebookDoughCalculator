@@ -2,6 +2,17 @@
   text-align: center;
 }
 
+header {
+  text-align: center;
+  margin: 20px 0;
+}
+
+/* Styles the <h2> element */
+header h2 {
+  color: black;
+  margin: 0;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

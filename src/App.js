@@ -6,9 +6,7 @@ function App() {
   return (
       <div>
         <header>
-          <div>
-            <img src="/assets/pic.jpg" alt="Baking" />
-          </div>
+            <h2>Obliczenie ilości ciasta</h2>
         </header>
         <main>
           <Calculator />

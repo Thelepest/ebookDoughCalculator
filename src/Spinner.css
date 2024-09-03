@@ -1,0 +1,33 @@
+/* Spinner.css */
+
+.spinner-overlay {
+    position: fixed; /* Fixed position to overlay the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 9999; /* Ensure it's on top of other elements */
+}
+
+.spinner {
+    width: 30vw; /* 30% of the viewport width */
+    height: 30vh; /* 30% of the viewport height */
+    max-width: 300px; /* Maximum width of 300px */
+    max-height: 300px; /* Maximum height of 300px */
+}
+
+.spinner img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Maintain aspect ratio */
+    animation: spin 2s linear infinite; /* Apply the spinning animation */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
