@@ -1,11 +1,10 @@
 html, body {
-    font-family: Arial, sans-serif;
+    font-family: Lato, sans-serif;
     background: #f5f5f5;
     display: flex;
     overflow: hidden;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 header img {
@@ -25,48 +24,37 @@ header h1 {
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     border-radius: 10px;
     align-items: center;
-    display: grid;
-    grid-template-columns: auto 1fr auto; /* Adjusted to fit images and form */
-    gap: 20px; /* Space between columns */
+    display: flex;
+    justify-content : space-around;
+    /*grid-template-columns: auto 1fr auto; !* Adjusted to fit images and form *!*/
+    /*gap: 20px; !* Space between columns *!*/
     box-sizing: border-box;
     max-width: 90vw; /* Limit container width */
-    max-height: 90vh; /* Limit container height */
     position: relative;
 }
 
 .form-content {
-    grid-column: 2; /* Center the form in the middle column */
     max-width: 100%;
+    flex-basis: 50%;
+    padding : 4%;
 }
 
-.side-image {
-    max-width: 100%; /* Ensure the images fit within their container */
-    max-height: 100%; /* Ensure the images fit within their container */
-    object-fit: contain; /* Maintain aspect ratio */
+.form-img {
+    flex-basis: 50%;
+    padding : 4%;
+}
+
+.form-img img{
+    width : 100%;
+    object-fit: contain;
     display: block; /* Ensure the images are block-level elements */
+
 }
 
-.left {
-    justify-self: start; /* Align the left image to the left side of the grid */
-}
-
-@media (max-width: 575.98px) {
-    .container {
-        padding: 10px;
-        grid-template-columns: 1fr; /* Stack images and form vertically */
-        gap: 10px; /* Adjust gap for smaller screens */
-    }
-
-    .side-image {
-        max-width: 35vw; /* Adjust for smaller screens */
-        max-height: 30vh;
-    }
-}
-
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
     .container {
         padding: 15px;
-        grid-template-columns: 1fr; /* Stack images and form vertically */
+        flex-direction: column;
         gap: 15px; /* Adjust gap for medium screens */
     }
 
@@ -76,44 +64,6 @@ header h1 {
     }
 }
 
-@media (max-width: 991.98px) {
-    .container {
-        padding: 30px;
-        grid-template-columns: 1fr; /* Stack images and form vertically */
-        gap: 20px; /* Adjust gap for larger screens */
-    }
-
-    .side-image {
-        max-width: 45vw; /* Adjust for larger screens */
-        max-height: 40vh;
-    }
-}
-
-@media (max-width: 1199.98px) {
-    .container {
-        padding: 26px;
-        grid-template-columns: 1fr; /* Stack images and form vertically */
-        gap: 25px; /* Adjust gap for even larger screens */
-    }
-
-    .side-image {
-        max-width: 50vw; /* Adjust for even larger screens */
-        max-height: 50vh;
-    }
-}
-
-@media (min-width: 1200px) {
-    .container {
-        padding: 30px;
-        grid-template-columns: auto 1fr auto; /* Reset to horizontal layout for larger screens */
-        gap: 20px; /* Maintain a comfortable gap */
-    }
-
-    .side-image {
-        max-width: 30vw; /* Adjust for larger screens */
-        max-height: 60vh;
-    }
-}
 
 .container button {
     margin-right: 5%;

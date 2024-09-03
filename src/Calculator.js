@@ -115,7 +115,9 @@ function Calculator() {
 
     return (
         <div className="container">
-            <img src={`${process.env.PUBLIC_URL}/pic1.jpg`} alt="Pic1" className="side-image left" />
+            <div className="form-img">
+                <img src={`${process.env.PUBLIC_URL}/pic1.jpg`} alt="MichalBakteria" />
+            </div>
 
             <div className="form-content">
                 <form
