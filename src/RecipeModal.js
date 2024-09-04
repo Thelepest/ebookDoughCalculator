@@ -15,7 +15,12 @@ function RecipeModal({ isOpen, onClose, recipe }) {
                     <span>Mąka:</span> {recipe.flour} gr<br />
                     <span>Woda:</span> {recipe.water} gr<br />
                     <span>Sól:</span> {recipe.salt} gr<br />
-                    <span>Zakwas:</span> {recipe.levain} gr
+                    <span>Zakwas:</span> {recipe.levain} gr<br />
+                    {recipe.product === 'Focaccia' && (
+                        <>
+                            <span>Oliwa:</span> {recipe.oil} {recipe.oil === 1 ? 'łyżka' : 'łyżki'}<br />
+                        </>
+                    )}
                 </p>
             </div>
         </div>

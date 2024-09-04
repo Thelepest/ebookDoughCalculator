@@ -49,7 +49,7 @@ function Calculator() {
     };
 
     const calculateRecipe = () => {
-        setIsLoading(true); // Show spinner
+        setIsLoading(true);
         setTimeout(() => {
             const { shape, length, depth, diameter, product, quantity, season, hydration, breadWeight } = form;
             const numProducts = quantity;
@@ -78,6 +78,7 @@ function Calculator() {
             const water = hydratation * flour;
             const salt = 0.02 * flour;
             const levain = (isSummer ? 0.1 : 0.2) * flour;
+            const oil = flour*F <= 100 ? 1 : Math.ceil(flour*F/100);
 
             setRecipe({
                 product: product.charAt(0).toUpperCase() + product.slice(1),
@@ -86,10 +87,11 @@ function Calculator() {
                 water: Math.ceil(water * F),
                 salt: Math.ceil(salt * F),
                 levain: Math.ceil(levain * F),
+                oil:oil
             });
             setIsModalOpen(true);
-            setIsLoading(false); // Hide spinner after processing
-        }, 2000); // Spinner shows for 2 seconds
+            setIsLoading(false);
+        }, 2000);
     };
 
     const resetForm = () => {
@@ -157,15 +159,21 @@ function Calculator() {
                         </div>
                     )}
 
-                    {form.product !== 'chleb' && (
+                    {(form.product === 'pizza' || form.product === 'focaccia') && (
                         <div className="input-group position-relative">
                             <label htmlFor="shape">Kształt blachy do pieczenia :</label>
-                            <OverlayTrigger
-                                placement="top"
-                                overlay={renderTooltip('Wybierz blachę o wysokości co najmniej 5 cm!')}
-                            >
-                                <span className="question-mark">?</span>
-                            </OverlayTrigger>
+                            {form.product !== 'pizza' && (
+                                <OverlayTrigger
+                                    placement="top"
+                                    overlay={renderTooltip(
+                                        form.product === 'focaccia'
+                                            ? 'Wybierz blachę o wysokości co najmniej 5 cm!'
+                                            : ''
+                                    )}
+                                >
+                                    <span className="question-mark">?</span>
+                                </OverlayTrigger>
+                            )}
                             <select
                                 id="shape"
                                 value={form.shape}
