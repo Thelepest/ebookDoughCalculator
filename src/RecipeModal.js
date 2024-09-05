@@ -1,5 +1,6 @@
 import React from 'react';
-import './Modal.css'; // Import CSS for modal
+import './Modal.css';
+import surfmath from './surfmath.jpg';
 
 function RecipeModal({ isOpen, onClose, recipe }) {
     if (!isOpen) return null;
@@ -22,6 +23,7 @@ function RecipeModal({ isOpen, onClose, recipe }) {
                         </>
                     )}
                 </p>
+                <img className="modal-image" src={surfmath} alt="Surfmath" />
             </div>
         </div>
     );

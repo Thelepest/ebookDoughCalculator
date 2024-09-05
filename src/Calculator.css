@@ -2,9 +2,17 @@ html, body {
     font-family: Lato, sans-serif;
     background: #f5f5f5;
     display: flex;
-    overflow: hidden;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+body, html, .container {
+    overflow-x: hidden;
 }
 
 header img {
@@ -23,52 +31,69 @@ header h1 {
     background: white;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     border-radius: 10px;
-    align-items: center;
     display: flex;
-    justify-content : space-around;
-    /*grid-template-columns: auto 1fr auto; !* Adjusted to fit images and form *!*/
-    /*gap: 20px; !* Space between columns *!*/
+    flex-direction: column;
     box-sizing: border-box;
-    max-width: 90vw; /* Limit container width */
+    max-width: 90vw;
+    width: 100%;
     position: relative;
+    padding: 20px;
+    margin: 20px 0;
+    overflow-x: hidden;
+    height: auto;
+    min-height: auto;
 }
 
 .form-content {
-    max-width: 100%;
-    flex-basis: 50%;
-    padding : 4%;
+    width: 100%;
+    max-height: none;
 }
 
 .form-img {
-    flex-basis: 50%;
-    padding : 4%;
-}
-
-.form-img img{
-    width : 100%;
-    object-fit: contain;
-    display: block; /* Ensure the images are block-level elements */
+    max-height: 200px;
+    width: auto;
+    display: block;
+    margin-bottom: 10px;
 
 }
+
+.form-img img {
+    max-height: 200px;
+    width: auto;
+    margin: 0 auto;
+    display: block;
+}
+
 
 @media (max-width: 768px) {
     .container {
-        padding: 15px;
+        width: 100%;
         flex-direction: column;
-        gap: 15px; /* Adjust gap for medium screens */
+        padding: 15px;
+        align-items: center;
+        max-height: none;
+
     }
 
-    .side-image {
-        max-width: 40vw; /* Adjust for medium screens */
-        max-height: 35vh;
+    .form-img img {
+        max-height: 150px;
+        width: auto;
     }
-}
 
 
-.container button {
-    margin-right: 5%;
-    margin-top: 5%;
-    padding: 8px 30px;
+    .form-content {
+        margin-top: 15px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button-group button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }
 
 .container h2 {
@@ -77,8 +102,7 @@ header h1 {
 
 .input-group {
     margin-bottom: 15px;
-    position: relative; /* Positioning context for question mark */
-}
+    position: relative;}
 
 .input-group label {
     display: block;
@@ -98,7 +122,6 @@ header h1 {
     cursor: pointer;
 }
 
-/* Style for the question mark icon */
 .question-mark {
     display: inline-block;
     background-color: #ff6f61;
@@ -112,65 +135,31 @@ header h1 {
     line-height: 20px;
     cursor: pointer;
     position: absolute;
-    top: 0;
-    right: -25px; /* Positioned to the top-right of the input */
+    top: -3px;
+    right: -8px;
 }
 
-/* Tooltip styling */
 .custom-tooltip {
     text-align: center;
     z-index: 1;
-    top: -35px; /* Positioned above the question mark */
+    top: -35px;
     right: 0;
     box-shadow: 0 0 5px rgba(0,0,0,0.2);
     background-color: #555;
     color: white;
-    padding: 8px 12px; /* Increased padding for better readability */
+    padding: 8px 12px;
     border-radius: 4px;
     font-size: 12px;
-    max-width: 200px; /* Removed fixed width */
-    white-space: normal; /* Allows tooltip text to wrap */
+    max-width: 200px;
+    white-space: normal;
     position: relative;
-    word-wrap: break-word; /* Ensures long words break to fit inside the tooltip */
+    word-wrap: break-word;
 }
 
 .error {
     color: red;
     display: none;
     margin-top: 5px;
-}
-
-.recipe {
-    background: #fff;
-    padding: 50px;
-    border-radius: 15px;
-    margin-top: 20px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    max-width: 500px;
-    width: 100%;
-    border: 1px solid #e0e0e0;
-}
-
-.recipe h2 {
-    margin-top: 0;
-    font-size: 2rem;
-    color: #00796b;
-    border-bottom: 2px solid #00796b;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.recipe p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #333;
-    text-align: justify;
-}
-
-.recipe p span {
-    font-weight: bold;
-    color: #00796b;
 }
 
 button {
@@ -201,6 +190,7 @@ button:disabled {
 
 .button-group {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     width: 100%;
     margin-top: 20px;
@@ -208,5 +198,6 @@ button:disabled {
 
 .button-group button {
     width: 45%;
-    text-align: center;
 }
+
+

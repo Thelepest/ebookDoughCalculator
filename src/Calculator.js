@@ -128,8 +128,8 @@ function Calculator() {
                         calculateRecipe();
                     }}
                 >
-                    {/* Form fields as before */}
-                    <div className="input-group position-relative">
+                    {/* Form fields */}
+                    <div className="input-group">
                         <label htmlFor="product">Co pieczesz dzisiaj?</label>
                         <select
                             id="product"
@@ -137,9 +137,7 @@ function Calculator() {
                             onChange={handleProductChange}
                             required
                         >
-                            <option value="" disabled>
-                                Wybierz
-                            </option>
+                            <option value="" disabled>Wybierz</option>
                             <option value="focaccia">Focaccia</option>
                             <option value="pizza">Pizza</option>
                             <option value="chleb">Chleb</option>
@@ -147,7 +145,7 @@ function Calculator() {
                     </div>
 
                     {form.product === 'chleb' && (
-                        <div className="input-group position-relative">
+                        <div className="input-group">
                             <label htmlFor="breadWeight">Waga chleba (g):</label>
                             <input
                                 type="number"
@@ -160,8 +158,8 @@ function Calculator() {
                     )}
 
                     {(form.product === 'pizza' || form.product === 'focaccia') && (
-                        <div className="input-group position-relative">
-                            <label htmlFor="shape">Kształt blachy do pieczenia :</label>
+                        <div className="input-group">
+                            <label htmlFor="shape">Kształt blachy do pieczenia:</label>
                             {form.product !== 'pizza' && (
                                 <OverlayTrigger
                                     placement="top"
@@ -180,9 +178,7 @@ function Calculator() {
                                 onChange={(e) => setForm({ ...form, shape: e.target.value })}
                                 required
                             >
-                                <option value="" disabled>
-                                    Wybierz
-                                </option>
+                                <option value="" disabled>Wybierz</option>
                                 <option value="rectangular">Prostokątny</option>
                                 <option value="circular">Okrągły</option>
                             </select>
@@ -190,28 +186,26 @@ function Calculator() {
                     )}
 
                     {form.shape === 'rectangular' && form.product !== 'chleb' && (
-                        <>
-                            <div className="input-group position-relative">
-                                <label htmlFor="length">Długość (cm):</label>
-                                <input
-                                    type="number"
-                                    id="length"
-                                    value={form.length}
-                                    onChange={(e) => setForm({ ...form, length: e.target.value })}
-                                />
-                                <label htmlFor="depth"> Szerokość (cm):</label>
-                                <input
-                                    type="number"
-                                    id="depth"
-                                    value={form.depth}
-                                    onChange={(e) => setForm({ ...form, depth: e.target.value })}
-                                />
-                            </div>
-                        </>
+                        <div className="input-group">
+                            <label htmlFor="length">Długość (cm):</label>
+                            <input
+                                type="number"
+                                id="length"
+                                value={form.length}
+                                onChange={(e) => setForm({ ...form, length: e.target.value })}
+                            />
+                            <label htmlFor="depth">Szerokość (cm):</label>
+                            <input
+                                type="number"
+                                id="depth"
+                                value={form.depth}
+                                onChange={(e) => setForm({ ...form, depth: e.target.value })}
+                            />
+                        </div>
                     )}
 
                     {form.shape === 'circular' && form.product !== 'chleb' && (
-                        <div className="input-group position-relative">
+                        <div className="input-group">
                             <label htmlFor="diameter">Średnica (cm):</label>
                             <input
                                 type="number"
@@ -222,7 +216,7 @@ function Calculator() {
                         </div>
                     )}
 
-                    <div className="input-group position-relative">
+                    <div className="input-group">
                         <label htmlFor="quantity">Ile sztuk?</label>
                         <input
                             type="number"
@@ -233,7 +227,7 @@ function Calculator() {
                         />
                     </div>
 
-                    <div className="input-group position-relative">
+                    <div className="input-group">
                         <label htmlFor="season">Pora roku:</label>
                         <OverlayTrigger
                             placement="top"
@@ -247,20 +241,17 @@ function Calculator() {
                             onChange={(e) => setForm({ ...form, season: e.target.value })}
                             required
                         >
-                            <option value="" disabled>
-                                Wybierz
-                            </option>
+                            <option value="" disabled>Wybierz</option>
                             <option value="summer">Wiosna-Lato</option>
                             <option value="winter">Jesień-Zima</option>
                         </select>
                     </div>
 
-                    <div className="input-group position-relative">
+                    <div className="input-group">
                         <label htmlFor="hydration">Hydratacja (%):</label>
                         <OverlayTrigger
                             placement="top"
-                            overlay={renderTooltip('Jeśli nie masz dużego doświadczenia, zalecam pozostawienie' +
-                                ' domyślnego.')}
+                            overlay={renderTooltip('Jeśli nie masz dużego doświadczenia, zalecam pozostawienie domyślnego.')}
                         >
                             <span className="question-mark">?</span>
                         </OverlayTrigger>
