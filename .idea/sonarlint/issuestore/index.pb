@@ -91,3 +91,5 @@ Z
 *android/app/src/main/res/values/styles.xml,6\8\681a41214f7344c6c8adc00743d2c199eb204fde
 D
 public/manifest.json,4\2\42e89cd2213b9d5dfae4f63522702c623170d792
+F
+src/reportWebVitals.js,1\c\1ce5e63ae1582ed0b425c46001299a07515efbf9
