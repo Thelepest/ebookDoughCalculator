@@ -22,7 +22,7 @@
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     max-width: 90vw;
     width: 640px;
-    max-height: 50vh;
+    max-height: 69vh;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -31,7 +31,8 @@
 
 .modal-close {
     position: absolute;
-    right: 20px;
+    right: 40px;
+    top: 40px;
     background: #ff6f61;
     color: white;
     border: none;
@@ -39,8 +40,23 @@
     border-radius: 5px;
     min-width: 10%;
     min-height: 10%;
-    font-size: 35px;
-    font-family: 'Amatic SC', cursive;
+    font-size: 20px;
+    font-family: 'Amatic SC Regular', cursive;
+    font-weight: 700;
+}
+
+.modal-close-fat {
+    position: absolute;
+    right: 40px;
+    top: 40px;
+    background: #ff6f61;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    min-width: 10%;
+    font-size: 25px;
+    font-family: 'Amatic SC Regular', cursive;
     font-weight: 700;
 }
 
@@ -64,7 +80,7 @@
 .modal-content p {
     font-family: 'Amatic SC', cursive;
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     color: #444;
     text-align: justify;
 }
@@ -79,10 +95,24 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 38%;
+    width: 54%;
+    height: 77%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.modal-image-fat {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 57%;
     height: 72%;
     object-fit: cover;
     border-radius: 10px;
+}
+
+.span-fat {
+    font-size: 2.5rem;
 }
 
 @media (max-width: 768px) {
@@ -92,11 +122,34 @@
         padding: 20px;
     }
 
+    .span-fat {
+        font-size: 1.3rem;
+    }
+
+    .modal-image-fat {
+        position: absolute;
+        bottom: 0;
+        right: 5px;
+        object-fit: cover;
+        width: 52%;
+        height: 66%;
+    }
+
     .modal-close {
-        top: 15px;
-        font-family: 'Amatic SC', cursive;
+        top: 22px;
+        right: 22px;
+        font-family: 'Amatic SC Regular', cursive;
         font-weight: 700;
-        font-size: 10px;
+        font-size: 20px;
+        padding:0;
+    }
+
+    .modal-close-fat {
+        top: 26px;
+        right: 26px;
+        font-family: 'Amatic SC Regular', cursive;
+        font-weight: 700;
+        font-size: 20px;
         padding:0;
     }
 
@@ -104,20 +157,21 @@
 
         font-family: 'Amatic SC', cursive;
         font-weight: 700;
-        font-size: 1rem;
+        font-size: 2rem;
     }
 
     .modal-content p {
         font-family: 'Amatic SC', cursive;
         font-weight: 700;
-        font-size: 1rem;
+        font-size: 1.5rem;
     }
 
     .modal-image {
         position: absolute;
         bottom: 0;
-        right: 0;
-        height: 68%;
+        right: 5px;
+        height: 78%;
         object-fit: cover;
+        width: 59%;
     }
 }

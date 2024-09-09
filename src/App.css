@@ -7,10 +7,10 @@ header {
   margin: 20px 0;
 }
 
-/* Styles the <h2> element */
 header h2 {
   color: black;
   margin: 0;
+  font-size: xxx-large;
 }
 
 .App-logo {
