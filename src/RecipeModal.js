@@ -2,9 +2,10 @@ import React from 'react';
 import './Modal.css';
 import surfmath from './surfmath.jpg';
 import bilancia from './bilancia.jpg';
+import translations from "./translations";
 
 
-function RecipeModal({ isOpen, onClose, recipe }) {
+function RecipeModal({ isOpen, onClose, recipe, lang }) {
     if (!isOpen) return null;
     const isHighFlourContent = recipe.flour > 9999;
 
@@ -13,17 +14,18 @@ function RecipeModal({ isOpen, onClose, recipe }) {
             {!isHighFlourContent ? (
                 <div className="modal-content" onClick={e => e.stopPropagation()}>
                     <button className="modal-close" onClick={onClose}>X</button>
-                    <h2>Szczegóły twojego przepisu</h2>
+                    <h2>{translations[lang].recipeDetails}</h2>
                     <p>
-                        <span>Przepis:</span> {recipe.product}<br />
-                        <span>Sztuki:</span> {recipe.quantity}<br />
-                        <span>Mąka:</span> {recipe.flour} gr<br />
-                        <span>Woda:</span> {recipe.water} gr<br />
-                        <span>Sól:</span> {recipe.salt} gr<br />
-                        <span>Zakwas:</span> {recipe.levain} gr<br />
+                        <span>{translations[lang].rec}</span> {recipe.product}<br />
+                        <span>{translations[lang].pieces}</span> {recipe.quantity}<br />
+                        <span>{translations[lang].flour}</span> {recipe.flour} gr<br />
+                        <span>{translations[lang].wat}</span> {recipe.water} gr<br />
+                        <span>{translations[lang].salt}</span> {recipe.salt} gr<br />
+                        <span>{translations[lang].sourdough}</span> {recipe.levain} gr<br />
                         {recipe.product === 'Focaccia' && (
                             <>
-                                <span>Oliwa:</span> {recipe.oil} {recipe.oil === 1 ? 'łyżka' : 'łyżki'}<br />
+                                <span>{translations[lang].oil}</span> {recipe.oil} {recipe.oil === 1 ? translations[lang].oil1 :
+                                (recipe.oil < 5 ? translations[lang].oil2 : translations[lang].oil3)}<br />
                             </>
                         )}
                     </p>
@@ -32,10 +34,10 @@ function RecipeModal({ isOpen, onClose, recipe }) {
             ) : (
                 <div className="modal-content" onClick={e => e.stopPropagation()}>
                     <button className="modal-close-fat" onClick={onClose}>X</button>
-                    <h2>Uwaga, wykryte obżartuch!</h2>
+                    <h2>{translations[lang].fatBoy}</h2>
                     <span className="span-fat">
-                        Rozumiem Twoją ochotę <br/>na {recipe.product},<br/>
-                    specjalista dietetyk <br/>Dr. Drożdże <br/> zaraz cię przyjmie!</span>
+                        {translations[lang].fatBoy1}<br/>{recipe.product},<br/>
+                        {translations[lang].fatBoy2}<br/>{translations[lang].fatBoy3}<br/>{translations[lang].fatBoy4}</span>
                     <img className="modal-image-fat" src={bilancia} alt="Surfmath" />
                 </div>
             )};

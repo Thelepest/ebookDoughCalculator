@@ -46,8 +46,7 @@ header h1 {
     max-width: 90vw;
     width: 100%;
     position: relative;
-    padding: 20px;
-    margin: 20px 0;
+    padding: 0 40px 10px 40px;
     overflow-x: hidden;
     height: auto;
     min-height: auto;
@@ -187,7 +186,6 @@ button {
     background: #ff6f61;
     color: white;
     border: none;
-    padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
     background: linear-gradient(135deg, #ff6f61 0%, #ffccbc 100%);

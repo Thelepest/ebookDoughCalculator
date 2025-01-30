@@ -106,13 +106,13 @@
     bottom: 0;
     right: 0;
     width: 57%;
-    height: 72%;
+    height: 70%;
     object-fit: cover;
     border-radius: 10px;
 }
 
 .span-fat {
-    font-size: 2.5rem;
+    font-size: 2rem;
 }
 
 @media (max-width: 768px) {

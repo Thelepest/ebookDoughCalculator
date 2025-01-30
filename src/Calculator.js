@@ -3,8 +3,9 @@ import './Calculator.css';
 import RecipeModal from './RecipeModal';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import Spinner from "./Spinner";
+import translations from "./translations";
 
-function Calculator() {
+function Calculator({ lang }) {
     const [form, setForm] = useState({
         shape: '',
         length: '',
@@ -130,23 +131,23 @@ function Calculator() {
                 >
                     {/* Form fields */}
                     <div className="input-group">
-                        <label htmlFor="product">Co pieczesz dzisiaj?</label>
+                        <label htmlFor="product">{translations[lang].productLabel}</label>
                         <select
                             id="product"
                             value={form.product}
                             onChange={handleProductChange}
                             required
                         >
-                            <option value="" disabled>Wybierz</option>
-                            <option value="focaccia">Focaccia</option>
-                            <option value="pizza">Pizza</option>
-                            <option value="chleb">Chleb</option>
+                            <option value="" disabled>{translations[lang].chooseOption}</option>
+                            <option value="focaccia">{translations[lang].focaccia}</option>
+                            <option value="pizza">{translations[lang].pizza}</option>
+                            <option value="chleb">{translations[lang].bread}</option>
                         </select>
                     </div>
 
                     {form.product === 'chleb' && (
                         <div className="input-group">
-                            <label htmlFor="breadWeight">Waga chleba (g):</label>
+                            <label htmlFor="breadWeight">{translations[lang].breadWeight}</label>
                             <input
                                 type="number"
                                 id="breadWeight"
@@ -159,13 +160,13 @@ function Calculator() {
 
                     {(form.product === 'pizza' || form.product === 'focaccia') && (
                         <div className="input-group">
-                            <label htmlFor="shape">Kształt blachy do pieczenia:</label>
+                            <label htmlFor="shape">{translations[lang].tray}</label>
                             {form.product !== 'pizza' && (
                                 <OverlayTrigger
                                     placement="top"
                                     overlay={renderTooltip(
                                         form.product === 'focaccia'
-                                            ? 'Wybierz blachę o wysokości co najmniej 5 cm!'
+                                            ? translations[lang].tray5cm
                                             : ''
                                     )}
                                 >
@@ -178,23 +179,23 @@ function Calculator() {
                                 onChange={(e) => setForm({ ...form, shape: e.target.value })}
                                 required
                             >
-                                <option value="" disabled>Wybierz</option>
-                                <option value="rectangular">Prostokątny</option>
-                                <option value="circular">Okrągły</option>
+                                <option value="" disabled>{translations[lang].chooseOption}</option>
+                                <option value="rectangular">{translations[lang].squareShape}</option>
+                                <option value="circular">{translations[lang].roundShape}</option>
                             </select>
                         </div>
                     )}
 
                     {form.shape === 'rectangular' && form.product !== 'chleb' && (
                         <div className="input-group">
-                            <label htmlFor="length">Długość (cm):</label>
+                            <label htmlFor="length">{translations[lang].length}</label>
                             <input
                                 type="number"
                                 id="length"
                                 value={form.length}
                                 onChange={(e) => setForm({ ...form, length: e.target.value })}
                             />
-                            <label htmlFor="depth">Szerokość (cm):</label>
+                            <label htmlFor="depth">{translations[lang].width}</label>
                             <input
                                 type="number"
                                 id="depth"
@@ -206,7 +207,7 @@ function Calculator() {
 
                     {form.shape === 'circular' && form.product !== 'chleb' && (
                         <div className="input-group">
-                            <label htmlFor="diameter">Średnica (cm):</label>
+                            <label htmlFor="diameter">{translations[lang].diameter}</label>
                             <input
                                 type="number"
                                 id="diameter"
@@ -217,7 +218,7 @@ function Calculator() {
                     )}
 
                     <div className="input-group">
-                        <label htmlFor="quantity">Ile sztuk?</label>
+                        <label htmlFor="quantity">{translations[lang].pcs}</label>
                         <input
                             type="number"
                             id="quantity"
@@ -228,10 +229,10 @@ function Calculator() {
                     </div>
 
                     <div className="input-group">
-                        <label htmlFor="season">Pora roku:</label>
+                        <label htmlFor="season">{translations[lang].period}</label>
                         <OverlayTrigger
                             placement="top"
-                            overlay={renderTooltip('W ciepłe pory roku zużyjesz mniej zakwasu niż w zimne.')}
+                            overlay={renderTooltip(translations[lang].periodSuggest)}
                         >
                             <span className="question-mark">?</span>
                         </OverlayTrigger>
@@ -241,17 +242,17 @@ function Calculator() {
                             onChange={(e) => setForm({ ...form, season: e.target.value })}
                             required
                         >
-                            <option value="" disabled>Wybierz</option>
-                            <option value="summer">Wiosna-Lato</option>
-                            <option value="winter">Jesień-Zima</option>
+                            <option value="" disabled>{translations[lang].chooseOption}</option>
+                            <option value="summer">{translations[lang].summer}</option>
+                            <option value="winter">{translations[lang].winter}</option>
                         </select>
                     </div>
 
                     <div className="input-group">
-                        <label htmlFor="hydration">Hydratacja (%):</label>
+                        <label htmlFor="hydration">{translations[lang].water}</label>
                         <OverlayTrigger
                             placement="top"
-                            overlay={renderTooltip('Jeśli nie masz dużego doświadczenia, zalecam pozostawienie domyślnego.')}
+                            overlay={renderTooltip(translations[lang].waterSuggest)}
                         >
                             <span className="question-mark">?</span>
                         </OverlayTrigger>
@@ -270,17 +271,17 @@ function Calculator() {
 
                     <div className="button-group">
                         <button type="submit" disabled={!isFormValid()}>
-                            Oblicz
+                            {translations[lang].calculate}
                         </button>
                         <button type="button" onClick={resetForm} className="reset-btn">
-                            Reset
+                            {translations[lang].reset}
                         </button>
                     </div>
                 </form>
 
                 {isLoading && <Spinner />}
 
-                <RecipeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} recipe={recipe} />
+                <RecipeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} recipe={recipe} lang={lang}/>
             </div>
         </div>
     );

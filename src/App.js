@@ -1,18 +1,30 @@
-import React from 'react';
-import Calculator from './Calculator';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { getUserLanguage } from "./utils";
+import translations from "./translations";
+import Calculator from "./Calculator";
+import "./App.css";
 
 function App() {
-  return (
-      <div>
-        <header>
-            <h2>Obliczenie ilości ciasta</h2>
-        </header>
-        <main>
-          <Calculator />
-        </main>
-      </div>
-  );
+    const [lang, setLang] = useState("PL");
+
+    useEffect(() => {
+        async function fetchLanguage() {
+            const countryCode = await getUserLanguage();
+            setLang(translations[countryCode] ? countryCode : "EN");
+        }
+        fetchLanguage();
+    }, []);
+
+    return (
+        <div>
+            <header>
+                <h2>{translations[lang].title}</h2>
+            </header>
+            <main>
+                <Calculator lang={lang} />
+            </main>
+        </div>
+    );
 }
 
 export default App;
