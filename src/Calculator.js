@@ -3,6 +3,7 @@ import './Calculator.css';
 import RecipeModal from './RecipeModal';
 import Spinner from "./Spinner";
 import translations from "./translations";
+import {OverlayTrigger, Tooltip} from "react-bootstrap";
 
 function Calculator({ lang }) {
     const [form, setForm] = useState({
@@ -106,6 +107,17 @@ function Calculator({ lang }) {
         }, 2000);
     };
 
+    const renderTooltip = (item) => {
+        if (item === "hydration") {
+            return <Tooltip id="tooltip">{translations[lang].waterSuggest}</Tooltip>;
+        } else if (item === "season") {
+            return <Tooltip id="tooltip">{translations[lang].periodSuggest}</Tooltip>;
+        } else if (item === "shape") {
+            return <Tooltip id="tooltip">{translations[lang].tray5cm}</Tooltip>;
+        }
+        return <Tooltip id="tooltip">""</Tooltip>;
+    };
+
     const getPlaceholder = (item) => {
         switch(item.name) {
             case "breadWeight":
@@ -134,6 +146,7 @@ function Calculator({ lang }) {
                             <div key={item.name} className={`carousel-slide ${index === step ? 'active' : ''}`}>
                                 <label htmlFor={item.name}>{item.label}</label>
                                 {item.name === "hydration" || item.name === "season" || item.name === "product" || item.name === "shape" ? (
+                                    <div className="input-group">
                                     <select
                                         id={item.name}
                                         name={item.name}
@@ -164,6 +177,15 @@ function Calculator({ lang }) {
                                             <option key={value} value={value}>{value}</option>
                                         ))}
                                     </select>
+                                    {(item.name === "hydration" || item.name === "season" || item.name === "shape") && (
+                                        <OverlayTrigger
+                                            placement="top"
+                                            overlay={renderTooltip(item.name)}
+                                        >
+                                            <span className="question-mark">?</span>
+                                        </OverlayTrigger>
+                                    )}
+                                    </div>
                                 ) : (
                                     <input
                                         type="number"

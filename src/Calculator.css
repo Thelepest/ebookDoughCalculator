@@ -44,9 +44,9 @@ header h1 {
     flex-direction: column;
     box-sizing: border-box;
     max-width: 90vw;
+    padding : 0 0 20px 20px;
     width: 100%;
     position: relative;
-    padding: 0 40px 10px 40px;
     overflow-x: hidden;
     height: auto;
     min-height: auto;
@@ -179,7 +179,7 @@ select:disabled {
 
 .question-mark {
     display: inline-block;
-    background-color: #ff6f61;
+    background: linear-gradient(135deg, #ff6f61 0%, #ffccbc 100%);
     color: white;
     border-radius: 50%;
     width: 30px;
@@ -189,7 +189,7 @@ select:disabled {
     font-family: 'Amatic SC Regular', cursive;
     cursor: pointer;
     position: absolute;
-    top: 47px;
+    top: 10px;
     right: -39px;
 }
 
@@ -250,15 +250,12 @@ button:disabled {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin-top: 20px;
 }
 
 .button-group button {
     width: 45%;
-    display: inline-block; /* Aggiungi questa regola per farli essere inline */
 }
 
-/* Se c'è solo il tasto "Avanti", lo centra */
 .button-group.only-next {
     justify-content: center;
 }
