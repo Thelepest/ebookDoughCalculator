@@ -106,6 +106,21 @@ function Calculator({ lang }) {
         }, 2000);
     };
 
+    const getPlaceholder = (item) => {
+        switch(item.name) {
+            case "breadWeight":
+                return translations[lang].breadWeightPlaceholder;
+            case "quantity":
+                return translations[lang].quantityPlaceholder;
+            case "length":
+                return translations[lang].lengthPlaceholder;
+            case "depth":
+                return translations[lang].lengthPlaceholder;
+            default:
+                return "";
+        }
+    };
+
     return (
         <div className="container">
             <div className="form-img">
@@ -156,6 +171,7 @@ function Calculator({ lang }) {
                                         name={item.name}
                                         value={form[item.name]}
                                         onChange={handleChange}
+                                        placeholder={getPlaceholder(item)}
                                     />
                                 )}
                             </div>
