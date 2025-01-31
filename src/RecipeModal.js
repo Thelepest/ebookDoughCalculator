@@ -40,7 +40,7 @@ function RecipeModal({ isOpen, onClose, recipe, lang }) {
                         {translations[lang].fatBoy2}<br/>{translations[lang].fatBoy3}<br/>{translations[lang].fatBoy4}</span>
                     <img className="modal-image-fat" src={bilancia} alt="Surfmath" />
                 </div>
-            )};
+            )}
         </div>
     );
 }

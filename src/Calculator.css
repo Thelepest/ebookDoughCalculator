@@ -44,7 +44,6 @@ header h1 {
     flex-direction: column;
     box-sizing: border-box;
     max-width: 90vw;
-    padding : 0 0 20px 20px;
     width: 100%;
     position: relative;
     overflow-x: hidden;
@@ -53,7 +52,7 @@ header h1 {
 }
 
 .form-content {
-    width: 90%;
+    width: 100%;
     max-height: none;
     font-family: 'Amatic SC', cursive;
     font-size: 1.4rem;
@@ -111,7 +110,6 @@ header h1 {
 }
 
 .input-group {
-    margin-bottom: 15px;
     position: relative;
 }
 
@@ -139,10 +137,11 @@ select {
     font-family: 'Amatic SC', cursive;
     text-align: center;
     padding: 10px;
+    margin-bottom: 10px;
     font-size: 1.4rem;
     font-weight: 700;
     box-sizing: border-box;
-    width: 100%;
+    width: 70%;
     background: linear-gradient(135deg, #ff6f61 0%, #ffccbc 100%);
 }
 
@@ -209,6 +208,14 @@ select:disabled {
     position: relative;
     word-wrap: break-word;
     font-family: 'Amatic SC Regular', cursive;
+}
+
+.tooltip {
+    background: linear-gradient(135deg, #333 0%, #e0e0e0 100%) !important; /* Gradiente rosso-arancio */
+    color: white !important;             /* Colore del testo */
+    border-radius: 5px !important;      /* Raggio di bordo */
+    padding: 10px 15px !important;      /* Spaziatura interna */
+    font-size: 14px !important;         /* Dimensione del testo */
 }
 
 .error {

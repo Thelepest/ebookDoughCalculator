@@ -123,16 +123,15 @@
     }
 
     .span-fat {
-        font-size: 1.3rem;
+        font-size: 1rem;
     }
 
     .modal-image-fat {
         position: absolute;
         bottom: 0;
-        right: 5px;
         object-fit: cover;
-        width: 52%;
-        height: 66%;
+        width: 56%;
+        height: 54%;
     }
 
     .modal-close {
