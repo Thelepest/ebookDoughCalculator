@@ -15,38 +15,40 @@ function Calculator({ lang }) {
         quantity: '',
         season: '',
         hydration: 80,
+        breadWeight: ''
     });
+
     const [recipe, setRecipe] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [step, setStep] = useState(0); // Controlla il passo del carosello
 
+    const steps = [
+        { name: "product", label: translations[lang].productLabel },
+        { name: "breadWeight", label: translations[lang].breadWeight, condition: form.product === 'chleb' },
+        { name: "shape", label: translations[lang].tray, condition: form.product !== 'chleb' },
+        { name: "length", label: translations[lang].length, condition: form.shape === 'rectangular' },
+        { name: "depth", label: translations[lang].width, condition: form.shape === 'rectangular' },
+        { name: "diameter", label: translations[lang].diameter, condition: form.shape === 'circular' },
+        { name: "quantity", label: translations[lang].pcs },
+        { name: "season", label: translations[lang].period },
+        { name: "hydration", label: translations[lang].water },
+    ].filter(step => step.condition !== false); // Rimuove i passi non necessari
 
-    const handleProductChange = (e) => {
-        const selectedProduct = e.target.value;
-        setForm(prevForm => ({
-            ...prevForm,
-            product: selectedProduct,
-            hydration: selectedProduct === 'chleb' ? 70 : 80,
-        }));
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
+
+    const nextStep = () => {
+        if (step < steps.length - 1) setStep(step + 1);
+    };
+
+    const prevStep = () => {
+        if (step > 0) setStep(step - 1);
     };
 
     const isFormValid = () => {
-        const { shape, length, depth, diameter, product, quantity, season, breadWeight } = form;
-
-        if (!product || quantity <= 0 || !season) return false;
-        if (product === 'chleb') {
-            if (breadWeight <= 0 || isNaN(breadWeight)) return false;
-        } else {
-            if (!shape) return false;
-
-            if (shape === 'rectangular') {
-                if (length <= 0 || isNaN(length) || depth <= 0 || isNaN(depth)) return false;
-            } else if (shape === 'circular') {
-                if (diameter <= 0 || isNaN(diameter)) return false;
-            }
-        }
-
-        return true;
+        return form.product && form.quantity > 0 && form.season;
     };
 
     const calculateRecipe = () => {
@@ -64,22 +66,15 @@ function Calculator({ lang }) {
                 M = length * depth;
             }
 
-            // After baking, the bread loses around 9% of its water content. In proportion, around 4% more dough is
-            // needed to obtain the wanted quantity.
-            let F = 0;
-            if (product === 'focaccia') {
-                F = M * 2 * 1.04;
-            } else if (product === 'pizza') {
-                F = M * 0.6 * 1.04;
-            } else if (product === 'chleb') {
-                F = breadWeight * 1.04;
-            }
+            let F = product === 'focaccia' ? M * 2 * 1.04
+                : product === 'pizza' ? M * 0.6 * 1.04
+                    : breadWeight * 1.04;
 
             const flour = numProducts * (1 / (1 + hydratation + 0.02 + (isSummer ? 0.1 : 0.2)));
             const water = hydratation * flour;
             const salt = 0.02 * flour;
             const levain = (isSummer ? 0.1 : 0.2) * flour;
-            const oil = flour*F <= 100 ? 1 : Math.ceil(flour*F/100);
+            const oil = flour * F <= 100 ? 1 : Math.ceil(flour * F / 100);
 
             setRecipe({
                 product: product.charAt(0).toUpperCase() + product.slice(1),
@@ -88,33 +83,13 @@ function Calculator({ lang }) {
                 water: Math.ceil(water * F),
                 salt: Math.ceil(salt * F),
                 levain: Math.ceil(levain * F),
-                oil:oil
+                oil: oil
             });
+
             setIsModalOpen(true);
             setIsLoading(false);
         }, 2000);
     };
-
-    const resetForm = () => {
-        setForm({
-            shape: '',
-            length: '',
-            depth: '',
-            diameter: '',
-            product: '',
-            quantity: '',
-            season: '',
-            hydration: 80,
-        });
-        setRecipe(null);
-        setIsModalOpen(false);
-    };
-
-    const renderTooltip = (message) => (
-        <Tooltip id="tooltip" className="custom-tooltip">
-            {message}
-        </Tooltip>
-    );
 
     return (
         <div className="container">
@@ -123,165 +98,74 @@ function Calculator({ lang }) {
             </div>
 
             <div className="form-content">
-                <form
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        calculateRecipe();
-                    }}
-                >
-                    {/* Form fields */}
-                    <div className="input-group">
-                        <label htmlFor="product">{translations[lang].productLabel}</label>
-                        <select
-                            id="product"
-                            value={form.product}
-                            onChange={handleProductChange}
-                            required
-                        >
-                            <option value="" disabled>{translations[lang].chooseOption}</option>
-                            <option value="focaccia">{translations[lang].focaccia}</option>
-                            <option value="pizza">{translations[lang].pizza}</option>
-                            <option value="chleb">{translations[lang].bread}</option>
-                        </select>
-                    </div>
-
-                    {form.product === 'chleb' && (
-                        <div className="input-group">
-                            <label htmlFor="breadWeight">{translations[lang].breadWeight}</label>
-                            <input
-                                type="number"
-                                id="breadWeight"
-                                value={form.breadWeight}
-                                onChange={(e) => setForm({ ...form, breadWeight: e.target.value })}
-                                required
-                            />
-                        </div>
-                    )}
-
-                    {(form.product === 'pizza' || form.product === 'focaccia') && (
-                        <div className="input-group">
-                            <label htmlFor="shape">{translations[lang].tray}</label>
-                            {form.product !== 'pizza' && (
-                                <OverlayTrigger
-                                    placement="top"
-                                    overlay={renderTooltip(
-                                        form.product === 'focaccia'
-                                            ? translations[lang].tray5cm
-                                            : ''
-                                    )}
-                                >
-                                    <span className="question-mark">?</span>
-                                </OverlayTrigger>
-                            )}
-                            <select
-                                id="shape"
-                                value={form.shape}
-                                onChange={(e) => setForm({ ...form, shape: e.target.value })}
-                                required
-                            >
-                                <option value="" disabled>{translations[lang].chooseOption}</option>
-                                <option value="rectangular">{translations[lang].squareShape}</option>
-                                <option value="circular">{translations[lang].roundShape}</option>
-                            </select>
-                        </div>
-                    )}
-
-                    {form.shape === 'rectangular' && form.product !== 'chleb' && (
-                        <div className="input-group">
-                            <label htmlFor="length">{translations[lang].length}</label>
-                            <input
-                                type="number"
-                                id="length"
-                                value={form.length}
-                                onChange={(e) => setForm({ ...form, length: e.target.value })}
-                            />
-                            <label htmlFor="depth">{translations[lang].width}</label>
-                            <input
-                                type="number"
-                                id="depth"
-                                value={form.depth}
-                                onChange={(e) => setForm({ ...form, depth: e.target.value })}
-                            />
-                        </div>
-                    )}
-
-                    {form.shape === 'circular' && form.product !== 'chleb' && (
-                        <div className="input-group">
-                            <label htmlFor="diameter">{translations[lang].diameter}</label>
-                            <input
-                                type="number"
-                                id="diameter"
-                                value={form.diameter}
-                                onChange={(e) => setForm({ ...form, diameter: e.target.value })}
-                            />
-                        </div>
-                    )}
-
-                    <div className="input-group">
-                        <label htmlFor="quantity">{translations[lang].pcs}</label>
-                        <input
-                            type="number"
-                            id="quantity"
-                            value={form.quantity}
-                            onChange={(e) => setForm({ ...form, quantity: e.target.value })}
-                            required
-                        />
-                    </div>
-
-                    <div className="input-group">
-                        <label htmlFor="season">{translations[lang].period}</label>
-                        <OverlayTrigger
-                            placement="top"
-                            overlay={renderTooltip(translations[lang].periodSuggest)}
-                        >
-                            <span className="question-mark">?</span>
-                        </OverlayTrigger>
-                        <select
-                            id="season"
-                            value={form.season}
-                            onChange={(e) => setForm({ ...form, season: e.target.value })}
-                            required
-                        >
-                            <option value="" disabled>{translations[lang].chooseOption}</option>
-                            <option value="summer">{translations[lang].summer}</option>
-                            <option value="winter">{translations[lang].winter}</option>
-                        </select>
-                    </div>
-
-                    <div className="input-group">
-                        <label htmlFor="hydration">{translations[lang].water}</label>
-                        <OverlayTrigger
-                            placement="top"
-                            overlay={renderTooltip(translations[lang].waterSuggest)}
-                        >
-                            <span className="question-mark">?</span>
-                        </OverlayTrigger>
-                        <select
-                            id="hydration"
-                            value={form.hydration}
-                            onChange={(e) => setForm({ ...form, hydration: parseInt(e.target.value, 10) })}
-                        >
-                            <option value="70">70</option>
-                            <option value="75">75</option>
-                            <option value="80">80</option>
-                            <option value="85">85</option>
-                            <option value="90">90</option>
-                        </select>
+                <form onSubmit={(e) => e.preventDefault()}>
+                    <div className="carousel-container">
+                        {steps.map((item, index) => (
+                            <div key={item.name} className={`carousel-slide ${index === step ? 'active' : ''}`}>
+                                <label htmlFor={item.name}>{item.label}</label>
+                                {item.name === "hydration" || item.name === "season" || item.name === "product" || item.name === "shape" ? (
+                                    <select
+                                        id={item.name}
+                                        name={item.name}
+                                        value={form[item.name]}
+                                        onChange={handleChange}
+                                    >
+                                        <option value="" disabled>{translations[lang].chooseOption}</option>
+                                        {item.name === "product" && (
+                                            <>
+                                                <option value="focaccia">{translations[lang].focaccia}</option>
+                                                <option value="pizza">{translations[lang].pizza}</option>
+                                                <option value="chleb">{translations[lang].bread}</option>
+                                            </>
+                                        )}
+                                        {item.name === "shape" && (
+                                            <>
+                                                <option value="rectangular">{translations[lang].squareShape}</option>
+                                                <option value="circular">{translations[lang].roundShape}</option>
+                                            </>
+                                        )}
+                                        {item.name === "season" && (
+                                            <>
+                                                <option value="summer">{translations[lang].summer}</option>
+                                                <option value="winter">{translations[lang].winter}</option>
+                                            </>
+                                        )}
+                                        {item.name === "hydration" && [70, 75, 80, 85, 90].map(value => (
+                                            <option key={value} value={value}>{value}</option>
+                                        ))}
+                                    </select>
+                                ) : (
+                                    <input
+                                        type="number"
+                                        id={item.name}
+                                        name={item.name}
+                                        value={form[item.name]}
+                                        onChange={handleChange}
+                                    />
+                                )}
+                            </div>
+                        ))}
                     </div>
 
                     <div className="button-group">
-                        <button type="submit" disabled={!isFormValid()}>
-                            {translations[lang].calculate}
-                        </button>
-                        <button type="button" onClick={resetForm} className="reset-btn">
-                            {translations[lang].reset}
-                        </button>
+                        {step > 0 && <button type="button" onClick={prevStep}>{translations[lang].goBack}</button>}
+                        {step < steps.length - 1 ? (
+                            <button type="button" onClick={nextStep}>{translations[lang].goNext}</button>
+                        ) : (
+                            <>
+                                <button type="submit" onClick={calculateRecipe} disabled={!isFormValid()}>
+                                    {translations[lang].calculate}
+                                </button>
+                                <button type="button" onClick={() => setStep(0)} className="reset-btn">
+                                    {translations[lang].reset}
+                                </button>
+                            </>
+                        )}
                     </div>
                 </form>
 
                 {isLoading && <Spinner />}
-
-                <RecipeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} recipe={recipe} lang={lang}/>
+                <RecipeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} recipe={recipe} lang={lang} />
             </div>
         </div>
     );

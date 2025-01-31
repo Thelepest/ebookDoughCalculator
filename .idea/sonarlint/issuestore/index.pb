@@ -27,8 +27,6 @@ m
 0android/gradle/wrapper/gradle-wrapper.properties,0\8\0841580e5a5ec979b3fae0109915065e988679a9
 w
 G.idea/sonarlint/issuestore/6/d/6d3a8cd532ece5b4ddbd4b3b6a678ba686d300bc,4\2\42c76c28010a6da6e9d28de3ef3fcf8cf3ad03d8
-A
-package-lock.json,f\a\fa288d1472d29beccb489a676f68739ad365fc47
 \
 ,.idea/inspectionProfiles/Project_Default.xml,4\9\496a238a6afa168dbaf6efd37bb459331589579c
 u
