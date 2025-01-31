@@ -68,7 +68,7 @@ function Calculator({ lang }) {
             // needed to obtain the wanted quantity.
             let F = 0;
             if (product === 'focaccia') {
-                F = M * 1.5 * 1.04;
+                F = M * 2 * 1.04;
             } else if (product === 'pizza') {
                 F = M * 0.6 * 1.04;
             } else if (product === 'chleb') {
