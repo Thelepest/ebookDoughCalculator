@@ -56,7 +56,7 @@ header h1 {
     width: 90%;
     max-height: none;
     font-family: 'Amatic SC', cursive;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: #444;
 }
@@ -66,7 +66,6 @@ header h1 {
     width: auto;
     display: block;
     margin-bottom: 10px;
-
 }
 
 .form-img img {
@@ -76,19 +75,16 @@ header h1 {
     display: block;
 }
 
-
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
         max-height: none;
-
     }
 
     .form-img img {
         max-height: 250px;
         width: auto;
     }
-
 
     .form-content {
         margin-top: 15px;
@@ -116,7 +112,8 @@ header h1 {
 
 .input-group {
     margin-bottom: 15px;
-    position: relative;}
+    position: relative;
+}
 
 .input-group label {
     display: block;
@@ -129,9 +126,39 @@ header h1 {
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
-    font-size: larger;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+input[type="number"],
+select {
+    background: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 5px;
     font-family: 'Amatic SC', cursive;
-    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    box-sizing: border-box;
+    width: 100%;
+    background: linear-gradient(135deg, #ff6f61 0%, #ffccbc 100%);
+}
+
+select option{
+    background-color: #ff6f61;
+}
+
+input[type="number"]:hover,
+select:hover {
+    background: linear-gradient(135deg, #ff5a4d 0%, #ffab91 100%);
+}
+
+input[type="number"]:disabled,
+select:disabled {
+    background: #ccc;
+    cursor: not-allowed;
 }
 
 .input-group i {
@@ -195,7 +222,8 @@ button {
 }
 
 button:hover {
-    background: linear-gradient(135deg, #ff5a4d 0%, #ffab91 100%);}
+    background: linear-gradient(135deg, #ff5a4d 0%, #ffab91 100%);
+}
 
 button:disabled {
     background: #ccc;
@@ -212,7 +240,6 @@ button:disabled {
 
 .button-group {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     width: 100%;
     margin-top: 20px;
@@ -220,8 +247,15 @@ button:disabled {
 
 .button-group button {
     width: 45%;
+    display: inline-block; /* Aggiungi questa regola per farli essere inline */
 }
 
+/* Se c'è solo il tasto "Avanti", lo centra */
+.button-group.only-next {
+    justify-content: center;
+}
+
+/* Carosello */
 .carousel-container {
     position: relative;
     width: 100%;
@@ -245,5 +279,3 @@ button:disabled {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-
-

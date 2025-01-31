@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './Calculator.css';
 import RecipeModal from './RecipeModal';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import Spinner from "./Spinner";
 import translations from "./translations";
 
@@ -49,6 +48,22 @@ function Calculator({ lang }) {
 
     const isFormValid = () => {
         return form.product && form.quantity > 0 && form.season;
+    };
+
+    const handleReset = () => {
+        setForm({
+            shape: '',
+            length: '',
+            depth: '',
+            diameter: '',
+            product: '',
+            quantity: '',
+            season: '',
+            hydration: 80,
+            breadWeight: ''
+        });
+        setRecipe(null);
+        setStep(0);
     };
 
     const calculateRecipe = () => {
@@ -156,14 +171,13 @@ function Calculator({ lang }) {
                                 <button type="submit" onClick={calculateRecipe} disabled={!isFormValid()}>
                                     {translations[lang].calculate}
                                 </button>
-                                <button type="button" onClick={() => setStep(0)} className="reset-btn">
+                                <button type="button" onClick={handleReset} className="reset-btn">
                                     {translations[lang].reset}
                                 </button>
                             </>
                         )}
                     </div>
                 </form>
-
                 {isLoading && <Spinner />}
                 <RecipeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} recipe={recipe} lang={lang} />
             </div>
