@@ -173,7 +173,7 @@ function Calculator({ lang }) {
                                                 <option value="winter">{translations[lang].winter}</option>
                                             </>
                                         )}
-                                        {item.name === "hydration" && [70, 75, 80, 85, 90].map(value => (
+                                        {item.name === "hydration" && [60, 65, 70, 75, 80, 85, 90].map(value => (
                                             <option key={value} value={value}>{value}</option>
                                         ))}
                                     </select>

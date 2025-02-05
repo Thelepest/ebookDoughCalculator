@@ -93,3 +93,5 @@ F
 src/logo.svg,6\d\6d3a8cd532ece5b4ddbd4b3b6a678ba686d300bc
 ?
 src/Spinner.css,4\c\4cadaf3835d7faf645dde32957ad649295da35ba
+C
+src/translations.js,1\1\11a55ecc3b1a597c4bed08a95e357f19cdefc2a6
