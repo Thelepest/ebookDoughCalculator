@@ -88,16 +88,16 @@ header h1 {
     .form-content {
         margin-top: 15px;
     }
+}
 
-    .button-group {
-        flex-direction: column;
-        align-items: center;
-    }
+.button-group {
+    flex-direction: column;
+    align-items: center;
+}
 
-    .button-group button {
-        width: 100%;
-        margin-bottom: 10px;
-    }
+.button-group button {
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .container h2 {
@@ -211,11 +211,11 @@ select:disabled {
 }
 
 .tooltip {
-    background: linear-gradient(135deg, #333 0%, #e0e0e0 100%) !important; /* Gradiente rosso-arancio */
-    color: white !important;             /* Colore del testo */
-    border-radius: 5px !important;      /* Raggio di bordo */
-    padding: 10px 15px !important;      /* Spaziatura interna */
-    font-size: 14px !important;         /* Dimensione del testo */
+    background: linear-gradient(135deg, #333 0%, #e0e0e0 100%) !important;
+    color: white !important;
+    border-radius: 5px !important;
+    padding: 10px 15px !important;
+    font-size: 14px !important;
 }
 
 .error {
