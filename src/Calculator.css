@@ -1,9 +1,7 @@
-/* Importing Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Limelight&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Space+Grotesk:wght@300..700&display=swap');
 
 html, body {
-    font-family: 'Amatic SC', cursive;
-    background: #fff5f5;
+    font-family: "Space Grotesk", sans-serif;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -12,57 +10,75 @@ html, body {
     overflow-x: hidden;
     padding: 0;
     margin: 0;
+    background-color: #75a0f6;;;
+    background-color: rgb(248, 239, 223);
+    /* background-color: black; */
 }
 
 body, html, .container {
     overflow-x: hidden;
 }
 
-header img {
-    width: 30%;
-    vertical-align: middle;
-    align-content: center;
+.calculator-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 50vw;
+
+    font-weight: 400;
 }
 
-header h1 {
-    display: inline;
-    margin-left: 10px;
-    vertical-align: middle;
-    font-family: 'Amatic SC', cursive;
-    font-size: 2rem;
+.calculator-container header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+header h2 {
+    font-size: 3rem;
     font-weight: 700;
     color: #333;
+    color: #75a0f6;
+    text-align: center;
 }
 
+
 .container {
-    font-family: 'Amatic SC', cursive;
-    font-weight: 700;
     background: white;
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    border-radius: 20px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     max-width: 90vw;
     width: 100%;
+    min-width: 40vw;
     position: relative;
-    padding: 0 40px 10px 40px;
     overflow-x: hidden;
     height: auto;
     min-height: auto;
+    margin: 20px auto;
+    /* border-top-left-radius: 50%;
+    border-top-right-radius: 50%; */
+border-radius: 4px;
+
+
 }
 
 .form-content {
     width: 90%;
     max-height: none;
-    font-family: 'Amatic SC', cursive;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #444;
+    font-size: 1rem;
+    font-weight: 500;
+    color:  #013baf;
+    text-transform: uppercase;
+
 }
 
 .form-img {
-    max-height: 200px;
+    max-height: 250px;
     width: auto;
     display: block;
     margin-bottom: 10px;
@@ -70,43 +86,15 @@ header h1 {
 }
 
 .form-img img {
-    max-height: 200px;
+    max-height:250px;
     width: auto;
     margin: 0 auto;
     display: block;
 }
 
 
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        max-height: none;
-
-    }
-
-    .form-img img {
-        max-height: 250px;
-        width: auto;
-    }
-
-
-    .form-content {
-        margin-top: 15px;
-    }
-
-    .button-group {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .button-group button {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-}
 
 .container h2 {
-    font-family: 'Amatic SC', cursive;
     font-weight: 700;
     font-size: 2.5rem;
     color: #333;
@@ -130,21 +118,19 @@ header h1 {
     padding: 10px;
     box-sizing: border-box;
     font-size: larger;
-    font-family: 'Amatic SC', cursive;
     font-weight: bold;
 }
 
 .input-group i {
     padding-left: 10px;
     font-size: 15px;
-    font-family: 'Amatic SC', cursive;
     font-weight: bold;
     cursor: pointer;
 }
 
 .question-mark {
     display: inline-block;
-    background-color: #ff6f61;
+    background-color: #f94433;
     color: white;
     border-radius: 50%;
     width: 30px;
@@ -173,7 +159,6 @@ header h1 {
     white-space: normal;
     position: relative;
     word-wrap: break-word;
-    font-family: 'Amatic SC Regular', cursive;
 }
 
 .error {
@@ -183,19 +168,25 @@ header h1 {
 }
 
 button {
-    background: #ff6f61;
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
-    background: linear-gradient(135deg, #ff6f61 0%, #ffccbc 100%);
     font-size: 1.4rem;
     font-weight: 700;
-    font-family: 'Amatic SC', cursive;
+    font-family: "Space Grotesk", sans-serif;
+
 }
 
+button[type="submit"] {
+    padding: 8px 30px;
+    font-size: 1.7rem;
+    font-weight: 800;
+    background: #75a0f6;
+}
+
+
 button:hover {
-    background: linear-gradient(135deg, #ff5a4d 0%, #ffab91 100%);}
+    background: linear-gradient(135deg, #ff5a4d 0%, #f63900 100%);}
 
 button:disabled {
     background: #ccc;
@@ -216,10 +207,45 @@ button:disabled {
     justify-content: space-between;
     width: 100%;
     margin-top: 20px;
+    gap: 10px;
 }
 
 .button-group button {
-    width: 45%;
+    width: auto;
+    text-transform: uppercase;
+    padding: 10px 30px;
+    font-weight: 400;
 }
 
 
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        max-height: none;
+        min-width: 90vw;
+    }
+
+    .form-img img {
+        max-height: 250px;
+        width: auto;
+    }
+
+
+    .form-content {
+        margin-top: 15px;
+    }
+    .form-img {
+        max-height: 200px;
+        width: auto;
+    }
+
+    .button-group {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button-group button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

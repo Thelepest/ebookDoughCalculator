@@ -261,6 +261,8 @@ function Calculator({ lang }) {
                             value={form.hydration}
                             onChange={(e) => setForm({ ...form, hydration: parseInt(e.target.value, 10) })}
                         >
+                            <option value="60">60</option>
+                            <option value="65">65</option>
                             <option value="70">70</option>
                             <option value="75">75</option>
                             <option value="80">80</option>

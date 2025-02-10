@@ -16,7 +16,7 @@ function App() {
     }, []);
 
     return (
-        <div>
+        <div className="calculator-container">
             <header>
                 <h2>{translations[lang].title}</h2>
             </header>
