@@ -16,7 +16,7 @@ function RecipeModal({ isOpen, onClose, recipe, lang }) {
                     <button className="modal-close" onClick={onClose}>X</button>
                     <h2>{translations[lang].recipeDetails}</h2>
                     <p>
-                        <span>{translations[lang].rec}</span> {recipe.product}<br />
+                        <span>{translations[lang].rec}</span> {translations[lang].products[recipe.product]}<br />
                         <span>{translations[lang].pieces}</span> {recipe.quantity}<br />
                         <span>{translations[lang].flour}</span> {recipe.flour} gr<br />
                         <span>{translations[lang].wat}</span> {recipe.water} gr<br />

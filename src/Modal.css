@@ -109,63 +109,63 @@
     font-size: 1.2rem;
 }
 
-@media (max-width: 768px) {
-    .modal-content {
-        max-width: 350px;
-        max-height: 60vh;
-        padding: 20px;
-    }
+/*@media (max-width: 768px) {*/
+/*    .modal-content {*/
+/*        max-width: 350px;*/
+/*        max-height: 60vh;*/
+/*        padding: 20px;*/
+/*    }*/
 
-    .span-fat {
-        font-size: 1.3rem;
-    }
+/*    .span-fat {*/
+/*        font-size: 1.3rem;*/
+/*    }*/
 
-    .modal-image-fat {
-        position: absolute;
-        bottom: 0;
-        right: 5px;
-        object-fit: cover;
-        width: 52%;
-        height: 66%;
-    }
+/*    .modal-image-fat {*/
+/*        position: absolute;*/
+/*        bottom: 0;*/
+/*        right: 5px;*/
+/*        object-fit: cover;*/
+/*        width: 52%;*/
+/*        height: 66%;*/
+/*    }*/
 
-    .modal-close {
-        top: 22px;
-        right: 22px;
-        font-family: 'Amatic SC Regular', cursive;
-        font-weight: 700;
-        font-size: 20px;
-        padding:0;
-    }
+/*    .modal-close {*/
+/*        top: 22px;*/
+/*        right: 22px;*/
+/*        font-family: 'Amatic SC Regular', cursive;*/
+/*        font-weight: 700;*/
+/*        font-size: 20px;*/
+/*        padding:0;*/
+/*    }*/
 
-    .modal-close-fat {
-        top: 26px;
-        right: 26px;
-        font-family: 'Amatic SC Regular', cursive;
-        font-weight: 700;
-        font-size: 20px;
-        padding:0;
-    }
+/*    .modal-close-fat {*/
+/*        top: 26px;*/
+/*        right: 26px;*/
+/*        font-family: 'Amatic SC Regular', cursive;*/
+/*        font-weight: 700;*/
+/*        font-size: 20px;*/
+/*        padding:0;*/
+/*    }*/
 
-    .modal-content h2 {
+/*    .modal-content h2 {*/
 
-        font-family: 'Amatic SC', cursive;
-        font-weight: 700;
-        font-size: 2rem;
-    }
+/*        font-family: 'Amatic SC', cursive;*/
+/*        font-weight: 700;*/
+/*        font-size: 2rem;*/
+/*    }*/
 
-    .modal-content p {
-        font-family: 'Amatic SC', cursive;
-        font-weight: 700;
-        font-size: 1.5rem;
-    }
+/*    .modal-content p {*/
+/*        font-family: 'Amatic SC', cursive;*/
+/*        font-weight: 700;*/
+/*        font-size: 1.5rem;*/
+/*    }*/
 
-    .modal-image {
-        position: absolute;
-        bottom: 0;
-        right: 5px;
-        height: 78%;
-        object-fit: cover;
-        width: 59%;
-    }
-}
+/*    .modal-image {*/
+/*        position: absolute;*/
+/*        bottom: 0;*/
+/*        right: 5px;*/
+/*        height: 78%;*/
+/*        object-fit: cover;*/
+/*        width: 59%;*/
+/*    }*/
+/*}*/

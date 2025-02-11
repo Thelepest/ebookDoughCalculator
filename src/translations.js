@@ -38,7 +38,12 @@ const translations = {
         fatBoy1:"Rozumiem Twoją ochotę na ",
         fatBoy2:"specjalista dietetyk ",
         fatBoy3:"Dr. Drożdże ",
-        fatBoy4:"zaraz cię przyjmie!"
+        fatBoy4:"zaraz cię przyjmie!",
+        products: {
+            Chleb: "Chleb",
+            Focaccia: "Focaccia",
+            Pizza: "Pizza"
+        }
     },
     EN: {
         title: "Dough Calculator",
@@ -79,7 +84,12 @@ const translations = {
         fatBoy1:"I understand your craving for ",
         fatBoy2:"specialist dietitian ",
         fatBoy3:"Dr. Yeasty ",
-        fatBoy4:"will immediately receive you!"
+        fatBoy4:"will immediately receive you!",
+        products: {
+            Chleb: "Bread",
+            Focaccia: "Focaccia",
+            Pizza: "Pizza"
+        }
     },
     IT: {
         title: "Master Calcolatore",
@@ -120,7 +130,12 @@ const translations = {
         fatBoy1:"Posso capire la tua brama di ",
         fatBoy2:"lo specialista dietologo ",
         fatBoy3:"Dr. Saccaro ",
-        fatBoy4:"ti riceverà immediatamente!"
+        fatBoy4:"ti riceverà immediatamente!",
+        products: {
+            Chleb: "Pane",
+            Focaccia: "Focaccia",
+            Pizza: "Pizza"
+        }
     }
 };
 
