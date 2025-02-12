@@ -13,8 +13,10 @@ function RecipeModal({ isOpen, onClose, recipe, lang }) {
         <div className="modal-overlay" onClick={onClose}>
             {!isHighFlourContent ? (
                 <div className="modal-content" onClick={e => e.stopPropagation()}>
-                    <button className="modal-close" onClick={onClose}>X</button>
-                    <h2>{translations[lang].recipeDetails}</h2>
+                    <div className="align">
+                        <button className="modal-close" onClick={onClose}>X</button>
+                        <h2>{translations[lang].recipeDetails}</h2>
+                    </div>
                     <p>
                         <span>{translations[lang].rec}</span> {translations[lang].products[recipe.product]}<br />
                         <span>{translations[lang].pieces}</span> {recipe.quantity}<br />
