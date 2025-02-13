@@ -15,6 +15,7 @@ function Calculator({ lang }) {
         quantity: '',
         season: '',
         hydration: 80,
+        breadWeight:'',
     });
     const [recipe, setRecipe] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,6 +49,8 @@ function Calculator({ lang }) {
 
         return true;
     };
+
+
 
     const calculateRecipe = () => {
         setIsLoading(true);
@@ -93,6 +96,16 @@ function Calculator({ lang }) {
             setIsModalOpen(true);
             setIsLoading(false);
         }, 2000);
+    };
+
+    const isValidNumberString = (str) => {
+        return !/[eE\-.]/.test(str);
+    };
+
+    const blockInvalidNumberKeys = (e) => {
+        if (["e", "E", "-", "."].includes(e.key)) {
+            e.preventDefault();
+        }
     };
 
     const resetForm = () => {
@@ -151,8 +164,15 @@ function Calculator({ lang }) {
                             <input
                                 type="number"
                                 id="breadWeight"
+                                min="1"
                                 value={form.breadWeight}
-                                onChange={(e) => setForm({ ...form, breadWeight: e.target.value })}
+                                onChange={(e) => {
+                                    const value = e.target.value;
+                                    if (!isNaN(value) && isValidNumberString(value)) {
+                                        setForm({ ...form, breadWeight: value });
+                                    }
+                                }}
+                                onKeyDown={blockInvalidNumberKeys}
                                 required
                             />
                         </div>
@@ -192,15 +212,29 @@ function Calculator({ lang }) {
                             <input
                                 type="number"
                                 id="length"
+                                min="1"
                                 value={form.length}
-                                onChange={(e) => setForm({ ...form, length: e.target.value })}
+                                onChange={(e) => {
+                                    const value = e.target.value;
+                                    if (!isNaN(value) && isValidNumberString(value)) {
+                                        setForm({ ...form, length: value });
+                                    }
+                                }}
+                                onKeyDown={blockInvalidNumberKeys}
                             />
                             <label htmlFor="depth">{translations[lang].width}</label>
                             <input
                                 type="number"
+                                min="1"
                                 id="depth"
                                 value={form.depth}
-                                onChange={(e) => setForm({ ...form, depth: e.target.value })}
+                                onChange={(e) => {
+                                    const value = e.target.value;
+                                    if (!isNaN(value) && isValidNumberString(value)) {
+                                        setForm({ ...form, depth: value });
+                                    }
+                                }}
+                                onKeyDown={blockInvalidNumberKeys}
                             />
                         </div>
                     )}
@@ -210,9 +244,16 @@ function Calculator({ lang }) {
                             <label htmlFor="diameter">{translations[lang].diameter}</label>
                             <input
                                 type="number"
+                                min="1"
                                 id="diameter"
                                 value={form.diameter}
-                                onChange={(e) => setForm({ ...form, diameter: e.target.value })}
+                                onChange={(e) => {
+                                    const value = e.target.value;
+                                    if (!isNaN(value) && isValidNumberString(value)) {
+                                        setForm({ ...form, diameter: value });
+                                    }
+                                }}
+                                onKeyDown={blockInvalidNumberKeys}
                             />
                         </div>
                     )}
@@ -223,7 +264,14 @@ function Calculator({ lang }) {
                             type="number"
                             id="quantity"
                             value={form.quantity}
-                            onChange={(e) => setForm({ ...form, quantity: e.target.value })}
+                            min="1"
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                if (!isNaN(value) && isValidNumberString(value)) {
+                                    setForm({ ...form, quantity: value });
+                                }
+                            }}
+                            onKeyDown={blockInvalidNumberKeys}
                             required
                         />
                     </div>

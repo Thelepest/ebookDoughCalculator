@@ -95,3 +95,6 @@ F
 src/logo.svg,6\d\6d3a8cd532ece5b4ddbd4b3b6a678ba686d300bc
 ;
 src/App.css,a\a\aa7165aefcf8ee3d73539e99ab007daf1aa18d8d
+:
+
+src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
