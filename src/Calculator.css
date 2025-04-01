@@ -10,9 +10,7 @@ html, body {
     overflow-x: hidden;
     padding: 0;
     margin: 0;
-    background-color: #75a0f6;;;
     background-color: rgb(248, 239, 223);
-    /* background-color: black; */
 }
 
 body, html, .container {
@@ -40,7 +38,6 @@ body, html, .container {
 header h2 {
     font-size: 3rem;
     font-weight: 700;
-    color: #333;
     color: #75a0f6;
     text-align: center;
 }
@@ -60,8 +57,6 @@ header h2 {
     height: auto;
     min-height: auto;
     margin: 20px auto;
-    /* border-top-left-radius: 50%;
-    border-top-right-radius: 50%; */
 border-radius: 4px;
 
 
