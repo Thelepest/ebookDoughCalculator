@@ -1,6 +1,8 @@
 const translations = {
     PL: {
-        title: "Obliczenie ilości ciasta",
+        title: "PH4.1",
+        goBack:"Wróć",
+        subTitle:"Pierwsza aplikacja do wypieków na zakwasie",
         productLabel: "Co pieczesz dzisiaj?",
         chooseOption: "Wybierz",
         bread: "Chleb",
@@ -39,6 +41,9 @@ const translations = {
         fatBoy2:"specjalista dietetyk ",
         fatBoy3:"Dr. Drożdże ",
         fatBoy4:"zaraz cię przyjmie!",
+        sets : "Ustawienia",
+        createSourdough:"Stwórz własny zaczyn",
+        calculatorButton:"Kalkulator",
         products: {
             Chleb: "Chleb",
             Focaccia: "Focaccia",
@@ -46,7 +51,9 @@ const translations = {
         }
     },
     EN: {
-        title: "Dough Calculator",
+        title: "PH4.1",
+        subTitle:"The first app for your sourdough creations",
+        goBack:"Back",
         productLabel: "What are you gonna bake today?",
         chooseOption: "Choose",
         bread: "Bread",
@@ -85,6 +92,9 @@ const translations = {
         fatBoy2:"specialist dietitian ",
         fatBoy3:"Dr. Yeasty ",
         fatBoy4:"will immediately receive you!",
+        sets : "Settings",
+        createSourdough:"Create your own sourdough",
+        calculatorButton:"Calculator",
         products: {
             Chleb: "Bread",
             Focaccia: "Focaccia",
@@ -92,8 +102,10 @@ const translations = {
         }
     },
     IT: {
-        title: "Master Calcolatore",
+        title: "PH4.1",
+        subTitle:"La prima app per i tuoi prodotti con lievito madre",
         productLabel: "Cosa vuoi fare oggi?",
+        goBack:"Indietro",
         chooseOption: "Scegli",
         bread: "Pane",
         pizza: "Pizza",
@@ -131,6 +143,9 @@ const translations = {
         fatBoy2:"lo specialista dietologo ",
         fatBoy3:"Dr. Saccaro ",
         fatBoy4:"ti riceverà immediatamente!",
+        sets : "Impostazioni",
+        createSourdough:"Crea il tuo lievito madre",
+        calculatorButton:"Calcolatore",
         products: {
             Chleb: "Pane",
             Focaccia: "Focaccia",

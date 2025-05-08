@@ -1,8 +1,8 @@
 import React from 'react';
 import './Modal.css';
-import surfmath from './surfmath.jpg';
-import bilancia from './bilancia.jpg';
-import translations from "./translations";
+import surfmath from '../../assets/surfmath.jpg';
+import bilancia from '../../assets/bilancia.jpg';
+import translations from "../../utils/translations";
 
 
 function RecipeModal({ isOpen, onClose, recipe, lang }) {

@@ -1,7 +1,7 @@
 // Spinner.js
 import React from 'react';
 import './Spinner.css';
-import pizzaImg from './Pizza_NOBG.png';
+import pizzaImg from './../../assets/Pizza_NOBG.png';
 
 const Spinner = () => {
     return (

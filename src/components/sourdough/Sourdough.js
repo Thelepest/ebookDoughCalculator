@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-import './Calculator.css';
-import RecipeModal from './RecipeModal';
+import './Sourdough.css';
+import '../../App.css';
+import RecipeModal from '../recipe-modal/RecipeModal';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import Spinner from "./Spinner";
-import translations from "./translations";
+import Spinner from "../spinner/Spinner";
+import translations from "../../utils/translations";
+import michelangelo from '../../assets/pic1.jpg';
+import { useNavigate } from 'react-router-dom';
+import {FaCalculator, FaWindowClose, FaRedo} from "react-icons/fa";
 
-function Calculator({ lang }) {
+
+function Sourdough({ lang }) {
     const [form, setForm] = useState({
         shape: '',
         length: '',
@@ -30,6 +35,8 @@ function Calculator({ lang }) {
             hydration: selectedProduct === 'chleb' ? 70 : 80,
         }));
     };
+
+    const navigate = useNavigate();
 
     const isFormValid = () => {
         const { shape, length, depth, diameter, product, quantity, season, breadWeight } = form;
@@ -130,9 +137,9 @@ function Calculator({ lang }) {
     );
 
     return (
-        <div className="container">
+        <div className="page-container">
             <div className="form-img">
-                <img src={`${process.env.PUBLIC_URL}/pic1.jpg`} alt="MichalBakteria" />
+                <img src={michelangelo} alt="MichalBakteria" />
             </div>
 
             <div className="form-content">
@@ -168,7 +175,7 @@ function Calculator({ lang }) {
                                 value={form.breadWeight}
                                 onChange={(e) => {
                                     const value = e.target.value;
-                                    if (!isNaN(value) && isValidNumberString(value)) {
+                                    if (!isNaN(parseInt(value)) && isValidNumberString(value)) {
                                         setForm({ ...form, breadWeight: value });
                                     }
                                 }}
@@ -216,7 +223,7 @@ function Calculator({ lang }) {
                                 value={form.length}
                                 onChange={(e) => {
                                     const value = e.target.value;
-                                    if (!isNaN(value) && isValidNumberString(value)) {
+                                    if (!isNaN(parseInt(value)) && isValidNumberString(value)) {
                                         setForm({ ...form, length: value });
                                     }
                                 }}
@@ -230,7 +237,7 @@ function Calculator({ lang }) {
                                 value={form.depth}
                                 onChange={(e) => {
                                     const value = e.target.value;
-                                    if (!isNaN(value) && isValidNumberString(value)) {
+                                    if (!isNaN(parseInt(value)) && isValidNumberString(value)) {
                                         setForm({ ...form, depth: value });
                                     }
                                 }}
@@ -249,7 +256,7 @@ function Calculator({ lang }) {
                                 value={form.diameter}
                                 onChange={(e) => {
                                     const value = e.target.value;
-                                    if (!isNaN(value) && isValidNumberString(value)) {
+                                    if (!isNaN(parseInt(value)) && isValidNumberString(value)) {
                                         setForm({ ...form, diameter: value });
                                     }
                                 }}
@@ -267,7 +274,7 @@ function Calculator({ lang }) {
                             min="1"
                             onChange={(e) => {
                                 const value = e.target.value;
-                                if (!isNaN(value) && isValidNumberString(value)) {
+                                if (!isNaN(parseInt(value)) && isValidNumberString(value)) {
                                     setForm({ ...form, quantity: value });
                                 }
                             }}
@@ -320,11 +327,17 @@ function Calculator({ lang }) {
                     </div>
 
                     <div className="button-group">
-                        <button type="submit" disabled={!isFormValid()}>
+                        <button type="button" disabled={!isFormValid()}>
+                            <FaCalculator style={{ marginRight: '5px',verticalAlign: 'middle' }} />
                             {translations[lang].calculate}
                         </button>
                         <button type="button" onClick={resetForm} className="reset-btn">
+                            <FaRedo style={{ marginRight: '5px',verticalAlign: 'middle' }} />
                             {translations[lang].reset}
+                        </button>
+                        <button type="button" onClick={() => navigate('/')} className="home-btn">
+                            <FaWindowClose style={{ marginRight: '8px',verticalAlign: 'middle' }} />
+                            {translations[lang].goBack}
                         </button>
                     </div>
                 </form>
@@ -337,4 +350,4 @@ function Calculator({ lang }) {
     );
 }
 
-export default Calculator;
+export default Sourdough;
