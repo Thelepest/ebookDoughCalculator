@@ -138,11 +138,11 @@ function Calculator({ lang }) {
 
     return (
         <div className="page-container">
-            <div className="form-img">
+            <div className="head-img">
                 <img src={michelangelo} alt="MichalBakteria" />
             </div>
 
-            <div className="form-content">
+            <div className="content">
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();

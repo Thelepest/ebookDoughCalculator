@@ -45,6 +45,12 @@
   text-transform: uppercase;
 }
 
+.head-img img {
+  max-height:250px;
+  margin: 0 auto 10px auto;
+  display: block;
+}
+
 .container header {
   display: flex;
   flex-direction: column;
@@ -69,11 +75,24 @@
   background: linear-gradient(135deg, #ff5a4d 0%, #f63900 100%);
 }
 
+.content {
+  width: 90%;
+  max-height: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color:  #013baf;
+  text-transform: uppercase;
+}
+
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
     max-height: none;
     min-width: 90vw;
+  }
+
+  .content {
+    margin-top: 15px;
   }
 }
 

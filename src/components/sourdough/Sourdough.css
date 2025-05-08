@@ -33,57 +33,6 @@ header h3 {
     margin : 0;
 }
 
-.form-content {
-    width: 90%;
-    max-height: none;
-    font-size: 1rem;
-    font-weight: 500;
-    color:  #013baf;
-    text-transform: uppercase;
-
-}
-
-.form-img {
-    max-height: 250px;
-    width: auto;
-    display: block;
-    margin-bottom: 10px;
-
-}
-
-.form-img img {
-    max-height:250px;
-    width: auto;
-    margin: 0 auto;
-    display: block;
-}
-
-.input-group {
-    margin-bottom: 15px;
-    position: relative;}
-S
-.input-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: x-large;
-}
-
-.input-group input,
-.input-group select {
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    font-size: larger;
-    font-weight: bold;
-}
-
-.input-group i {
-    padding-left: 10px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
 .question-mark {
     display: inline-block;
     background-color: #f94433;
@@ -185,11 +134,6 @@ button:disabled {
     .form-img img {
         max-height: 250px;
         width: auto;
-    }
-
-
-    .form-content {
-        margin-top: 15px;
     }
     .form-img {
         max-height: 200px;
