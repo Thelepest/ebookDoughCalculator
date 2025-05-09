@@ -48,7 +48,31 @@ const translations = {
             Chleb: "Chleb",
             Focaccia: "Focaccia",
             Pizza: "Pizza"
-        }
+        },
+        sourSlideTitles : {
+            zero :"Czym jest zakwas?",
+            one : "",
+            two : "",
+            three : "",
+            four : ""
+        },
+        sourdough0:"Bukiet mikroorganizmów, które współistnieją w symbiozie w środowisku złożonym z wody i mąki, w" +
+            " tym drożdże(zazwyczaj Saccharomyces cerevisiae) oraz bakterie kwasu mlekowego (Lactobacillus)."+
+            "Drożdże, odpowiedzialne za fermentację ciasta, wspomagane przez niektóre enzymy"+
+            "(amilazy i proteazy), fermentują część cukrów zawartych w mące."+
+            "Bakterie produkują kwas octowy i mlekowy,"+
+            "które nadają produktowi końcowemu niezwykły smak i aromat,"+
+            "wydłużają trwałość i mają korzystny wpływ na jelita.",
+
+        sourdough1:"W słoiku o pojemności około 300 ml połącz 3 łyżki mąki pełnoziarnistej z odrobiną wrzącej wody\n" +
+            "i wymieszaj, aż uzyskasz kremową konsystencję.\n" +
+            "Po 5 minutach dodaj łyżeczkę jogurtu naturalnego (bez cukru) lub kefiru i dokładnie wymieszaj.\n" +
+            "Przykryj słoik gazą lub ściereczką i pozostaw w kuchni w temperaturze pokojowej\n" +
+            "na minimum 2 dni latem lub maksymalnie 4 dni zimą.\n" +
+            "Jeśli pojawi się pleśń, zacznij od nowa.",
+        sourdough2:"",
+        sourdough3:"",
+        sourdough4:"",
     },
     EN: {
         title: "PH4.1",
@@ -99,7 +123,34 @@ const translations = {
             Chleb: "Bread",
             Focaccia: "Focaccia",
             Pizza: "Pizza"
-        }
+        },
+        sourSlideTitles : {
+            zero :"",
+            one : "",
+            two : "",
+            three : "",
+            four : ""
+        },
+        sourdough0:"A bouquet of microorganisms\n" +
+            "that coexist in symbiosis in a medium\n" +
+            "made of water and flour, including yeasts (usually Saccharomyces cerevisiae)\n" +
+            "and lactic bacteria (Lactobacillus).\n" +
+            "The yeasts, responsible for the leavening of the dough,\n" +
+            "assisted by certain enzymes (amylases and proteases),\n" +
+            "ferment part of the sugars in the flour.\n" +
+            "The bacteria produce acetic and lactic acid,\n" +
+            "which give the final product an incredible taste and aroma,\n" +
+            "extended shelf life, and beneficial contribution to your gut.",
+
+        sourdough1:"In a jar of about 300 ml, combine 3 tablespoons of whole wheat flour with a bit of boiling water,\n" +
+            "and mix until you get a creamy consistency.\n" +
+            "After 5 minutes, add one teaspoon of plain unsweetened yogurt or kefir and mix well.\n" +
+            "Cover the jar with gauze or a cloth, and leave it in your kitchen at room temperature\n" +
+            "for at least 2 days in summer, up to 4 days in winter.\n" +
+            "If mold forms, start over.",
+        sourdough2:"",
+        sourdough3:"",
+        sourdough4:"",
     },
     IT: {
         title: "PH4.1",
@@ -150,7 +201,31 @@ const translations = {
             Chleb: "Pane",
             Focaccia: "Focaccia",
             Pizza: "Pizza"
-        }
+        },
+        sourSlideTitles : {
+            zero :"",
+            one : "",
+            two : "",
+            three : "",
+            four : ""
+        },
+        sourdough0:"Un bouquet di numerosi microrganismi che\n" +
+            "coesistono in simbiosi in un mezzo\n" +
+            "costituito da acqua e farina, tra cui lieviti (di solito Saccharomyces Cerevisiae) e batteri\n" +
+            "lattici (Lactobacillus).\n" +
+            "I lieviti, responsabili della lievitazione dell'impasto, coadiuvati da alcuni enzimi (amilasi e proteasi), fermentano una parte di zuccheri della farina.\n" +
+            "I batteri producono acido acetico e lattico, che conferiscono al prodotto finale gusto ed aromi incredibili,\n" +
+            "elevata shelf-life ed un moderato contributo benefico al tuo intestino.",
+
+        sourdough1:"In un barattolo da 300ml circa, unisci 3 cucchiai di farina integrale con un pò di acqua" +
+            " bollente, e mischia fino ad ottenere una consistenza cremosa.\n" +
+            "Dopo 5 minuti, aggiungi un cucchiaino di yogurt senza zuccheri o kefir e mischia tutto.\n" +
+            "Copri il barattolo con una garza, o con un panno, e lascialo in cucina a temperatura ambiente\n" +
+            "per un minimo di 2 giorni d'estate, fino ad un massimo di 4 giorni d'inverno.\n" +
+            "Qualora dovesse formarsi della muffa, ricomincia daccapo.",
+        sourdough2:"",
+        sourdough3:"",
+        sourdough4:"",
     }
 };
 

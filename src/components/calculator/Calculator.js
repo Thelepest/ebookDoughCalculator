@@ -143,7 +143,7 @@ function Calculator({ lang }) {
             </div>
 
             <div className="content">
-                <form
+                <form style={{ width: '90%' }}
                     onSubmit={(e) => {
                         e.preventDefault();
                         calculateRecipe();
@@ -327,15 +327,15 @@ function Calculator({ lang }) {
                     </div>
 
                     <div className="button-group">
-                        <button type="button" disabled={!isFormValid()}>
+                        <button type="button" disabled={!isFormValid()} className="pages-button">
                             <FaCalculator style={{ marginRight: '5px',verticalAlign: 'middle' }} />
                             {translations[lang].calculate}
                         </button>
-                        <button type="button" onClick={resetForm} className="reset-btn">
+                        <button type="button" onClick={resetForm} className="reset-btn pages-button">
                             <FaRedo style={{ marginRight: '5px',verticalAlign: 'middle' }} />
                             {translations[lang].reset}
                         </button>
-                        <button type="button" onClick={() => navigate('/')} className="home-btn">
+                        <button type="button" onClick={() => navigate('/')} className="home-btn pages-button">
                             <FaWindowClose style={{ marginRight: '8px',verticalAlign: 'middle' }} />
                             {translations[lang].goBack}
                         </button>

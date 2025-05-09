@@ -1,14 +1,16 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './Sourdough.css';
 import '../../App.css';
-import RecipeModal from '../recipe-modal/RecipeModal';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import Spinner from "../spinner/Spinner";
 import translations from "../../utils/translations";
-import michelangelo from '../../assets/pic1.jpg';
+import sour0 from '../../assets/sourdoughslider_0.jpg'
+import sour1 from '../../assets/sourdoughslider_1.jpg'
+import sour2 from '../../assets/sourdoughslider_2.jpg'
+import sour3 from '../../assets/sourdoughslider_3.jpg'
+import sour4 from '../../assets/sourdoughslider_4.jpg'
 import { useNavigate } from 'react-router-dom';
 import {FaWindowClose} from "react-icons/fa";
 import Slider from "../slider/Slider";
+import SliderPage from "../slider/slider-page/SourdoughSliderPage";
 
 
 function Sourdough({ lang }) {
@@ -17,19 +19,43 @@ function Sourdough({ lang }) {
 
     return (
         <div className="page-container">
-            <div className="head-img">
-                <img src={michelangelo} alt="MichalBakteria" />
-            </div>
 
             <div className="content">
                 <Slider>
-                    <div><h3>Ciao pagina 1</h3></div>
-                    <div><h3>Ciao pagina 2</h3></div>
-                    <div><h3>Ciao pagina 3</h3></div>
-                    <div><h3>Ciao pagina 4</h3></div>
+                    <SliderPage
+                        imageSrc={sour0}
+                        title={translations[lang].sourSlideTitles["zero"]}
+                        text={translations[lang].sourdough0}
+                        pageNumber="1"
+                    />
+                    <SliderPage
+                        imageSrc={sour1}
+                        title={translations[lang].sourSlideTitles["one"]}
+                        text={translations[lang].sourdough1}
+                        pageNumber="2"
+                    />
+                    <SliderPage
+                        imageSrc={sour2}
+                        title={translations[lang].sourSlideTitles["two"]}
+                        text="Contenuto della seconda pagina."
+                        pageNumber="2"
+                    />
+                    <SliderPage
+                        imageSrc={sour3}
+                        title={translations[lang].sourSlideTitles["three"]}
+                        text="Contenuto della seconda pagina."
+                        pageNumber="2"
+                    />
+                    <SliderPage
+                        imageSrc={sour4}
+                        title={translations[lang].sourSlideTitles["four"]}
+                        text="Contenuto della seconda pagina."
+                        pageNumber="2"
+                    />
                 </Slider>
+
                 <div className="button-group">
-                    <button type="button" onClick={() => navigate('/')} className="home-btn">
+                    <button type="button" onClick={() => navigate('/')} className="home-btn pages-button">
                         <FaWindowClose style={{ marginRight: '8px',verticalAlign: 'middle' }} />
                         {translations[lang].goBack}
                     </button>

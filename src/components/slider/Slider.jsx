@@ -5,7 +5,8 @@ import './Slider.css';
 
 const Slider = ({ children }) => {
     const [index, setIndex] = useState(0);
-    const total = React.Children.count(children);
+    const items = React.Children.toArray(children);
+    const total = items.length;
     const containerRef = useRef(null);
     const touchStartX = useRef(null);
     const touchEndX = useRef(null);
@@ -32,7 +33,7 @@ const Slider = ({ children }) => {
             container.removeEventListener('touchstart', handleTouchStart);
             container.removeEventListener('touchend', handleTouchEnd);
         };
-    }, [index]);
+    }, [handleTouchEnd, index]);
 
     return (
         <div className="slider-container" ref={containerRef}>
@@ -49,7 +50,7 @@ const Slider = ({ children }) => {
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.4 }}
                     >
-                        {children[index]}
+                        {items[index]}
                     </motion.div>
                 </AnimatePresence>
             </div>
