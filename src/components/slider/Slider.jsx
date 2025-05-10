@@ -11,8 +11,13 @@ const Slider = ({ children }) => {
     const touchStartX = useRef(null);
     const touchEndX = useRef(null);
 
-    const next = () => setIndex((index + 1) % total);
-    const prev = () => setIndex((index - 1 + total) % total);
+    const next = () => {
+        if (index < total - 1) setIndex(index + 1);
+    };
+
+    const prev = () => {
+        if (index > 0) setIndex(index - 1);
+    };
 
     const handleTouchStart = (e) => {
         touchStartX.current = e.changedTouches[0].clientX;
@@ -33,13 +38,25 @@ const Slider = ({ children }) => {
             container.removeEventListener('touchstart', handleTouchStart);
             container.removeEventListener('touchend', handleTouchEnd);
         };
-    }, [handleTouchEnd, index]);
+    }, [index]);
 
     return (
         <div className="slider-container" ref={containerRef}>
-            <button onClick={prev} className="arrow left">
-                <ChevronLeft size={32} />
-            </button>
+            <AnimatePresence>
+                {index > 0 && (
+                    <motion.button
+                        key="left-arrow"
+                        onClick={prev}
+                        className="arrow left"
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -50 }}
+                        transition={{ duration: 0.2 }}
+                    >
+                        <ChevronLeft size={32} />
+                    </motion.button>
+                )}
+            </AnimatePresence>
 
             <div className="slider-content">
                 <AnimatePresence mode="wait">
@@ -55,15 +72,28 @@ const Slider = ({ children }) => {
                 </AnimatePresence>
             </div>
 
-            <button onClick={next} className="arrow right">
-                <ChevronRight size={32} />
-            </button>
+            <AnimatePresence>
+                {index < total - 1 && (
+                    <motion.button
+                        key="right-arrow"
+                        onClick={next}
+                        className="arrow right"
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 50 }}
+                        transition={{ duration: 0.2 }}
+                    >
+                        <ChevronRight size={32} />
+                    </motion.button>
+                )}
+            </AnimatePresence>
 
-            <div>
+            <div className="slider-dots">
                 {Array.from({ length: total }).map((_, i) => (
                     <span
                         key={i}
                         onClick={() => setIndex(i)}
+                        className={`dot ${i === index ? 'active' : ''}`}
                     />
                 ))}
             </div>

@@ -37,20 +37,20 @@ function Sourdough({ lang }) {
                     <SliderPage
                         imageSrc={sour2}
                         title={translations[lang].sourSlideTitles["two"]}
-                        text="Contenuto della seconda pagina."
-                        pageNumber="2"
+                        text={translations[lang].sourdough2}
+                        pageNumber="3"
                     />
                     <SliderPage
                         imageSrc={sour3}
                         title={translations[lang].sourSlideTitles["three"]}
-                        text="Contenuto della seconda pagina."
-                        pageNumber="2"
+                        text={translations[lang].sourdough3}
+                        pageNumber="4"
                     />
                     <SliderPage
                         imageSrc={sour4}
                         title={translations[lang].sourSlideTitles["four"]}
-                        text="Contenuto della seconda pagina."
-                        pageNumber="2"
+                        text={translations[lang].sourdough4}
+                        pageNumber="5"
                     />
                 </Slider>
 

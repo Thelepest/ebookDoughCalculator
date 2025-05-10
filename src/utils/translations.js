@@ -49,12 +49,12 @@ const translations = {
             Focaccia: "Focaccia",
             Pizza: "Pizza"
         },
-        sourSlideTitles : {
-            zero :"Czym jest zakwas?",
-            one : "",
-            two : "",
-            three : "",
-            four : ""
+        sourSlideTitles: {
+            zero: "Czym jest zakwas?",
+            one: "Początek",
+            two: "Karmienie",
+            three: "Konsystencja",
+            four: "Ostatnie uwagi"
         },
         sourdough0:"Bukiet mikroorganizmów, które współistnieją w symbiozie w środowisku złożonym z wody i mąki, w" +
             " tym drożdże(zazwyczaj Saccharomyces cerevisiae) oraz bakterie kwasu mlekowego (Lactobacillus)."+
@@ -70,9 +70,23 @@ const translations = {
             "Przykryj słoik gazą lub ściereczką i pozostaw w kuchni w temperaturze pokojowej\n" +
             "na minimum 2 dni latem lub maksymalnie 4 dni zimą.\n" +
             "Jeśli pojawi się pleśń, zacznij od nowa.",
-        sourdough2:"",
-        sourdough3:"",
-        sourdough4:"",
+        sourdough2:"Wyrzuć górną połowę zawartości słoika i dodaj 2 łyżki mąki typu 00\n" +
+            "(pszenna, orkiszowa lub semolina dwukrotnie mielona, o zawartości białka nie mniejszej niż 12%),\n" +
+            "niepełnoziarnistej, oraz tyle wody, ile potrzeba, aby uzyskać pierwotną konsystencję.\n" +
+            "Mieszać, lekko zakręć słoik pokrywką i pozostaw do fermentacji w temperaturze co najmniej 21°C przez 24" +
+            " godziny\n" +
+            "(wyłączony piekarnik to idealne miejsce).\n" +
+            "Powtarzaj ten proces (tsw. 'karmienie') przez 4–5 dni, za każdym razem, gdy objętość zakwasu się podwoi.",
+        sourdough3:"Wyrzuć górną połowę zawartości słoika i dodaj 3 łyżki mąki typu 00\n" +
+            "(pszenna, orkiszowa lub semolina dwukrotnie mielona, o zawartości białka nie mniejszej niż 12%),\n" +
+            "niepełnoziarnistej, szczyptę soli oraz 1 łyżkę wody, aby zakwas miał zwartą, ale plastyczną konsystencję.\n" +
+            "Dobrze wymieszaj, lekko zakręć słoik pokrywką i pozostaw do fermentacji w temperaturze co najmniej 21°C przez 24 godziny\n" +
+            "(wyłączony piekarnik to idealne miejsce).\n" +
+            "Gdy podwoi swoją objętość, zakwas będzie gotowy do użycia!",
+        sourdough4:"Używaj zakwasu tylko wtedy, gdy jego objętość podwoi się po odświeżeniu.\n" +
+            "Podczas przygotowywania wypieku pamiętaj, aby zostawić niewielką część zakwasu w słoiku,\n" +
+            "którą następnie odświeżysz i przechowasz w lodówce — tam może pozostać przez 7 dni,\n" +
+            "czekając na kolejne pieczenie!",
     },
     EN: {
         title: "PH4.1",
@@ -124,12 +138,12 @@ const translations = {
             Focaccia: "Focaccia",
             Pizza: "Pizza"
         },
-        sourSlideTitles : {
-            zero :"",
-            one : "",
-            two : "",
-            three : "",
-            four : ""
+        sourSlideTitles: {
+            zero: "What is sourdough?",
+            one: "The bait",
+            two: "Feedings",
+            three: "The consistency",
+            four: "Final aspects"
         },
         sourdough0:"A bouquet of microorganisms\n" +
             "that coexist in symbiosis in a medium\n" +
@@ -148,9 +162,23 @@ const translations = {
             "Cover the jar with gauze or a cloth, and leave it in your kitchen at room temperature\n" +
             "for at least 2 days in summer, up to 4 days in winter.\n" +
             "If mold forms, start over.",
-        sourdough2:"",
-        sourdough3:"",
-        sourdough4:"",
+        sourdough2:"Discard the upper half of the jar's contents and add 2 tablespoons of type 00 flour\n" +
+            "(soft wheat, spelt, or re-milled semolina, with a protein content not lower than 12%), non-wholemeal,\n" +
+            "and enough water to return to the original consistency.\n" +
+            "Stir well, loosely close the jar with the lid and let it ferment at a minimum of 21°C for 24 hours\n" +
+            "(a turned-off oven is the ideal spot).\n" +
+            "Repeat this process (called 'Feeding') for 4–5 days, each time the starter doubles in volume.",
+        sourdough3:"Discard the upper half of the jar's contents and add 3 tablespoons of type 00 flour\n" +
+            "(soft wheat, spelt, or re-milled semolina, with a protein content not lower than 12%),\n" +
+            "non-wholemeal, a pinch of salt, and 1 tablespoon of water,\n" +
+            "so that the starter reaches a firm yet pliable consistency.\n" +
+            "Mix well, loosely close the jar with the lid, and let it ferment at a minimum of 21°C for 24 hours\n" +
+            "(a turned-off oven is the ideal place).\n" +
+            "Once it doubles in volume, the starter is ready to use!",
+        sourdough4:"Use the sourdough starter only when it has doubled in volume after being fed.\n" +
+            "When you're preparing a recipe, remember to leave a small portion of starter in the jar,\n" +
+            "which you will then feed and store in the fridge — where it can stay for up to 7 days,\n" +
+            "waiting for your next baking session!",
     },
     IT: {
         title: "PH4.1",
@@ -203,11 +231,11 @@ const translations = {
             Pizza: "Pizza"
         },
         sourSlideTitles : {
-            zero :"",
-            one : "",
-            two : "",
-            three : "",
-            four : ""
+            zero :"Cosa è la pasta madre?",
+            one : "L'esca",
+            two : "I rinfreschi",
+            three : "La consistenza",
+            four : "Ultime considerazioni"
         },
         sourdough0:"Un bouquet di numerosi microrganismi che\n" +
             "coesistono in simbiosi in un mezzo\n" +
@@ -223,9 +251,25 @@ const translations = {
             "Copri il barattolo con una garza, o con un panno, e lascialo in cucina a temperatura ambiente\n" +
             "per un minimo di 2 giorni d'estate, fino ad un massimo di 4 giorni d'inverno.\n" +
             "Qualora dovesse formarsi della muffa, ricomincia daccapo.",
-        sourdough2:"",
-        sourdough3:"",
-        sourdough4:"",
+        sourdough2:"Butta la metà superiore del contenuto del barattolo, e aggiungi 2 cucchiai di farina 00 (" +
+            "grano tenero, farro, semola rimacinata, con proteine non inferiori al 12%) non integrale, e l'acqua" +
+            " necessaria a tornare alla consistenza" +
+            "iniziale. Mischia bene, socchiudi il barattolo con il coperchio e lascia fermentare almeno a 21°C per" +
+            " 24h (il forno" +
+            "spento è il posto ideale). Ripeti il processo (cosiddetto 'rinfresco') per 4-5 giorni, ogni volta che" +
+            " il" +
+            " volume del lievito" +
+            " raddoppia.",
+        sourdough3:"Butta la metà superiore del contenuto del barattolo, e aggiungi 3 cucchiai di farina 00 (" +
+            "grano tenero, farro, semola rimacinata, con proteine non inferiori al 12%) non integrale, un pizzico di" +
+            "sale, ed 1 cucchiaio di acqua, affinchè il lievito sia di consistenza solida ma malleabile." +
+            "Mischia bene, socchiudi il barattolo con il coperchio e lascia fermentare almeno a 21°C per 24h (il" +
+            " forno" +
+            "spento è il posto ideale). Quando raddoppierà di volume, il lievito sarà pronto da essere usato!",
+        sourdough4:"Usa il lievito madre solo quando il suo volume è raddoppiato dopo averlo rinfrescato. " +
+            "Quando prepari un prodotto, ricorda di lasciare una" +
+            " piccola parte di lievito madre nel barattolo, che andrai a rinfrescare e conservare in frigo, dove" +
+            "potrà stare 7 giorni, in attesa della prossima panificazione!",
     }
 };
 
