@@ -17,9 +17,8 @@ html, body {
     width: 90%;
     max-width: 400px;
     border-radius: 4px;
-    box-sizing: border-box;
-    text-align: center;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
 }
 
 .login-page h2 {
@@ -30,11 +29,72 @@ html, body {
     text-transform: uppercase;
 }
 
-.login-page button {
+.error {
+    color: red;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     padding: 12px 0;
-    margin: 8px 0;
-    font-size: 1.4rem;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #db4437 0%, #a33329 100%);
+    color: white;
+    transition: background 0.3s ease-in-out;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.google-btn:hover {
+    background: linear-gradient(135deg, #a33329 0%, #7b2620 100%);
+}
+
+.divider {
+    margin: 15px 0;
+    font-weight: 600;
+    color: #666;
+}
+
+.email-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+.email-form input {
+    width: 100%;
+    padding: 12px 12px 12px 40px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.email-btn {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 1.2rem;
     font-weight: 700;
     text-transform: uppercase;
     border: none;
@@ -46,6 +106,6 @@ html, body {
     font-family: "Space Grotesk", sans-serif;
 }
 
-.login-page button:hover {
-    background: linear-gradient(135deg, #ff5a4d 0%, #f63900 100%);
+.email-btn:hover {
+    background: linear-gradient(135deg, #5a87c4 0%, #3a5a8a 100%);
 }
