@@ -4,17 +4,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 40vw;
-}
-
-.slider-page-top-image {
-    max-height: 43vh;
-    max-width: 43vh;
-    object-fit: contain;
+    max-width: 70vw;
 }
 
 .slider-page-title {
-    margin-bottom: 10px;
     font-size: 1.6rem;
     text-transform: uppercase;
     color: #013baf;
@@ -28,7 +21,7 @@
 }
 
 .slider-page-bottom-image {
-    width: 100%;
+    width: 240%;
     object-fit: cover;
 }
 
@@ -37,4 +30,7 @@
     color: #999;
     margin-top: 10px;
     text-align: center;
+}
+
+@media(max-width: 768px){
 }

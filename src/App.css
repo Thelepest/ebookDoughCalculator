@@ -27,7 +27,6 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  max-width: 40vw;
   width: 100%;
   min-width: 40vw;
   position: relative;
@@ -134,12 +133,6 @@ button:disabled {
   color: #333;
   margin-top: 0;
   text-transform: uppercase;
-}
-
-.head-img img {
-  max-height:250px;
-  margin: 0 auto 10px auto;
-  display: block;
 }
 
 .container header {

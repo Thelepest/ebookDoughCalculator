@@ -2,16 +2,10 @@ import React from 'react';
 import './SourdoughSliderPage.css';
 import bottomline from '../../../assets/separatore.jpg'
 
-const SliderPage = ({ imageSrc, title, text, pageNumber }) => {
+const SliderPage = ({ title, text, pageNumber }) => {
+
     return (
         <div className="slider-page">
-            {imageSrc && (
-                <img
-                    src={imageSrc}
-                    alt={title}
-                    className="slider-page-top-image"
-                />
-            )}
 
             <h3 className="slider-page-title">{title}</h3>
 

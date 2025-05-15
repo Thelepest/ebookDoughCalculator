@@ -1,1 +1,13 @@
+.head-img-sourdough img {
+    max-height:250px;
+    margin: 0 auto 10px auto;
+    display: block;
+}
 
+@media(max-width: 768px) {
+    .head-img-sourdough img {
+        max-height:150px;
+        margin: 0 auto 10px auto;
+        display: block;
+    }
+}

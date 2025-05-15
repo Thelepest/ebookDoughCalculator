@@ -56,34 +56,39 @@ const translations = {
             three: "Konsystencja",
             four: "Ostatnie uwagi"
         },
-        sourdough0:"Bukiet mikroorganizmów, które współistnieją w symbiozie w środowisku złożonym z wody i mąki, w" +
-            " tym drożdże(zazwyczaj Saccharomyces cerevisiae) oraz bakterie kwasu mlekowego (Lactobacillus)."+
-            "Drożdże, odpowiedzialne za fermentację ciasta, wspomagane przez niektóre enzymy"+
-            "(amilazy i proteazy), fermentują część cukrów zawartych w mące."+
-            "Bakterie produkują kwas octowy i mlekowy,"+
+        sourdough01:"Bukiet mikroorganizmów, które współistnieją w symbiozie w środowisku złożonym z wody i mąki, w" +
+            " tym drożdże(zazwyczaj Saccharomyces cerevisiae) oraz bakterie kwasu mlekowego (Lactobacillus).",
+        sourdough02: "Drożdże, odpowiedzialne za fermentację ciasta, wspomagane przez niektóre enzymy"+
+            "(amilazy i proteazy), fermentują część cukrów zawartych w mące.",
+        sourdough03: "Bakterie produkują kwas octowy i mlekowy,"+
             "które nadają produktowi końcowemu niezwykły smak i aromat,"+
             "wydłużają trwałość i mają korzystny wpływ na jelita.",
 
-        sourdough1:"W słoiku o pojemności około 300 ml połącz 3 łyżki mąki pełnoziarnistej z odrobiną wrzącej wody\n" +
-            "i wymieszaj, aż uzyskasz kremową konsystencję.\n" +
-            "Po 5 minutach dodaj łyżeczkę jogurtu naturalnego (bez cukru) lub kefiru i dokładnie wymieszaj.\n" +
+        sourdough11:"W słoiku o pojemności około 300 ml połącz 3 łyżki mąki pełnoziarnistej z odrobiną wrzącej wody\n" +
+            "i wymieszaj, aż uzyskasz kremową konsystencję.",
+        sourdough12:
+            "Po 5 minutach dodaj łyżeczkę jogurtu naturalnego (bez cukru) lub kefiru i dokładnie wymieszaj.",
+        sourdough13:
             "Przykryj słoik gazą lub ściereczką i pozostaw w kuchni w temperaturze pokojowej\n" +
             "na minimum 2 dni latem lub maksymalnie 4 dni zimą.\n" +
             "Jeśli pojawi się pleśń, zacznij od nowa.",
-        sourdough2:"Wyrzuć górną połowę zawartości słoika i dodaj 2 łyżki mąki typu 00\n" +
+        sourdough21:"Wyrzuć górną połowę zawartości słoika i dodaj 2 łyżki mąki typu 00\n" +
             "(pszenna, orkiszowa lub semolina dwukrotnie mielona, o zawartości białka nie mniejszej niż 12%),\n" +
-            "niepełnoziarnistej, oraz tyle wody, ile potrzeba, aby uzyskać pierwotną konsystencję.\n" +
-            "Mieszać, lekko zakręć słoik pokrywką i pozostaw do fermentacji w temperaturze co najmniej 21°C przez 24" +
-            " godziny\n" +
-            "(wyłączony piekarnik to idealne miejsce).\n" +
-            "Powtarzaj ten proces (tsw. 'karmienie') przez 4–5 dni, za każdym razem, gdy objętość zakwasu się podwoi.",
-        sourdough3:"Wyrzuć górną połowę zawartości słoika i dodaj 3 łyżki mąki typu 00\n" +
+            "niepełnoziarnistej, oraz tyle wody, ile potrzeba, aby uzyskać pierwotną konsystencję.",
+        sourdough22:
+        "Mieszać, lekko zakręć słoik pokrywką i pozostaw do fermentacji w temperaturze co najmniej 21°C przez 24" +
+        " godziny\n" +
+        "(wyłączony piekarnik to idealne miejsce).",
+        sourdough23:
+        "Powtarzaj ten proces (tsw. 'karmienie') przez 4–5 dni, za każdym razem, gdy objętość zakwasu się podwoi.",
+        sourdough31:"Wyrzuć górną połowę zawartości słoika i dodaj 3 łyżki mąki typu 00\n" +
             "(pszenna, orkiszowa lub semolina dwukrotnie mielona, o zawartości białka nie mniejszej niż 12%),\n" +
-            "niepełnoziarnistej, szczyptę soli oraz 1 łyżkę wody, aby zakwas miał zwartą, ale plastyczną konsystencję.\n" +
+            "niepełnoziarnistej, szczyptę soli oraz 1 łyżkę wody, aby zakwas miał zwartą, ale plastyczną konsystencję.",
+        sourdough32:
             "Dobrze wymieszaj, lekko zakręć słoik pokrywką i pozostaw do fermentacji w temperaturze co najmniej 21°C przez 24 godziny\n" +
-            "(wyłączony piekarnik to idealne miejsce).\n" +
-            "Gdy podwoi swoją objętość, zakwas będzie gotowy do użycia!",
-        sourdough4:"Używaj zakwasu tylko wtedy, gdy jego objętość podwoi się po odświeżeniu.\n" +
+            "(wyłączony piekarnik to idealne miejsce).\n",
+        sourdough41:"Używaj zakwasu tylko wtedy, gdy jego objętość podwoi się po karmeniu!",
+        sourdough42:
             "Podczas przygotowywania wypieku pamiętaj, aby zostawić niewielką część zakwasu w słoiku,\n" +
             "którą następnie odświeżysz i przechowasz w lodówce — tam może pozostać przez 7 dni,\n" +
             "czekając na kolejne pieczenie!",

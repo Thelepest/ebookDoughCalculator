@@ -18,6 +18,12 @@
     height: 40px;
 }
 
+.head-img-calculator img {
+    max-height:250px;
+    margin: 0 auto 10px auto;
+    display: block;
+}
+
 header h3 {
     font-size: 1rem;
     font-weight: 700;

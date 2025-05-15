@@ -138,7 +138,7 @@ function Calculator({ lang }) {
 
     return (
         <div className="page-container">
-            <div className="head-img">
+            <div className="head-img-calculator">
                 <img src={michelangelo} alt="MichalBakteria" />
             </div>
 

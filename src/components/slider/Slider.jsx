@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import './Slider.css';
 
-const Slider = ({ children }) => {
+const Slider = ({ children,onSlideChange }) => {
     const [index, setIndex] = useState(0);
     const items = React.Children.toArray(children);
     const total = items.length;
@@ -39,6 +39,13 @@ const Slider = ({ children }) => {
             container.removeEventListener('touchend', handleTouchEnd);
         };
     }, [index]);
+
+    useEffect(() => {
+        if (onSlideChange) {
+            onSlideChange(index);
+        }
+    }, [index, onSlideChange]);
+
 
     return (
         <div className="slider-container" ref={containerRef}>

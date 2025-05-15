@@ -17,14 +17,8 @@ F
 build/index.html,9\9\990a85f5e72fc21bd93d9e8ddb10d110045a91c8
 w
 G.idea/sonarlint/issuestore/9/9/990a85f5e72fc21bd93d9e8ddb10d110045a91c8,3\b\3b3b67d9849330831fad393b7fb1c8d3ae181f5b
-w
-G.idea/sonarlint/issuestore/f/f/ff456be9c1c35955f7dc99a6551571483629e653,1\6\164155ca030456f1f26cfdb41520e1537087578a
 R
 "src/components/spinner/Spinner.css,8\1\811fbc017a5bd4ef3173eb5b796ec7b454dcf0c5
-w
-G.idea/sonarlint/issuestore/1/6/164155ca030456f1f26cfdb41520e1537087578a,d\7\d7a1e4f3225128cf6f8ca99624832659daa763a9
-w
-G.idea/sonarlint/issuestore/3/b/3b3ff9fe1b518a9ab1279a18825e6c52c36ce684,b\1\b11583e59058d602d7b06ba79ad03f36d6457276
 w
 G.idea/sonarlint/issuestore/3/b/3b3b67d9849330831fad393b7fb1c8d3ae181f5b,7\4\74760e61889e9050be1d7e308b4f010c6d83a1a5
 U
