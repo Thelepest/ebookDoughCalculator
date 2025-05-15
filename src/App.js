@@ -1,51 +1,59 @@
-import React, { useState, useEffect } from "react";
-import { getUserLanguage } from "./utils/utils";
+import React, {useEffect, useState} from "react";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import {auth} from "./firebase";
+import {onAuthStateChanged} from "firebase/auth";
+import {getUserLanguage} from "./utils/utils";
 import translations from "./utils/translations";
-import Calculator from "./components/calculator/Calculator";
+
+import Login from "./components/login/Login";
+import MainContent from "./components/maincontent/MainContent";
+
 import "./App.css";
-import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
-import Sourdough from "./components/sourdough/Sourdough";
-import saccaroico from "./assets/saccaro_ok.ico"
 
 function App() {
     const [lang, setLang] = useState("PL");
+    const [authenticated, setAuthenticated] = useState(false);
 
+    // 1) Init lingua
     useEffect(() => {
-        async function fetchLanguage() {
+        (async () => {
             const countryCode = await getUserLanguage();
-            setLang(translations[countryCode] ? countryCode : "EN");
-        }
-        fetchLanguage();
+            const stored = localStorage.getItem("appLang");
+            const code = stored || (translations[countryCode] ? countryCode : "EN");
+            setLang(code);
+        })();
+    }, []);
+
+    // 2) Listener Firebase Auth per persistenza login
+    useEffect(() => {
+        return onAuthStateChanged(auth, (user) => {
+            setAuthenticated(!!user);
+        });
     }, []);
 
     return (
         <BrowserRouter>
-            <div className="container">
-                <header>
-                    <div className="title-with-icon">
-                        <img src={saccaroico} alt="logo" className="header-icon" />
-                        <h2>{translations[lang].title}</h2>
-                    </div>
-                    <h3>{translations[lang].subTitle}</h3>
-                </header>
-                <nav className="homepage-button">
-                    <Link to="/sourdough">
-                        <button>{translations[lang].createSourdough}</button>
-                    </Link>
-                    <Link to="/calculator">
-                        <button>{translations[lang].calculatorButton}</button>
-                    </Link>
-                    <Link to="/settings">
-                        <button>{translations[lang].sets}</button>
-                    </Link>
-                </nav>
-                <main>
-                    <Routes>
-                        <Route path="/calculator" element={<Calculator lang={lang} />} />
-                        <Route path="/sourdough" element={<Sourdough lang={lang} />} />
-                    </Routes>
-                </main>
-            </div>
+            <Routes>
+                {/* Pubblica solo login */}
+                <Route
+                    path="/login"
+                    element={
+                        authenticated
+                            ? <Navigate to="/" replace />
+                            : <Login />
+                    }
+                />
+
+                {/* Tutte le altre rotte vanno al MainContent se autenticato */}
+                <Route
+                    path="/*"
+                    element={
+                        authenticated
+                            ? <MainContent lang={lang} setLang={setLang} />
+                            : <Navigate to="/login" replace />
+                    }
+                />
+            </Routes>
         </BrowserRouter>
     );
 }

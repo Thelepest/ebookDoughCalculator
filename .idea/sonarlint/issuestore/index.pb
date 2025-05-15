@@ -31,9 +31,5 @@ Q
 !src/components/spinner/Spinner.js,a\c\ac46c1a1005baee0f5b86aef88f5a9f253d1d838
 B
 src/utils/utils.js,8\3\834ac17c5746ea7353922890b8abc29952856cc2
-<
-package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
-A
-package-lock.json,f\a\fa288d1472d29beccb489a676f68739ad365fc47
 C
 src/assets/logo.svg,5\c\5c78421908ac2b63fdf8bd6d449473e78c6ba703

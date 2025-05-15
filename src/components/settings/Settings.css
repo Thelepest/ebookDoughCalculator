@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Limelight&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Space+Grotesk:wght@300..700&display=swap');
+
+html, body {
+    font-family: "Space Grotesk", sans-serif;
+    background-color: rgb(248, 239, 223);
+    margin: 0;
+    padding: 0;
+}
+
+.page-container {
+    background: white;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 500px;
+    margin: 40px auto;
+    border-radius: 4px;
+}
+
+.page-container h2 {
+    font-family: "Limelight", cursive;
+    font-size: 2.5rem;
+    color: #333;
+    margin-top: 0;
+    text-transform: uppercase;
+}
+
+.page-container label {
+    font-weight: 600;
+    margin-top: 20px;
+    display: block;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.page-container select {
+    margin-top: 8px;
+    padding: 8px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.info-section {
+    margin-top: 20px;
+}
+
+.info-section h3 {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    color: #013baf;
+    margin-bottom: 8px;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.info-section p, .info-section a {
+    font-size: 1rem;
+    color: #333;
+    text-decoration: none;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.info-section a:hover {
+    text-decoration: underline;
+}
+
+.logout-btn {
+    margin-top: 30px;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #b2dfdb 0%, #4db6ac 100%);
+    color: white;
+    transition: background 0.3s ease;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.logout-btn:hover {
+    background: linear-gradient(135deg, #4db6ac 0%, #00897b 100%);
+}
+
+@media (max-width: 768px) {
+    .page-container {
+        margin: 20px;
+        padding: 20px;
+    }
+}
