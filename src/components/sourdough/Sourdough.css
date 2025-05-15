@@ -4,6 +4,30 @@
     display: block;
 }
 
+.slider-page-title {
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    color: #013baf;
+    text-align:center;
+}
+
+.slider-page-bottom-image {
+    width: 240%;
+    object-fit: cover;
+}
+
+.slider-page-number {
+    font-size: 0.9rem;
+    color: #999;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.align-content-center{
+    display: flex;
+    justify-content: center;
+}
+
 @media(max-width: 768px) {
     .head-img-sourdough img {
         max-height:150px;

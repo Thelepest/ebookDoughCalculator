@@ -42,7 +42,7 @@ const translations = {
         fatBoy3:"Dr. Drożdże ",
         fatBoy4:"zaraz cię przyjmie!",
         sets : "Ustawienia",
-        createSourdough:"Stwórz własny zaczyn",
+        createSourdough:"Zaczyn...amy!",
         calculatorButton:"Kalkulator",
         products: {
             Chleb: "Chleb",

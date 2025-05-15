@@ -11,8 +11,6 @@ D
 public/manifest.json,4\2\42e89cd2213b9d5dfae4f63522702c623170d792
 F
 src/reportWebVitals.js,1\c\1ce5e63ae1582ed0b425c46001299a07515efbf9
-?
-src/App.test.js,9\2\923703ced91ac38943d37930d9d27a7ebe8f01ad
 @
 build/index.html,9\9\990a85f5e72fc21bd93d9e8ddb10d110045a91c8
 w
@@ -33,9 +31,6 @@ Q
 !src/components/spinner/Spinner.js,a\c\ac46c1a1005baee0f5b86aef88f5a9f253d1d838
 B
 src/utils/utils.js,8\3\834ac17c5746ea7353922890b8abc29952856cc2
-:
-
-src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
 <
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
 A

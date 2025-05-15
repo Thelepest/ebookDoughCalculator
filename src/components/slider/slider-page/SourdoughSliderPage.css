@@ -7,29 +7,11 @@
     max-width: 70vw;
 }
 
-.slider-page-title {
-    font-size: 1.6rem;
-    text-transform: uppercase;
-    color: #013baf;
-}
-
 .slider-page-text {
     max-width: 700px;
     font-size: 1rem;
     line-height: 1.6;
     color: #333;
-}
-
-.slider-page-bottom-image {
-    width: 240%;
-    object-fit: cover;
-}
-
-.slider-page-number {
-    font-size: 0.9rem;
-    color: #999;
-    margin-top: 10px;
-    text-align: center;
 }
 
 @media(max-width: 768px){

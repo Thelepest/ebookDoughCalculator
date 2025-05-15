@@ -29,11 +29,11 @@ function App() {
                     <h3>{translations[lang].subTitle}</h3>
                 </header>
                 <nav className="homepage-button">
-                    <Link to="/calculator">
-                        <button>{translations[lang].calculatorButton}</button>
-                    </Link>
                     <Link to="/sourdough">
                         <button>{translations[lang].createSourdough}</button>
+                    </Link>
+                    <Link to="/calculator">
+                        <button>{translations[lang].calculatorButton}</button>
                     </Link>
                     <Link to="/settings">
                         <button>{translations[lang].sets}</button>
