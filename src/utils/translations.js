@@ -42,6 +42,7 @@ const translations = {
         fatBoy3:"Dr. Drożdże ",
         fatBoy4:"zaraz cię przyjmie!",
         sets : "Ustawienia",
+        chatNow:"Napisz do mnie",
         createSourdough:"Zaczyn...amy!",
         calculatorButton:"Kalkulator",
         products: {
@@ -138,6 +139,7 @@ const translations = {
         sets : "Settings",
         createSourdough:"Create your own sourdough",
         calculatorButton:"Calculator",
+        chatNow:"Chat Now",
         products: {
             Chleb: "Bread",
             Focaccia: "Focaccia",
@@ -150,37 +152,42 @@ const translations = {
             three: "The consistency",
             four: "Final aspects"
         },
-        sourdough0:"A bouquet of microorganisms\n" +
-            "that coexist in symbiosis in a medium\n" +
+        sourdough01:"A bouquet of microorganisms that coexist in symbiosis in a medium\n" +
             "made of water and flour, including yeasts (usually Saccharomyces cerevisiae)\n" +
-            "and lactic bacteria (Lactobacillus).\n" +
-            "The yeasts, responsible for the leavening of the dough,\n" +
+            "and lactic bacteria (Lactobacillus).",
+        sourdough02: "The yeasts, responsible for the leavening of the dough,\n" +
             "assisted by certain enzymes (amylases and proteases),\n" +
-            "ferment part of the sugars in the flour.\n" +
-            "The bacteria produce acetic and lactic acid,\n" +
+            "ferment part of the sugars in the flour.",
+        sourdough03: "The bacteria produce acetic and lactic acid,\n" +
             "which give the final product an incredible taste and aroma,\n" +
             "extended shelf life, and beneficial contribution to your gut.",
 
-        sourdough1:"In a jar of about 300 ml, combine 3 tablespoons of whole wheat flour with a bit of boiling water,\n" +
-            "and mix until you get a creamy consistency.\n" +
-            "After 5 minutes, add one teaspoon of plain unsweetened yogurt or kefir and mix well.\n" +
+        sourdough11:"In a jar of about 300 ml, combine 3 tablespoons of whole wheat flour with a bit of boiling water,\n" +
+            "and mix until you get a creamy consistency.",
+        sourdough12:
+            "After 5 minutes, add one teaspoon of plain unsweetened yogurt or kefir and mix well.",
+        sourdough13:
             "Cover the jar with gauze or a cloth, and leave it in your kitchen at room temperature\n" +
             "for at least 2 days in summer, up to 4 days in winter.\n" +
             "If mold forms, start over.",
-        sourdough2:"Discard the upper half of the jar's contents and add 2 tablespoons of type 00 flour\n" +
+        sourdough21:"Discard the upper half of the jar's contents and add 2 tablespoons of type 00 flour\n" +
             "(soft wheat, spelt, or re-milled semolina, with a protein content not lower than 12%), non-wholemeal,\n" +
-            "and enough water to return to the original consistency.\n" +
-            "Stir well, loosely close the jar with the lid and let it ferment at a minimum of 21°C for 24 hours\n" +
-            "(a turned-off oven is the ideal spot).\n" +
-            "Repeat this process (called 'Feeding') for 4–5 days, each time the starter doubles in volume.",
-        sourdough3:"Discard the upper half of the jar's contents and add 3 tablespoons of type 00 flour\n" +
+            "and enough water to return to the original consistency.",
+        sourdough22:
+        "Stir well, loosely close the jar with the lid and let it ferment at a minimum of 21°C for 24 hours\n" +
+        "(a turned-off oven is the ideal spot).",
+        sourdough23:
+        "Repeat this process (called 'Feeding') for 4–5 days, each time the starter doubles in volume.",
+        sourdough31:"Discard the upper half of the jar's contents and add 3 tablespoons of type 00 flour\n" +
             "(soft wheat, spelt, or re-milled semolina, with a protein content not lower than 12%),\n" +
             "non-wholemeal, a pinch of salt, and 1 tablespoon of water,\n" +
-            "so that the starter reaches a firm yet pliable consistency.\n" +
+            "so that the starter reaches a firm yet pliable consistency.",
+        sourdough32:
             "Mix well, loosely close the jar with the lid, and let it ferment at a minimum of 21°C for 24 hours\n" +
             "(a turned-off oven is the ideal place).\n" +
             "Once it doubles in volume, the starter is ready to use!",
-        sourdough4:"Use the sourdough starter only when it has doubled in volume after being fed.\n" +
+        sourdough41:"Use the sourdough starter only when it has doubled in volume after being fed!",
+        sourdough42:
             "When you're preparing a recipe, remember to leave a small portion of starter in the jar,\n" +
             "which you will then feed and store in the fridge — where it can stay for up to 7 days,\n" +
             "waiting for your next baking session!",
@@ -230,6 +237,7 @@ const translations = {
         sets : "Impostazioni",
         createSourdough:"Crea il tuo lievito madre",
         calculatorButton:"Calcolatore",
+        chatNow:"Contattami ora",
         products: {
             Chleb: "Pane",
             Focaccia: "Focaccia",
@@ -242,38 +250,45 @@ const translations = {
             three : "La consistenza",
             four : "Ultime considerazioni"
         },
-        sourdough0:"Un bouquet di numerosi microrganismi che\n" +
+        sourdough01:"Un bouquet di numerosi microrganismi che\n" +
             "coesistono in simbiosi in un mezzo\n" +
             "costituito da acqua e farina, tra cui lieviti (di solito Saccharomyces Cerevisiae) e batteri\n" +
-            "lattici (Lactobacillus).\n" +
-            "I lieviti, responsabili della lievitazione dell'impasto, coadiuvati da alcuni enzimi (amilasi e proteasi), fermentano una parte di zuccheri della farina.\n" +
-            "I batteri producono acido acetico e lattico, che conferiscono al prodotto finale gusto ed aromi incredibili,\n" +
+            "lattici (Lactobacillus).",
+        sourdough02: "I lieviti, responsabili della lievitazione dell'impasto, coadiuvati da alcuni enzimi (amilasi e proteasi), fermentano una parte di zuccheri della farina.",
+        sourdough03: "I batteri producono acido acetico e lattico, che conferiscono al prodotto finale gusto ed aromi incredibili,\n" +
             "elevata shelf-life ed un moderato contributo benefico al tuo intestino.",
 
-        sourdough1:"In un barattolo da 300ml circa, unisci 3 cucchiai di farina integrale con un pò di acqua" +
-            " bollente, e mischia fino ad ottenere una consistenza cremosa.\n" +
-            "Dopo 5 minuti, aggiungi un cucchiaino di yogurt senza zuccheri o kefir e mischia tutto.\n" +
+        sourdough11:"In un barattolo da 300ml circa, unisci 3 cucchiai di farina integrale con un pò di acqua" +
+            " bollente, e mischia fino ad ottenere una consistenza cremosa.",
+        sourdough12:
+            "Dopo 5 minuti, aggiungi un cucchiaino di yogurt senza zuccheri o kefir e mischia tutto.",
+        sourdough13:
             "Copri il barattolo con una garza, o con un panno, e lascialo in cucina a temperatura ambiente\n" +
             "per un minimo di 2 giorni d'estate, fino ad un massimo di 4 giorni d'inverno.\n" +
             "Qualora dovesse formarsi della muffa, ricomincia daccapo.",
-        sourdough2:"Butta la metà superiore del contenuto del barattolo, e aggiungi 2 cucchiai di farina 00 (" +
+        sourdough21:"Butta la metà superiore del contenuto del barattolo, e aggiungi 2 cucchiai di farina 00 (" +
             "grano tenero, farro, semola rimacinata, con proteine non inferiori al 12%) non integrale, e l'acqua" +
-            " necessaria a tornare alla consistenza" +
-            "iniziale. Mischia bene, socchiudi il barattolo con il coperchio e lascia fermentare almeno a 21°C per" +
-            " 24h (il forno" +
-            "spento è il posto ideale). Ripeti il processo (cosiddetto 'rinfresco') per 4-5 giorni, ogni volta che" +
-            " il" +
-            " volume del lievito" +
-            " raddoppia.",
-        sourdough3:"Butta la metà superiore del contenuto del barattolo, e aggiungi 3 cucchiai di farina 00 (" +
+            " necessaria a tornare alla consistenza iniziale.",
+        sourdough22:
+        "Mischia bene, socchiudi il barattolo con il coperchio e lascia fermentare almeno a 21°C per" +
+        " 24h (il forno" +
+        " spento è il posto ideale).",
+        sourdough23:
+        "Ripeti il processo (cosiddetto 'rinfresco') per 4-5 giorni, ogni volta che" +
+        " il" +
+        " volume del lievito" +
+        " raddoppia.",
+        sourdough31:"Butta la metà superiore del contenuto del barattolo, e aggiungi 3 cucchiai di farina 00 (" +
             "grano tenero, farro, semola rimacinata, con proteine non inferiori al 12%) non integrale, un pizzico di" +
-            "sale, ed 1 cucchiaio di acqua, affinchè il lievito sia di consistenza solida ma malleabile." +
+            "sale, ed 1 cucchiaio di acqua, affinchè il lievito sia di consistenza solida ma malleabile.",
+        sourdough32:
             "Mischia bene, socchiudi il barattolo con il coperchio e lascia fermentare almeno a 21°C per 24h (il" +
             " forno" +
-            "spento è il posto ideale). Quando raddoppierà di volume, il lievito sarà pronto da essere usato!",
-        sourdough4:"Usa il lievito madre solo quando il suo volume è raddoppiato dopo averlo rinfrescato. " +
+            " spento è il posto ideale). Quando raddoppierà di volume, il lievito sarà pronto da essere usato!",
+        sourdough41:"Usa il lievito madre solo quando il suo volume è raddoppiato dopo averlo rinfrescato!",
+        sourdough42:
             "Quando prepari un prodotto, ricorda di lasciare una" +
-            " piccola parte di lievito madre nel barattolo, che andrai a rinfrescare e conservare in frigo, dove" +
+            " piccola parte di lievito madre nel barattolo, che andrai a rinfrescare e conservare in frigo, dove " +
             "potrà stare 7 giorni, in attesa della prossima panificazione!",
     }
 };

@@ -2,17 +2,14 @@ import React from "react";
 import { logout } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import translations from "../../utils/translations";
+import { FaInstagram, FaWhatsapp, FaEnvelope } from "react-icons/fa";
 import "./Settings.css";
 import "../../App.css";
-interface Props {
-    lang: string;
-    setLang: (code: string) => void;
-}
 
-const Settings: React.FC<Props> = ({ lang, setLang }) => {
+const Settings = ({ lang, setLang }) => {
     const navigate = useNavigate();
 
-    const handleChangeLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const handleChangeLang = (e) => {
         const newLang = e.target.value;
         setLang(newLang);
         localStorage.setItem("appLang", newLang);
@@ -37,27 +34,38 @@ const Settings: React.FC<Props> = ({ lang, setLang }) => {
 
             <div className="info-section">
                 <h3>📞 Contacts</h3>
-                <p>
-                    Instagram:{" "}
+                <div className="contacts-icons">
                     <a
-                        href="https://instagram.com/tuoaccount"
+                        href="https://www.instagram.com/marcobiasone_masterchef_x/"
                         target="_blank"
                         rel="noreferrer"
+                        className="contact-icon"
+                        aria-label="Instagram"
                     >
-                        @tuoaccount
+                        <FaInstagram size={34} />
                     </a>
-                </p>
-                <p>
-                    WhatsApp:{" "}
-                    <a href="https://wa.me/tuonumero" target="_blank" rel="noreferrer">
-                        Chat Now
+                    <a
+                        href="https://wa.me/3487899305"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="contact-icon"
+                        aria-label="WhatsApp"
+                    >
+                        <FaWhatsapp size={34} />
                     </a>
-                </p>
+                    <a
+                        href="mailto:marco.biasone.90@gmail.com"
+                        className="contact-icon"
+                        aria-label="Email"
+                    >
+                        <FaEnvelope size={34} />
+                    </a>
+                </div>
             </div>
 
             <div className="info-section">
-                <p>🔢 Version: 1.0.0</p>
-                <p>© 2025 YourName - All rights reserved.</p>
+                <p>🔢 Version: 2.0.1</p>
+                <p>© 2025 Marco Biasone - All rights reserved.</p>
             </div>
 
             <button className="home-btn logout-btn" onClick={handleLogout}>

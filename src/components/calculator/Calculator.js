@@ -41,16 +41,32 @@ function Calculator({ lang }) {
     const isFormValid = () => {
         const { shape, length, depth, diameter, product, quantity, season, breadWeight } = form;
 
-        if (!product || quantity <= 0 || !season) return false;
+        // Convert to numbers for validation
+        const qty = Number(quantity);
+        const len = Number(length);
+        const dep = Number(depth);
+        const diam = Number(diameter);
+        const bWeight = Number(breadWeight);
+
+        // Basic required fields
+        if (!product || !season) return false;
+        
+        // Quantity must be a valid positive number
+        if (!quantity || isNaN(qty) || qty <= 0) return false;
+        
         if (product === 'chleb') {
-            if (breadWeight <= 0 || isNaN(breadWeight)) return false;
+            // For bread, breadWeight is required
+            if (!breadWeight || isNaN(bWeight) || bWeight <= 0) return false;
         } else {
+            // For pizza/focaccia, shape is required
             if (!shape) return false;
 
             if (shape === 'rectangular') {
-                if (length <= 0 || isNaN(length) || depth <= 0 || isNaN(depth)) return false;
+                // For rectangular shape, both length and depth are required
+                if (!length || isNaN(len) || len <= 0 || !depth || isNaN(dep) || dep <= 0) return false;
             } else if (shape === 'circular') {
-                if (diameter <= 0 || isNaN(diameter)) return false;
+                // For circular shape, diameter is required
+                if (!diameter || isNaN(diam) || diam <= 0) return false;
             }
         }
 
@@ -187,19 +203,21 @@ function Calculator({ lang }) {
 
                     {(form.product === 'pizza' || form.product === 'focaccia') && (
                         <div className="input-group">
-                            <label htmlFor="shape">{translations[lang].tray}</label>
-                            {form.product !== 'pizza' && (
-                                <OverlayTrigger
-                                    placement="top"
-                                    overlay={renderTooltip(
-                                        form.product === 'focaccia'
-                                            ? translations[lang].tray5cm
-                                            : ''
-                                    )}
-                                >
-                                    <span className="question-mark">?</span>
-                                </OverlayTrigger>
-                            )}
+                            <label htmlFor="shape" className="label-with-icon">
+                                {translations[lang].tray}
+                                {form.product !== 'pizza' && (
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={renderTooltip(
+                                            form.product === 'focaccia'
+                                                ? translations[lang].tray5cm
+                                                : ''
+                                        )}
+                                    >
+                                        <span className="question-mark">?</span>
+                                    </OverlayTrigger>
+                                )}
+                            </label>
                             <select
                                 id="shape"
                                 value={form.shape}
@@ -284,13 +302,15 @@ function Calculator({ lang }) {
                     </div>
 
                     <div className="input-group">
-                        <label htmlFor="season">{translations[lang].period}</label>
-                        <OverlayTrigger
-                            placement="top"
-                            overlay={renderTooltip(translations[lang].periodSuggest)}
-                        >
-                            <span className="question-mark">?</span>
-                        </OverlayTrigger>
+                        <label htmlFor="season" className="label-with-icon">
+                            {translations[lang].period}
+                            <OverlayTrigger
+                                placement="top"
+                                overlay={renderTooltip(translations[lang].periodSuggest)}
+                            >
+                                <span className="question-mark">?</span>
+                            </OverlayTrigger>
+                        </label>
                         <select
                             id="season"
                             value={form.season}
@@ -304,13 +324,15 @@ function Calculator({ lang }) {
                     </div>
 
                     <div className="input-group">
-                        <label htmlFor="hydration">{translations[lang].water}</label>
-                        <OverlayTrigger
-                            placement="top"
-                            overlay={renderTooltip(translations[lang].waterSuggest)}
-                        >
-                            <span className="question-mark">?</span>
-                        </OverlayTrigger>
+                        <label htmlFor="hydration" className="label-with-icon">
+                            {translations[lang].water}
+                            <OverlayTrigger
+                                placement="top"
+                                overlay={renderTooltip(translations[lang].waterSuggest)}
+                            >
+                                <span className="question-mark">?</span>
+                            </OverlayTrigger>
+                        </label>
                         <select
                             id="hydration"
                             value={form.hydration}
@@ -327,7 +349,7 @@ function Calculator({ lang }) {
                     </div>
 
                     <div className="button-group">
-                        <button type="button" disabled={!isFormValid()} className="pages-button">
+                        <button type="submit" disabled={!isFormValid()} className="pages-button calculate-btn">
                             <FaCalculator style={{ marginRight: '5px',verticalAlign: 'middle' }} />
                             {translations[lang].calculate}
                         </button>

@@ -60,7 +60,7 @@ const Slider = ({ children,onSlideChange }) => {
                         exit={{ opacity: 0, x: -50 }}
                         transition={{ duration: 0.2 }}
                     >
-                        <ChevronLeft size={32} />
+                        <ChevronLeft size={20} />
                     </motion.button>
                 )}
             </AnimatePresence>
@@ -90,7 +90,7 @@ const Slider = ({ children,onSlideChange }) => {
                         exit={{ opacity: 0, x: 50 }}
                         transition={{ duration: 0.2 }}
                     >
-                        <ChevronRight size={32} />
+                        <ChevronRight size={20} />
                     </motion.button>
                 )}
             </AnimatePresence>

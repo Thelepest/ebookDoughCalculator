@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginWithGoogle, auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { FaGoogle, FaEnvelope } from "react-icons/fa";
+import { FaGoogle, FaEnvelope, FaLock } from "react-icons/fa";
 import "./Login.css";
 
 const Login = () => {
@@ -61,7 +61,7 @@ const Login = () => {
                     />
                 </div>
                 <div className="input-group">
-                    <FaEnvelope className="input-icon" style={{ transform: "rotate(90deg)" }} />
+                    <FaLock className="input-icon" />
                     <input
                         type="password"
                         placeholder="Password"

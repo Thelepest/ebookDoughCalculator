@@ -7,12 +7,7 @@ import translations from "../../utils/translations";
 import saccaroico from "../../assets/saccaro_ok.ico";
 import "../../App.css";
 
-interface Props {
-    lang: string;
-    setLang: (code: string) => void;
-}
-
-const MainContent: React.FC<Props> = ({ lang, setLang }) => (
+const MainContent = ({ lang, setLang }) => (
     <div className="container">
         <header>
             <div className="title-with-icon">

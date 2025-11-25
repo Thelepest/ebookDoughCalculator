@@ -120,6 +120,10 @@ button:disabled {
   background: linear-gradient(135deg, #4db6ac 0%, #00897b 100%);
 }
 
+.calculate-btn:not(:disabled) {
+  background: linear-gradient(135deg, #ff5a4d 0%, #f63900 100%);
+}
+
 .button-group button {
   width: auto;
   text-transform: uppercase;

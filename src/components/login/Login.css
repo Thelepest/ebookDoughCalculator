@@ -71,24 +71,25 @@ html, body {
 }
 
 .input-group {
-    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .input-icon {
-    position: absolute;
-    top: 50%;
-    left: 12px;
-    transform: translateY(-50%);
     color: #888;
+    flex-shrink: 0;
+    font-size: 1.2rem;
 }
 
 .email-form input {
-    width: 100%;
-    padding: 12px 12px 12px 40px;
+    flex: 1;
+    padding: 12px 15px;
     border: 1px solid #ccc;
     border-radius: 50px;
     font-size: 1rem;
     font-family: "Space Grotesk", sans-serif;
+    box-sizing: border-box;
 }
 
 .email-btn {
