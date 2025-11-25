@@ -70,13 +70,13 @@ html, body {
     gap: 15px;
 }
 
-.input-group {
+.email-form .input-group {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.input-icon {
+.email-form .input-icon {
     color: #888;
     flex-shrink: 0;
     font-size: 1.2rem;
