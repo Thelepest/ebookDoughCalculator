@@ -7,7 +7,7 @@ import translations from "../../utils/translations";
 import saccaroico from "../../assets/saccaro_ok.ico";
 import "../../App.css";
 
-const MainContent = ({ lang, setLang }) => (
+const Home = ({ lang }) => (
     <div className="container">
         <header>
             <div className="title-with-icon">
@@ -28,21 +28,17 @@ const MainContent = ({ lang, setLang }) => (
                 <button>{translations[lang].sets}</button>
             </Link>
         </nav>
-
-        <main>
-            <Routes>
-                <Route path="/" element={<Navigate to="/calculator" replace />} />
-                <Route path="/calculator" element={<Calculator lang={lang} />} />
-                <Route path="/sourdough" element={<Sourdough lang={lang} />} />
-                <Route
-                    path="/settings"
-                    element={<Settings lang={lang} setLang={setLang} />}
-                />
-                {/* catch-all */}
-                <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-        </main>
     </div>
+);
+
+const MainContent = ({ lang, setLang }) => (
+    <Routes>
+        <Route path="/" element={<Home lang={lang} />} />
+        <Route path="/calculator" element={<Calculator lang={lang} />} />
+        <Route path="/sourdough" element={<Sourdough lang={lang} />} />
+        <Route path="/settings" element={<Settings lang={lang} setLang={setLang} />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
 );
 
 export default MainContent;

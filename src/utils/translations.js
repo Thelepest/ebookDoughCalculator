@@ -1,6 +1,11 @@
 const translations = {
     PL: {
         title: "PH4.1",
+        sectionTitles: {
+            calculator: "Kalkulator",
+            sourdough: "Zacznij swój zakwas",
+            settings: "Ustawienia"
+        },
         goBack:"Wróć",
         subTitle:"Pierwsza aplikacja do wypieków na zakwasie",
         productLabel: "Co pieczesz dzisiaj?",
@@ -41,7 +46,8 @@ const translations = {
         fatBoy2:"specjalista dietetyk ",
         fatBoy3:"Dr. Drożdże ",
         fatBoy4:"zaraz cię przyjmie!",
-        sets : "Ustawienia",
+        logout : "Wróć",
+        sets:"Ustawienia",
         chatNow:"Napisz do mnie",
         createSourdough:"Zaczyn...amy!",
         calculatorButton:"Kalkulator",
@@ -96,6 +102,11 @@ const translations = {
     },
     EN: {
         title: "PH4.1",
+        sectionTitles: {
+            calculator: "Calculator",
+            sourdough: "Create your sourdough",
+            settings: "Settings"
+        },
         subTitle:"The first app for your sourdough creations",
         goBack:"Back",
         productLabel: "What are you gonna bake today?",
@@ -114,6 +125,7 @@ const translations = {
         reset: "Reset",
         diameter:"Diameter (cm):",
         pcs:"How many pieces?",
+        sets:"Settings",
         period:"Season:",
         periodSuggest:"On summer time you want to use less sourdough than on winter time.",
         summer:"Spring-Summer",
@@ -136,7 +148,7 @@ const translations = {
         fatBoy2:"specialist dietitian ",
         fatBoy3:"Dr. Yeasty ",
         fatBoy4:"will immediately receive you!",
-        sets : "Settings",
+        logout : "Back",
         createSourdough:"Create your own sourdough",
         calculatorButton:"Calculator",
         chatNow:"Chat Now",
@@ -194,6 +206,11 @@ const translations = {
     },
     IT: {
         title: "PH4.1",
+        sectionTitles: {
+            calculator: "Calcolatore",
+            sourdough: "Crea il tuo lievito madre",
+            settings: "Impostazioni"
+        },
         subTitle:"La prima app per i tuoi prodotti con lievito madre",
         productLabel: "Cosa vuoi fare oggi?",
         goBack:"Indietro",
@@ -205,6 +222,7 @@ const translations = {
         breadWeight: "Peso della pagnotta (g):",
         squareShape:"Rettangolare",
         roundShape:"Tonda",
+        sets:"Impostazioni",
         focaccia: "Focaccia",
         length:"Lunghezza (cm):",
         width:"larghezza (cm):",
@@ -234,7 +252,7 @@ const translations = {
         fatBoy2:"lo specialista dietologo ",
         fatBoy3:"Dr. Saccaro ",
         fatBoy4:"ti riceverà immediatamente!",
-        sets : "Impostazioni",
+        logout : "Indietro",
         createSourdough:"Crea il tuo lievito madre",
         calculatorButton:"Calcolatore",
         chatNow:"Contattami ora",

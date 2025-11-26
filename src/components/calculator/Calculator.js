@@ -19,7 +19,7 @@ function Calculator({ lang }) {
         product: '',
         quantity: '',
         season: '',
-        hydration: 80,
+        hydration: 70,
         breadWeight:'',
     });
     const [recipe, setRecipe] = useState(null);
@@ -32,7 +32,7 @@ function Calculator({ lang }) {
         setForm(prevForm => ({
             ...prevForm,
             product: selectedProduct,
-            hydration: selectedProduct === 'chleb' ? 70 : 80,
+            hydration: 70,
         }));
     };
 
@@ -154,6 +154,7 @@ function Calculator({ lang }) {
 
     return (
         <div className="page-container">
+            <h2 className="section-title">{translations[lang].sectionTitles?.calculator || translations[lang].calculatorButton}</h2>
             <div className="head-img-calculator">
                 <img src={michelangelo} alt="MichalBakteria" />
             </div>

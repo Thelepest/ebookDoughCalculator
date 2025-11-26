@@ -2,14 +2,14 @@
 
 html, body {
     font-family: "Space Grotesk", sans-serif;
-    background-color: rgb(248, 239, 223);
+    background-color: white;
     margin: 0;
     padding: 0;
 }
 
 .page-container {
     background: white;
-    padding: 30px;
+    padding: 0 30px;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -21,7 +21,7 @@ html, body {
 
 .page-container h2 {
     font-family: "Limelight", cursive;
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: #333;
     margin-top: 0;
     text-transform: uppercase;
@@ -113,21 +113,4 @@ html, body {
     color: #013baf;
 }
 
-.logout-btn {
-    margin-top: 30px;
-    padding: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    background: linear-gradient(135deg, #b2dfdb 0%, #4db6ac 100%);
-    color: white;
-    transition: background 0.3s ease;
-    font-family: "Space Grotesk", sans-serif;
-}
-
-.logout-btn:hover {
-    background: linear-gradient(135deg, #4db6ac 0%, #00897b 100%);
-}
+/* logout button removed from markup; styles removed */

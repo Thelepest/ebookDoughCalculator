@@ -1,8 +1,7 @@
 import React from "react";
-import { logout } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import translations from "../../utils/translations";
-import { FaInstagram, FaWhatsapp, FaEnvelope } from "react-icons/fa";
+import { FaInstagram, FaWhatsapp, FaEnvelope, FaWindowClose } from "react-icons/fa";
 import "./Settings.css";
 import "../../App.css";
 
@@ -15,15 +14,11 @@ const Settings = ({ lang, setLang }) => {
         localStorage.setItem("appLang", newLang);
     };
 
-    const handleLogout = async () => {
-        await logout();
-        localStorage.removeItem("appLang");
-        navigate("/login", { replace: true });
-    };
+    // logout removed as per request (only back button kept)
 
     return (
         <div className="page-container">
-            <h2>{translations[lang].sets || "Settings"}</h2>
+            <h2 className="section-title">{translations[lang].sectionTitles?.settings || translations[lang].sets}</h2>
 
             <label htmlFor="language">🌐 Select Language:</label>
             <select id="language" value={lang} onChange={handleChangeLang}>
@@ -67,10 +62,12 @@ const Settings = ({ lang, setLang }) => {
                 <p>🔢 Version: 2.0.1</p>
                 <p>© 2025 Marco Biasone - All rights reserved.</p>
             </div>
-
-            <button className="home-btn logout-btn" onClick={handleLogout}>
-                🚪 Logout
-            </button>
+            <div className="button-group centered-buttons">
+                <button type="button" onClick={() => navigate('/')} className="home-btn pages-button">
+                    <FaWindowClose style={{ marginRight: '8px',verticalAlign: 'middle' }} />
+                    {translations[lang].goBack}
+                </button>
+            </div>
         </div>
     );
 };
