@@ -7,10 +7,10 @@
 
 # testing
 /coverage
-
 # production
 /build
 /.idea
+.env
 
 # misc
 .DS_Store
@@ -22,3 +22,5 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+!/.env.local
+/.env.local

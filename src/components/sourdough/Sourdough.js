@@ -36,6 +36,7 @@ function Sourdough({ lang }) {
 
     return (
         <div className="page-container">
+            <h2 className="section-title">{translations[lang].sectionTitles?.sourdough || translations[lang].createSourdough}</h2>
             <div className="head-img-sourdough">
                 <img src={getHeaderImage()} alt="Header Slide" />
             </div>
@@ -103,7 +104,7 @@ function Sourdough({ lang }) {
                     <div className="slider-page-number">{activeSlide+1}</div>
                 )}
 
-                <div className="button-group">
+                <div className="button-group centered-buttons">
                     <button type="button" onClick={() => navigate('/')} className="home-btn pages-button">
                         <FaWindowClose style={{ marginRight: '8px',verticalAlign: 'middle' }} />
                         {translations[lang].goBack}

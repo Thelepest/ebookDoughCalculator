@@ -23,7 +23,7 @@
 
 .page-container {
   background: white;
-  padding: 30px;
+  padding: 0;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -58,9 +58,6 @@ button {
 
 }
 
-button:hover {
-  background: linear-gradient(135deg, #ff5a4d 0%, #f63900 100%);}
-
 button:disabled {
   background: #ccc;
   cursor: not-allowed;
@@ -73,6 +70,11 @@ button:disabled {
   width: 100%;
   margin-top: 20px;
   gap: 10px;
+}
+
+/* center single back buttons when requested */
+.centered-buttons {
+  justify-content: center !important;
 }
 
 html, body {
@@ -120,10 +122,14 @@ button:disabled {
   background: linear-gradient(135deg, #4db6ac 0%, #00897b 100%);
 }
 
+.calculate-btn:not(:disabled) {
+  background: linear-gradient(135deg, #ff5a4d 0%, #f63900 100%);
+}
+
 .button-group button {
   width: auto;
   text-transform: uppercase;
-  padding: 10px 30px;
+  padding: 10px;
   font-weight: 400;
 }
 
@@ -133,6 +139,13 @@ button:disabled {
   color: #333;
   margin-top: 0;
   text-transform: uppercase;
+}
+
+/* Section title used inside each page (centered) */
+.section-title {
+  text-align: center;
+  width: 100%;
+  margin: 0 0 18px 0;
 }
 
 .container header {

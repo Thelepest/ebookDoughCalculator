@@ -42,6 +42,12 @@ header h3 {
     font-size: x-large;
 }
 
+.label-with-icon {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 5px;
+}
+
 .input-group input,
 .input-group select {
     width: 100%;
@@ -59,19 +65,22 @@ header h3 {
 }
 
 .question-mark {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background-color: #f94433;
     color: white;
     border-radius: 50%;
-    width: 30px;
+    width: 15px;
+    height: 15px;
+    font-size: 10px;
     text-align: center;
-    align-content: center;
     font-weight: bold;
     font-family: 'Amatic SC Regular', cursive;
     cursor: pointer;
-    position: absolute;
-    top: 47px;
-    right: -39px;
+    flex-shrink: 0;
+    vertical-align: super;
+    margin-left: 3px;
 }
 
 .custom-tooltip {

@@ -1,51 +1,31 @@
-import React, { useState, useEffect } from "react";
-import { getUserLanguage } from "./utils/utils";
+import React, {useEffect, useState} from "react";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {getUserLanguage} from "./utils/utils";
 import translations from "./utils/translations";
-import Calculator from "./components/calculator/Calculator";
+
+import MainContent from "./components/maincontent/MainContent";
+
 import "./App.css";
-import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
-import Sourdough from "./components/sourdough/Sourdough";
-import saccaroico from "./assets/saccaro_ok.ico"
 
 function App() {
     const [lang, setLang] = useState("PL");
 
+    // Init lingua
     useEffect(() => {
-        async function fetchLanguage() {
+        (async () => {
             const countryCode = await getUserLanguage();
-            setLang(translations[countryCode] ? countryCode : "EN");
-        }
-        fetchLanguage();
+            const stored = localStorage.getItem("appLang");
+            const code = stored || (translations[countryCode] ? countryCode : "EN");
+            setLang(code);
+        })();
     }, []);
 
     return (
         <BrowserRouter>
-            <div className="container">
-                <header>
-                    <div className="title-with-icon">
-                        <img src={saccaroico} alt="logo" className="header-icon" />
-                        <h2>{translations[lang].title}</h2>
-                    </div>
-                    <h3>{translations[lang].subTitle}</h3>
-                </header>
-                <nav className="homepage-button">
-                    <Link to="/sourdough">
-                        <button>{translations[lang].createSourdough}</button>
-                    </Link>
-                    <Link to="/calculator">
-                        <button>{translations[lang].calculatorButton}</button>
-                    </Link>
-                    <Link to="/settings">
-                        <button>{translations[lang].sets}</button>
-                    </Link>
-                </nav>
-                <main>
-                    <Routes>
-                        <Route path="/calculator" element={<Calculator lang={lang} />} />
-                        <Route path="/sourdough" element={<Sourdough lang={lang} />} />
-                    </Routes>
-                </main>
-            </div>
+            <Routes>
+                {/* Rendi MainContent la schermata iniziale (nessuna login richiesta) */}
+                <Route path="/*" element={<MainContent lang={lang} setLang={setLang} />} />
+            </Routes>
         </BrowserRouter>
     );
 }
