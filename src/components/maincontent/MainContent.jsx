@@ -5,6 +5,7 @@ import Sourdough from "../sourdough/Sourdough";
 import Settings from "../settings/Settings";
 import translations from "../../utils/translations";
 import saccaroico from "../../assets/saccaro_ok.ico";
+import allproducts from "../../assets/allproducts.jpg";
 import "../../App.css";
 
 const Home = ({ lang }) => (
@@ -28,6 +29,9 @@ const Home = ({ lang }) => (
                 <button>{translations[lang].sets}</button>
             </Link>
         </nav>
+        <div className="head-img-calculator">
+            <img src={allproducts} alt="All products" />
+        </div>
     </div>
 );
 
