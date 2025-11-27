@@ -1,7 +1,10 @@
 .head-img-sourdough img {
-    max-height:250px;
-    margin: 0 auto 10px auto;
+    width: 100%;
+    max-width: 720px;
+    height: auto;
+    margin: 0 auto 12px auto;
     display: block;
+    object-fit: contain;
 }
 
 .slider-page-title {
@@ -13,8 +16,10 @@
 }
 
 .slider-page-bottom-image {
-    width: 200%;
-    object-fit: cover;
+    width: 180%;
+    max-width: 1000px;
+    height: auto;
+    object-fit: contain;
 }
 
 .slider-page-number {

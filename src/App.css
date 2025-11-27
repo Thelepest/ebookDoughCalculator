@@ -4,216 +4,149 @@
   text-align: center;
 }
 
-.homepage-button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  margin: 20px 0;
+:root{
+  --max-content-width: 980px;
+  --page-padding: 16px;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-width: 50vw;
-  font-weight: 400;
-}
-
-.page-container {
-  background: white;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
+.container{
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  width: 100%;
+  padding: var(--page-padding);
   box-sizing: border-box;
-  width: 100%;
-  min-width: 40vw;
-  position: relative;
-  overflow-x: hidden;
-  height: auto;
-  min-height: auto;
-  margin: 20px auto;
-  border-radius: 4px;
 }
 
-.pages-button {
-  color: white;
-  font-weight: 600;
-  text-transform: uppercase;
-  transition: background 0.3s ease;
-  border-radius: 50px;
-  font-size: 15px;
-  height: 60px;
-  cursor: pointer;
+.homepage-button{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  margin-top:16px;
 }
 
-button {
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-size: 1.4rem;
-  font-weight: 700;
-  font-family: "Space Grotesk", sans-serif;
-
+.page-container{
+  background:#fff;
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  box-sizing:border-box;
+  width:100%;
+  max-width:var(--max-content-width);
+  margin:16px auto;
+  border-radius:6px;
 }
 
-button:disabled {
-  background: #ccc;
-  cursor: not-allowed;
+.pages-button{
+  color:#fff;
+  font-weight:600;
+  text-transform:uppercase;
+  transition:background .25s ease;
+  border-radius:40px;
+  font-size:clamp(13px, 3vw, 15px);
+  height:auto;
+  padding:10px 14px;
 }
 
-.button-group {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 20px;
-  gap: 10px;
+button{
+  color:#fff;
+  border:none;
+  cursor:pointer;
+  font-size:clamp(14px, 3.6vw, 18px);
+  font-weight:700;
+  font-family:"Space Grotesk",sans-serif;
+}
+
+button:disabled{background:#ccc;cursor:not-allowed}
+
+.button-group{
+  display:flex;
+  flex-direction:row;
+  gap:10px;
+  justify-content:space-between;
+  width:100%;
+  margin-top:12px;
 }
 
 /* center single back buttons when requested */
-.centered-buttons {
-  justify-content: center !important;
+.centered-buttons{justify-content:center!important}
+
+html,body{font-family:"Space Grotesk",sans-serif;min-height:100vh;margin:0;padding:0;background:#f8efe0}
+
+.error{color:red;display:none;margin-top:5px}
+
+button:hover{filter:brightness(.96)}
+
+.reset-btn{background:linear-gradient(135deg,#ffab91 0%,#ff6f61 100%)}
+.reset-btn:hover{filter:brightness(.95)}
+
+.home-btn{background:linear-gradient(135deg,#b2dfdb 0%,#4db6ac 100%)}
+.home-btn:hover{filter:brightness(.95)}
+
+.calculate-btn:not(:disabled){background:linear-gradient(135deg,#ff5a4d 0%,#f63900 100%)}
+
+.button-group button{width:auto;text-transform:uppercase;padding:10px;font-weight:400}
+
+.page-container h2{font-weight:700;font-size:clamp(1.4rem,4vw,2.2rem);color:#333;margin:0 0 8px 0;text-transform:uppercase}
+
+.section-title{text-align:center;width:100%;margin:0 0 12px 0}
+
+.container header{display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:12px;width:100%}
+
+.homepage-button button{width:clamp(180px,60%,260px);padding:12px 14px;font-size:clamp(14px,3.2vw,18px);font-weight:700;background:#75a0f6;border-radius:8px;text-transform:uppercase}
+
+.homepage-button button:hover{filter:brightness(.95)}
+
+.content{width:100%;max-height:none;font-size:1rem;font-weight:500;color:#013baf;text-transform:uppercase}
+
+@media (max-width: 1024px){
+  :root{--max-content-width:820px}
 }
 
-html, body {
-  font-family: "Space Grotesk", sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 0;
-  margin: 0;
-  background-color: rgb(248, 239, 223);
+@media (max-width: 768px){
+  :root{--max-content-width:720px}
+  .container{padding:12px}
+  .page-container{padding:12px;margin:10px}
+  .homepage-button{gap:10px}
+  .button-group{flex-direction:column;align-items:center}
+  .button-group button{width:100%;margin-bottom:8px}
+  .homepage-button button{width:100%}
 }
 
-
-.error {
-  color: red;
-  display: none;
-  margin-top: 5px;
+@media (max-width:420px){
+  :root{--max-content-width:420px}
+  .page-container{padding:10px;margin:8px}
+  .page-container h2{font-size:clamp(1.2rem,5vw,1.6rem)}
+  .homepage-button button{font-size:14px;padding:10px}
 }
 
+/* Ensure home banner images follow same sizing as calculator header */
+.head-img-calculator img{
+  width:70%;
+  height:auto;
+  display:block;
+  margin:20px auto 0 auto;
+  object-fit:contain}
 
-button:hover {
-  background: linear-gradient(135deg, #ff5a4d 0%, #f63900 100%);}
-
-button:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-}
-
-.reset-btn {
-  background: linear-gradient(135deg, #ffab91 0%, #ff6f61 100%);
-}
-
-.reset-btn:hover {
-  background: linear-gradient(135deg, #ff6f61 0%, #ff5a4d 100%);
-}
-
-.home-btn {
-  background: linear-gradient(135deg, #b2dfdb 0%, #4db6ac 100%);
-}
-
-.home-btn:hover {
-  background: linear-gradient(135deg, #4db6ac 0%, #00897b 100%);
-}
-
-.calculate-btn:not(:disabled) {
-  background: linear-gradient(135deg, #ff5a4d 0%, #f63900 100%);
-}
-
-.button-group button {
-  width: auto;
-  text-transform: uppercase;
-  padding: 10px;
-  font-weight: 400;
-}
-
-.page-container h2 {
-  font-weight: 700;
-  font-size: 2.5rem;
-  color: #333;
-  margin-top: 0;
-  text-transform: uppercase;
-}
-
-/* Section title used inside each page (centered) */
-.section-title {
-  text-align: center;
-  width: 100%;
-  margin: 0 0 18px 0;
-}
-
-.container header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  width: 100%;
-}
-
-.homepage-button button {
-  width: 250px;
-  padding: 12px;
-  font-size: 1.2rem;
-  font-weight: 700;
-  background: #75a0f6;
-  border-radius: 8px;
-  text-transform: uppercase;
-  transition: background 0.3s ease-in-out;
-}
-
-.homepage-button button:hover {
-  background: linear-gradient(135deg, #ff5a4d 0%, #f63900 100%);
-}
-
-.content {
-  width: 100%;
-  max-height: none;
-  font-size: 1rem;
-  font-weight: 500;
-  color:  #013baf;
-  text-transform: uppercase;
-}
-
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    max-height: none;
-    min-width: 90vw;
+  .smaller img{
+  width:40% !important;
   }
 
-  .content {
-    margin-top: 15px;
-  }
-
-  .button-group {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .button-group button {
-    width: 100%;
-    margin-bottom: 10px;
-  }
+@media (prefers-reduced-motion: no-preference){
+  .App-logo{animation:App-logo-spin infinite 20s linear}
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+@keyframes App-logo-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Global help button style so it's consistent across pages */
+.help-btn{
+    background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 2px 6px rgba(13,71,161,0.18);
+    color: #fff;
+}
+.help-btn:hover{filter:brightness(.92)}
+
+@media (max-width: 768px){
+  .help-btn{width:100%}
 }

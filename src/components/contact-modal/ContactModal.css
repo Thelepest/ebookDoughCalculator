@@ -1,0 +1,164 @@
+/* ContactModal.css */
+
+.modal-overlay-contact {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+    background: rgba(126, 175, 253, 0.7);
+}
+
+.modal-content-contact {
+    background: #fff;
+    padding: clamp(16px, 3.5vw, 40px);
+    border-radius: 15px;
+    border: 2px solid #75a0f6;
+    max-width: 90vw;
+    width: min(92vw, 520px);
+    max-height: 80vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: auto;
+}
+
+.modal-back-btn {
+    align-self: flex-start;
+    background: linear-gradient(135deg, #b2dfdb 0%, #4db6ac 100%);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 40px;
+    font-size: clamp(12px, 2.5vw, 14px);
+    font-weight: 600;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    font-family: "Space Grotesk", sans-serif;
+    text-transform: uppercase;
+    transition: filter 0.2s ease;
+}
+
+.modal-back-btn:hover {
+    filter: brightness(0.95);
+}
+
+.modal-content-contact h2 {
+    font-weight: 700;
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+    color: #333;
+    text-align: center;
+    margin: 0 0 16px 0;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.contacts-icons-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 16px 0;
+}
+
+.contact-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, #75a0f6 0%, #5a87c4 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: clamp(14px, 2.8vw, 16px);
+    font-weight: 600;
+    font-family: "Space Grotesk", sans-serif;
+    text-transform: uppercase;
+    transition: filter 0.2s ease;
+}
+
+.contact-icon-btn:hover {
+    filter: brightness(0.95);
+}
+
+.contact-icon-btn span {
+    flex: 1;
+    text-align: left;
+}
+
+.icon-instagram {
+    color: #E4405F;
+}
+
+.icon-whatsapp {
+    color: #25D366;
+}
+
+.icon-email {
+    color: #333;
+}
+
+.contact-message {
+    font-size: clamp(14px, 2.6vw, 15px);
+    color: #555;
+    text-align: center;
+    margin: 16px 0 0 0;
+    font-family: "Space Grotesk", sans-serif;
+    line-height: 1.4;
+}
+
+/* Editable message textarea */
+.contact-textarea {
+    width: 100%;
+    min-height: 96px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #d1d7df;
+    resize: vertical;
+    font-size: clamp(14px, 2.6vw, 15px);
+    font-family: "Space Grotesk", sans-serif;
+    color: #222;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+.contact-textarea:focus{
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(117,160,246,0.12);
+    border-color: #75a0f6;
+}
+
+@media (max-width: 420px) {
+    .modal-content-contact {
+        padding: 12px;
+        width: 95vw;
+    }
+
+    .modal-back-btn {
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+
+    .contact-icon-btn {
+        font-size: 14px;
+        padding: 10px 12px;
+        gap: 10px;
+    }
+
+    .contact-icon-btn svg {
+        width: 30px !important;
+        height: 30px !important;
+    }
+
+    .contact-message {
+        font-size: 13px;
+        margin-top: 12px;
+    }
+}

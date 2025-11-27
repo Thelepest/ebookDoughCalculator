@@ -8,16 +8,18 @@ import sour2 from '../../assets/sourdoughslider_2.jpg'
 import sour3 from '../../assets/sourdoughslider_3.jpg'
 import sour4 from '../../assets/sourdoughslider_4.jpg'
 import { useNavigate } from 'react-router-dom';
-import {FaWindowClose} from "react-icons/fa";
+import {FaWindowClose, FaQuestionCircle} from "react-icons/fa";
 import Slider from "../slider/Slider";
 import SliderPage from "../slider/slider-page/SourdoughSliderPage";
 import bottomline from "../../assets/separatore.jpg";
+import ContactModal from "../contact-modal/ContactModal";
 
 
 function Sourdough({ lang }) {
 
     const navigate = useNavigate();
     const [activeSlide, setActiveSlide] = useState(0);
+    const [contactModalOpen, setContactModalOpen] = useState(false);
 
     const getHeaderImage = () => {
         if (activeSlide <= 2) return sour0;
@@ -105,11 +107,21 @@ function Sourdough({ lang }) {
                 )}
 
                 <div className="button-group centered-buttons">
+                    <button type="button" onClick={() => setContactModalOpen(true)} className="help-btn pages-button">
+                        <FaQuestionCircle style={{ marginRight: '8px',verticalAlign: 'middle' }} />
+                        {translations[lang].help}
+                    </button>
                     <button type="button" onClick={() => navigate('/')} className="home-btn pages-button">
                         <FaWindowClose style={{ marginRight: '8px',verticalAlign: 'middle' }} />
                         {translations[lang].goBack}
                     </button>
                 </div>
+                <ContactModal
+                    isOpen={contactModalOpen}
+                    onClose={() => setContactModalOpen(false)}
+                    message={lang === 'IT' ? 'Ho bisogno di aiuto con il lievito madre' : translations[lang].contactMessageCalculator}
+                    lang={lang}
+                />
             </div>
         </div>
     );

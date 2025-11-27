@@ -16,6 +16,42 @@ const Settings = ({ lang, setLang }) => {
 
     // logout removed as per request (only back button kept)
 
+    const handleInstagram = () => {
+        const username = 'marcobiasone_masterchef_x';
+        const appLink = `instagram://user?username=${username}`;
+        const webLink = `https://www.instagram.com/${username}/`;
+
+        window.location.href = appLink;
+        setTimeout(() => {
+            window.open(webLink, '_blank');
+        }, 700);
+    };
+
+    const handleWhatsapp = () => {
+        const phone = '3487899305';
+        const encodedMsg = encodeURIComponent(translations[lang].contactMessageCalculator || '');
+        const appLink = `whatsapp://send?phone=${phone}&text=${encodedMsg}`;
+        const webLink = `https://wa.me/${phone}?text=${encodedMsg}`;
+
+        window.location.href = appLink;
+        setTimeout(() => {
+            window.open(webLink, '_blank');
+        }, 700);
+    };
+
+    const handleEmail = () => {
+        const to = 'marco.biasone.90@gmail.com';
+        const subject = encodeURIComponent('PH4.1 App - ' + translations[lang].contactTitle);
+        const body = encodeURIComponent(translations[lang].contactMessageCalculator || '');
+        const mailtoLink = `mailto:${to}?subject=${subject}&body=${body}`;
+        const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subject}&body=${body}`;
+
+        window.location.href = mailtoLink;
+        setTimeout(() => {
+            window.open(gmailLink, '_blank');
+        }, 700);
+    };
+
     return (
         <div className="page-container">
             <h2 className="section-title">{translations[lang].sectionTitles?.settings || translations[lang].sets}</h2>
@@ -30,31 +66,30 @@ const Settings = ({ lang, setLang }) => {
             <div className="info-section">
                 <h3>📞 Contacts</h3>
                 <div className="contacts-icons">
-                    <a
-                        href="https://www.instagram.com/marcobiasone_masterchef_x/"
-                        target="_blank"
-                        rel="noreferrer"
+                    <button
+                        type="button"
+                        onClick={handleInstagram}
                         className="contact-icon"
                         aria-label="Instagram"
                     >
                         <FaInstagram size={34} />
-                    </a>
-                    <a
-                        href="https://wa.me/3487899305"
-                        target="_blank"
-                        rel="noreferrer"
+                    </button>
+                    <button
+                        type="button"
+                        onClick={handleWhatsapp}
                         className="contact-icon"
                         aria-label="WhatsApp"
                     >
                         <FaWhatsapp size={34} />
-                    </a>
-                    <a
-                        href="mailto:marco.biasone.90@gmail.com"
+                    </button>
+                    <button
+                        type="button"
+                        onClick={handleEmail}
                         className="contact-icon"
                         aria-label="Email"
                     >
                         <FaEnvelope size={34} />
-                    </a>
+                    </button>
                 </div>
             </div>
 

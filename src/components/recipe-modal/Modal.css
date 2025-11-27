@@ -14,6 +14,21 @@
     background: rgba(126, 175, 253, 0.7);
 }
 
+.modal-content {
+    background: #fff;
+    padding: clamp(12px, 3.5vw, 40px);
+    border-radius: 15px;
+    border: 2px solid #ff6f61;
+    max-width: 90vw;
+    width: min(92vw,640px);
+    max-height: 80vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+}
+
 
 .modal-image-fat {
     position: absolute;
@@ -31,52 +46,60 @@
     max-width: 40%;
 }
 
-.modal-content {
-    background: #fff;
-    padding: 50px;
-    border-radius: 15px;
-    border: 2px solid #ff6f61;
-    max-width: 90vw;
-    width: 640px;
-    max-height: 70vh;
-    position: relative;
+/* Buttons styling */
+.modal-buttons-group {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    gap: 12px;
+    margin-top: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.modal-buttons-group.fatboy {
+    justify-content: center;
+}
+
+.modal-button {
+    flex: 1;
+    min-width: 120px;
+    padding: 10px 14px;
+    font-size: clamp(12px, 2.5vw, 14px);
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: filter 0.2s ease;
+    font-family: "Space Grotesk", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close-btn {
+    background: linear-gradient(135deg, #b2dfdb 0%, #4db6ac 100%);
+    color: white;
+}
+
+.modal-close-btn:hover {
+    filter: brightness(0.95);
+}
+
+.modal-teach-btn {
+    background: linear-gradient(135deg, #75a0f6 0%, #5a87c4 100%);
+    color: white;
+}
+
+.modal-teach-btn:hover {
+    filter: brightness(0.95);
 }
 
 .modal-close {
-    position: absolute;
-    right: 40px;
-    top: 40px;
-    background: #ff6f61;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    min-width: 10%;
-    min-height: 10%;
-    font-size: 20px;
-    font-weight: 700;
-    z-index: 101;
-    padding: 10px 15px;
-    pointer-events: auto;
+    display: none;
 }
 
 .modal-close-fat {
-    position: absolute;
-    right: 40px;
-    top: 40px;
-    background: #ff6f61;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    min-width: 5%;
-    font-size: 25px;
-    z-index: 101;
-    padding: 10px 15px;
-    pointer-events: auto;
+    display: none;
 }
 
 
@@ -86,19 +109,18 @@
 
 .modal-content h2 {
     font-weight: 700;
-    font-size: 2.7rem;
+    font-size: clamp(1.2rem, 4vw, 2.4rem);
     color: #333;
     padding-bottom: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     text-align: center;
-    padding-right: 50px;
     position: relative;
     z-index: 100;
     pointer-events: none;
 }
 
 .modal-content p {
-    font-size: 2rem;
+    font-size: clamp(1rem, 3vw, 1.4rem);
     color: #444;
     text-align: justify;
 }
@@ -109,10 +131,11 @@
 
 .modal-image {
     position: absolute;
-    bottom: 37px;
+    bottom: 24px;
     right: 0;
-    width: 54%;
-    height: 70%;
+    width: 50%;
+    height: auto;
+    max-height: 70%;
     object-fit: contain;
     border-radius: 10px;
 }
@@ -175,7 +198,6 @@
         padding-bottom: 10px;
         margin-bottom: 15px;
         text-align: center;
-        padding-right: 50px;
         position: relative;
         z-index: 100;
     }
@@ -202,10 +224,10 @@
         text-align: justify;
     }
     .modal-content {
-        padding : 20px;}
+        padding : 16px;}
     .modal-image {
         position: absolute;
-        bottom: 30px;
+        bottom: 60px;
         right: 0;
         width: 60%;
         height: 65%;
@@ -217,12 +239,11 @@
 @media(max-width: 420px){
     .modal-content h2 {
         font-weight: 700;
-        font-size: 1.7rem;
+        font-size: 1.6rem;
         color: #333;
-        padding-bottom: 10px;
-        margin-bottom: 15px;
+        padding-bottom: 8px;
+        margin-bottom: 12px;
         text-align: center;
-        padding-right: 50px;
         position: relative;
         z-index: 100;
     }
@@ -248,11 +269,10 @@
         color: #444;
         text-align: justify;
     }
-    .modal-content {
-        padding : 20px;}
+    .modal-content { padding : 12px; }
     .modal-image {
         position: absolute;
-        bottom: 30px;
+        bottom: 60px;
         right: 0;
         width: 50%;
         height: 50%;

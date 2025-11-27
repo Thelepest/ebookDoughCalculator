@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import './Calculator.css';
 import '../../App.css';
 import RecipeModal from '../recipe-modal/RecipeModal';
+import ContactModal from '../contact-modal/ContactModal';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import Spinner from "../spinner/Spinner";
 import translations from "../../utils/translations";
 import michelangelo from '../../assets/pic1.jpg';
 import { useNavigate } from 'react-router-dom';
-import {FaCalculator, FaWindowClose, FaRedo} from "react-icons/fa";
+import {FaCalculator, FaWindowClose, FaRedo, FaQuestionCircle} from "react-icons/fa";
 
 
 function Calculator({ lang }) {
@@ -25,6 +26,7 @@ function Calculator({ lang }) {
     const [recipe, setRecipe] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [contactModalOpen, setContactModalOpen] = useState(false);
 
 
     const handleProductChange = (e) => {
@@ -155,12 +157,12 @@ function Calculator({ lang }) {
     return (
         <div className="page-container">
             <h2 className="section-title">{translations[lang].sectionTitles?.calculator || translations[lang].calculatorButton}</h2>
-            <div className="head-img-calculator">
+            <div className="head-img-calculator smaller">
                 <img src={michelangelo} alt="MichalBakteria" />
             </div>
 
             <div className="content">
-                <form style={{ width: '90%' }}
+                <form
                     onSubmit={(e) => {
                         e.preventDefault();
                         calculateRecipe();
@@ -358,6 +360,10 @@ function Calculator({ lang }) {
                             <FaRedo style={{ marginRight: '5px',verticalAlign: 'middle' }} />
                             {translations[lang].reset}
                         </button>
+                        <button type="button" onClick={() => setContactModalOpen(true)} className="help-btn pages-button">
+                            <FaQuestionCircle style={{ marginRight: '5px',verticalAlign: 'middle' }} />
+                            {translations[lang].help}
+                        </button>
                         <button type="button" onClick={() => navigate('/')} className="home-btn pages-button">
                             <FaWindowClose style={{ marginRight: '8px',verticalAlign: 'middle' }} />
                             {translations[lang].goBack}
@@ -368,6 +374,12 @@ function Calculator({ lang }) {
                 {isLoading && <Spinner />}
 
                 <RecipeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} recipe={recipe} lang={lang}/>
+                <ContactModal
+                    isOpen={contactModalOpen}
+                    onClose={() => setContactModalOpen(false)}
+                    message={translations[lang].contactMessageCalculator}
+                    lang={lang}
+                />
             </div>
         </div>
     );

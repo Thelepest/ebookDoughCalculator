@@ -53,10 +53,15 @@
 }
 
 .slide h3 {
-    font-size: 1.8rem;
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
     text-align: center;
     color: #013baf;
     text-transform: uppercase;
     margin: 0;
     padding: 1rem;
+}
+
+@media (max-width: 420px){
+    .arrow{font-size:1.1rem;padding:6px}
+    .slide h3{padding:0.6rem}
 }

@@ -9,22 +9,23 @@ html, body {
 
 .page-container {
     background: white;
-    padding: 0 30px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     width: 100%;
-    max-width: 500px;
-    margin: 40px auto;
-    border-radius: 4px;
+    max-width: 720px;
+    margin: 20px auto;
+    border-radius: 6px;
 }
 
 .page-container h2 {
     font-family: "Limelight", cursive;
-    font-size: 2rem;
+    font-size: clamp(1.4rem, 4vw, 2rem);
     color: #333;
     margin-top: 0;
     text-transform: uppercase;
+    text-align: center;
 }
 
 .page-container label {
@@ -71,8 +72,9 @@ html, body {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 20px;
-    margin-top: 15px;
+    gap: 16px;
+    margin-top: 12px;
+    flex-wrap: wrap;
 }
 
 .contact-icon {
