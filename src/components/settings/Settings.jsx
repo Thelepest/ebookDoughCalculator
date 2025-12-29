@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from '../../contexts/AuthContext';
 import translations from "../../utils/translations";
 import { FaInstagram, FaWhatsapp, FaEnvelope, FaWindowClose } from "react-icons/fa";
 import "./Settings.css";
@@ -14,7 +15,16 @@ const Settings = ({ lang, setLang }) => {
         localStorage.setItem("appLang", newLang);
     };
 
-    // logout removed as per request (only back button kept)
+    const { logout } = useAuth();
+
+    const handleLogout = async () => {
+        try {
+            await logout();
+            navigate('/login');
+        } catch (err) {
+            console.error('Logout failed', err);
+        }
+    };
 
     const handleInstagram = () => {
         const username = 'marcobiasone_masterchef_x';
@@ -101,6 +111,9 @@ const Settings = ({ lang, setLang }) => {
                 <button type="button" onClick={() => navigate('/')} className="home-btn pages-button">
                     <FaWindowClose style={{ marginRight: '8px',verticalAlign: 'middle' }} />
                     {translations[lang].goBack}
+                </button>
+                <button type="button" onClick={handleLogout} className="pages-button">
+                    Logout
                 </button>
             </div>
         </div>

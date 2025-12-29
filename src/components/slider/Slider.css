@@ -1,11 +1,13 @@
 .slider-container {
     position: relative;
     width: 100%;
+    max-width: 100%;
     overflow: hidden;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
 }
 
 .slide {

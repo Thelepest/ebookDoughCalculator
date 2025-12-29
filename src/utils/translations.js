@@ -53,7 +53,7 @@ const translations = {
         calculatorButton:"Kalkulator",
         close:"Zamknij",
         teachMe:"Pomóż mi!",
-        help:"Aiuto",
+        help:"Pomoc",
         contactTitle:"Napisz swoje zapytanie i metode kontaktu:",
         contactMessageRecipe:"Cześć Marco! Chciałbym nauczyć się więcej o tej recepturze :",
         contactMessageCalculator:"Cześć Marco! Potrzebuję pomocy z kalkulatorem.",
@@ -103,8 +103,21 @@ const translations = {
         sourdough41:"Używaj zakwasu tylko wtedy, gdy jego objętość podwoi się po karmeniu!",
         sourdough42:
             "Podczas przygotowywania wypieku pamiętaj, aby zostawić niewielką część zakwasu w słoiku,\n" +
-            "którą następnie odświeżysz i przechowasz w lodówce — tam może pozostać przez 7 dni,\n" +
+            "którą następnie odświeżysz i przechowasz w lodówce — tam może pozostać przez 2 dni,\n" +
             "czekając na kolejne pieczenie!",
+        authErrors: {
+            'empty-fields': 'Proszę wprowadzić e-mail i hasło.',
+            'auth/invalid-email': 'Nieprawidłowy adres e-mail. Sprawdź i spróbuj ponownie.',
+            'auth/user-disabled': 'Konto zostało wyłączone. Skontaktuj się z pomocą techniczną.',
+            'auth/invalid-credential': 'Nieprawidłowe poświadczenia. Sprawdź e-mail i hasło.',
+            'auth/email-already-in-use': 'Ten e-mail jest już zarejestrowany. Spróbuj zalogować się lub zresetować hasło.',
+            'auth/weak-password': 'Hasło jest za słabe. Użyj co najmniej 6 znaków.',
+            'auth/user-not-found': 'Nie znaleziono konta z tym adresem e-mail.',
+            'auth/wrong-password': 'Nieprawidłowe hasło. Spróbuj ponownie.',
+            'auth/too-many-requests': 'Zbyt wiele prób. Spróbuj ponownie później.',
+            'auth/invalid-password': 'Nieprawidłowy format hasła.',
+            'auth/network-request-failed': 'Błąd sieci. Sprawdź połączenie.',
+        },
     },
     EN: {
         title: "PH4.1",
@@ -213,8 +226,21 @@ const translations = {
         sourdough41:"Use the sourdough starter only when it has doubled in volume after being fed!",
         sourdough42:
             "When you're preparing a recipe, remember to leave a small portion of starter in the jar,\n" +
-            "which you will then feed and store in the fridge — where it can stay for up to 7 days,\n" +
+            "which you will then feed and store in the fridge — where it can stay for up to 2 days,\n" +
             "waiting for your next baking session!",
+        authErrors: {
+            'auth/invalid-email': 'Invalid email address. Please check and try again.',
+            'auth/user-disabled': 'This account has been disabled. Contact support.',
+            'auth/invalid-credential': 'Invalid credentials provided. Check email and password.',
+            'auth/email-already-in-use': 'This email is already registered. Try logging in or use password reset.',
+            'auth/weak-password': 'Password is too weak. Use at least 6 characters.',
+            'auth/user-not-found': 'No account found with this email.',
+            'auth/wrong-password': 'Incorrect password. Please try again.',
+            'auth/too-many-requests': 'Too many attempts. Please try again later.',
+            'auth/invalid-password': 'Invalid password format.',
+            'auth/network-request-failed': 'Network error. Check your connection.',
+            'empty-fields': 'Please enter email and password.',
+        },
     },
     IT: {
         title: "PH4.1",
@@ -325,7 +351,20 @@ const translations = {
         sourdough42:
             "Quando prepari un prodotto, ricorda di lasciare una" +
             " piccola parte di lievito madre nel barattolo, che andrai a rinfrescare e conservare in frigo, dove " +
-            "potrà stare 7 giorni, in attesa della prossima panificazione!",
+            "potrà stare per 2 giorni, in attesa della prossima panificazione!",
+        authErrors: {
+            'auth/invalid-email': 'Indirizzo e-mail non valido. Controlla e riprova.',
+            'auth/user-disabled': "Account disabilitato. Contatta l'assistenza.",
+            'auth/invalid-credential': 'Credenziali non valide. Controlla email e password.',
+            'auth/email-already-in-use': 'Questa email è già registrata. Prova a effettuare il login o il reset della password.',
+            'auth/weak-password': "La password è troppo debole. Usa almeno 6 caratteri.",
+            'auth/user-not-found': "Nessun account trovato con questa email.",
+            'auth/wrong-password': 'Password errata. Riprova.',
+            'auth/too-many-requests': 'Troppi tentativi. Riprova più tardi.',
+            'auth/invalid-password': 'Formato password non valido.',
+            'auth/network-request-failed': "Errore di rete. Controlla la connessione.",
+            'empty-fields': 'Per favore inserisci email e password.',
+        },
     }
 };
 

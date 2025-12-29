@@ -5,8 +5,35 @@
 }
 
 :root{
+  /* Layout */
   --max-content-width: 980px;
   --page-padding: 16px;
+
+  /* Primary Colors */
+  --color-primary: #75a0f6;
+  --color-primary-700: #1976d2;
+  --color-primary-dark: #0d47a1;
+
+  /* Action & Accent Colors */
+  --color-accent: #ff5a4d;
+  --color-accent-dark: #f63900;
+  --color-accent-light: #ffab91;
+
+  /* Status Colors */
+  --color-success: #4db6ac;
+  --color-success-light: #b2dfdb;
+
+  /* Social Colors */
+  --color-google-light: #4285F4;
+  --color-google-dark: #1a73e8;
+
+  /* Background & Surface */
+  --color-surface: #ffffff;
+  --color-bg: #f8efe0;
+
+  /* Text Colors */
+  --text-primary: #333333;
+  --text-muted: #666f7a;
 }
 
 .container{
@@ -35,6 +62,7 @@
   max-width:var(--max-content-width);
   margin:16px auto;
   border-radius:6px;
+  overflow: hidden;
 }
 
 .pages-button{
@@ -46,6 +74,8 @@
   font-size:clamp(13px, 3vw, 15px);
   height:auto;
   padding:10px 14px;
+  /* Default solid background so buttons are not visually faded */
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-700) 100%);
 }
 
 button{
@@ -71,33 +101,33 @@ button:disabled{background:#ccc;cursor:not-allowed}
 /* center single back buttons when requested */
 .centered-buttons{justify-content:center!important}
 
-html,body{font-family:"Space Grotesk",sans-serif;min-height:100vh;margin:0;padding:0;background:#f8efe0}
+html,body{font-family:"Space Grotesk",sans-serif;min-height:100vh;margin:0;padding:0;background:var(--color-bg)}
 
 .error{color:red;display:none;margin-top:5px}
 
 button:hover{filter:brightness(.96)}
 
-.reset-btn{background:linear-gradient(135deg,#ffab91 0%,#ff6f61 100%)}
+.reset-btn{background:linear-gradient(135deg,var(--color-accent-light) 0%,var(--color-accent-dark) 100%)}
 .reset-btn:hover{filter:brightness(.95)}
 
-.home-btn{background:linear-gradient(135deg,#b2dfdb 0%,#4db6ac 100%)}
+.home-btn{background:linear-gradient(135deg,var(--color-success-light) 0%,var(--color-success) 100%)}
 .home-btn:hover{filter:brightness(.95)}
 
-.calculate-btn:not(:disabled){background:linear-gradient(135deg,#ff5a4d 0%,#f63900 100%)}
+.calculate-btn:not(:disabled){background:linear-gradient(135deg,var(--color-accent) 0%,var(--color-accent-dark) 100%)}
 
 .button-group button{width:auto;text-transform:uppercase;padding:10px;font-weight:400}
 
-.page-container h2{font-weight:700;font-size:clamp(1.4rem,4vw,2.2rem);color:#333;margin:0 0 8px 0;text-transform:uppercase}
+.page-container h2{font-weight:700;font-size:clamp(1.4rem,4vw,2.2rem);color:var(--text-primary);margin:0 0 8px 0;text-transform:uppercase}
 
 .section-title{text-align:center;width:100%;margin:0 0 12px 0}
 
 .container header{display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:12px;width:100%}
 
-.homepage-button button{width:clamp(180px,60%,260px);padding:12px 14px;font-size:clamp(14px,3.2vw,18px);font-weight:700;background:#75a0f6;border-radius:8px;text-transform:uppercase}
+.homepage-button button{min-width:150px;padding:12px 14px;font-size:clamp(14px,3.2vw,18px);font-weight:700;background:var(--color-primary);border-radius:8px;text-transform:uppercase}
 
 .homepage-button button:hover{filter:brightness(.95)}
 
-.content{width:100%;max-height:none;font-size:1rem;font-weight:500;color:#013baf;text-transform:uppercase}
+.content{width:100%;max-height:none;font-size:1rem;font-weight:500;color:var(--color-primary-700);text-transform:uppercase}
 
 @media (max-width: 1024px){
   :root{--max-content-width:820px}
@@ -110,7 +140,6 @@ button:hover{filter:brightness(.96)}
   .homepage-button{gap:10px}
   .button-group{flex-direction:column;align-items:center}
   .button-group button{width:100%;margin-bottom:8px}
-  .homepage-button button{width:100%}
 }
 
 @media (max-width:420px){
@@ -140,7 +169,7 @@ button:hover{filter:brightness(.96)}
 
 /* Global help button style so it's consistent across pages */
 .help-btn{
-    background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+    background: linear-gradient(135deg, var(--color-primary-700) 0%, var(--color-primary-dark) 100%);
     border: 1px solid rgba(0,0,0,0.08);
     box-shadow: 0 2px 6px rgba(13,71,161,0.18);
     color: #fff;
@@ -150,3 +179,38 @@ button:hover{filter:brightness(.96)}
 @media (max-width: 768px){
   .help-btn{width:100%}
 }
+
+/* Login specific tweaks */
+.page-container.login-center {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login-button-row{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:stretch;
+  margin-top:12px;
+}
+
+.login-button-row .pages-button{
+  min-width:120px;
+  padding:10px 14px;
+  width:100%;
+  height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Make primary login button visually dominant */
+.login-button-row .pages-button:first-child{
+  font-size:1rem;
+}
+.login-button-row .pages-button.social{
+}
+
+/* Social specific colors */
+.pages-button.social.google{ background: linear-gradient(135deg,var(--color-google-light) 0%,var(--color-google-dark) 100%); }

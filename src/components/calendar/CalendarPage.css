@@ -1,0 +1,10 @@
+.event-editor input, .event-editor select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  border: 1px solid #dfe6f3;
+}
+.events-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.event-item{background:#fff;padding:12px;border-radius:8px;border:1px solid #eef3ff}
+.event-title{font-weight:700}
