@@ -2,10 +2,19 @@ import React, {useEffect, useState} from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {getUserLanguage} from "./utils/utils";
 import translations from "./utils/translations";
+import { NetworkErrorProvider } from "./contexts/NetworkErrorContext";
 
 import MainContent from "./components/maincontent/MainContent";
 
 import "./App.css";
+
+function AppContent({ lang, setLang }) {
+    return (
+        <Routes>
+            <Route path="/*" element={<MainContent lang={lang} setLang={setLang} />} />
+        </Routes>
+    );
+}
 
 function App() {
     const [lang, setLang] = useState("PL");
@@ -22,10 +31,9 @@ function App() {
 
     return (
         <BrowserRouter>
-            <Routes>
-                {/* Rendi MainContent la schermata iniziale (nessuna login richiesta) */}
-                <Route path="/*" element={<MainContent lang={lang} setLang={setLang} />} />
-            </Routes>
+            <NetworkErrorProvider>
+                <AppContent lang={lang} setLang={setLang} />
+            </NetworkErrorProvider>
         </BrowserRouter>
     );
 }

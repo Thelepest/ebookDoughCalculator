@@ -123,6 +123,46 @@ button:hover{filter:brightness(.96)}
 
 .container header{display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:12px;width:100%}
 
+.title-with-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.title-with-icon h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #75a0f6;
+    text-align: center;
+    margin: 0;
+}
+
+/* Assicura che l'h2 nell'header non venga influenzato da .page-container h2 */
+.container header .title-with-icon h2,
+.page-container .container header .title-with-icon h2 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 3rem !important;
+    font-weight: 700 !important;
+    color: #75a0f6 !important;
+    text-align: center !important;
+    margin: 0 !important;
+    text-transform: none !important;
+}
+
+.header-icon {
+    width: 40px;
+    height: 40px;
+}
+
+header h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #75a0f6;
+    text-align: center;
+    margin: 0;
+}
+
 .homepage-button button{min-width:150px;padding:12px 14px;font-size:clamp(14px,3.2vw,18px);font-weight:700;background:var(--color-primary);border-radius:8px;text-transform:uppercase}
 
 .homepage-button button:hover{filter:brightness(.95)}

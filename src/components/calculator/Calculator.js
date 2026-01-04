@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Calculator.css';
 import '../../App.css';
 import RecipeModal from '../recipe-modal/RecipeModal';
@@ -7,7 +7,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import Spinner from "../spinner/Spinner";
 import translations from "../../utils/translations";
 import michelangelo from '../../assets/pic1.jpg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {FaCalculator, FaWindowClose, FaRedo, FaQuestionCircle} from "react-icons/fa";
 
 
@@ -27,7 +27,28 @@ function Calculator({ lang }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [contactModalOpen, setContactModalOpen] = useState(false);
+    const location = useLocation();
+    const navigate = useNavigate();
 
+    // Check if we came from recipes page
+    useEffect(() => {
+        if (location.state?.targetRecipe) {
+            const targetRecipe = location.state.targetRecipe;
+            // Map recipe IDs to product values
+            const recipeToProduct = {
+                'focaccia': 'focaccia',
+                'pane': 'chleb',
+                'pizza': 'pizza'
+            };
+            if (recipeToProduct[targetRecipe]) {
+                setForm(prevForm => ({
+                    ...prevForm,
+                    product: recipeToProduct[targetRecipe],
+                    hydration: 70,
+                }));
+            }
+        }
+    }, [location.state]);
 
     const handleProductChange = (e) => {
         const selectedProduct = e.target.value;
@@ -37,8 +58,6 @@ function Calculator({ lang }) {
             hydration: 70,
         }));
     };
-
-    const navigate = useNavigate();
 
     const isFormValid = () => {
         const { shape, length, depth, diameter, product, quantity, season, breadWeight } = form;
@@ -109,7 +128,7 @@ function Calculator({ lang }) {
             const levain = (isSummer ? 0.1 : 0.2) * flour;
             const oil = flour*F <= 100 ? 1 : Math.ceil(flour*F/100);
 
-            setRecipe({
+            const calculatedRecipe = {
                 product: product.charAt(0).toUpperCase() + product.slice(1),
                 quantity: numProducts,
                 flour: Math.ceil(flour * F),
@@ -117,9 +136,25 @@ function Calculator({ lang }) {
                 salt: Math.ceil(salt * F),
                 levain: Math.ceil(levain * F),
                 oil:oil
-            });
-            setIsModalOpen(true);
-            setIsLoading(false);
+            };
+
+            // If we came from recipes page and calculated focaccia/pane/pizza, navigate to recipe detail page
+            // Otherwise, show the modal as before (when accessed from main menu)
+            if (location.state?.targetRecipe && (product === 'focaccia' || product === 'chleb' || product === 'pizza')) {
+                setIsLoading(false);
+                // Map product to recipe ID
+                const productToRecipeId = {
+                    'focaccia': 'focaccia',
+                    'chleb': 'pane',
+                    'pizza': 'pizza'
+                };
+                const recipeId = productToRecipeId[product];
+                navigate(`/recipes/${recipeId}`, { state: { recipe: calculatedRecipe } });
+            } else {
+                setRecipe(calculatedRecipe);
+                setIsModalOpen(true);
+                setIsLoading(false);
+            }
         }, 2000);
     };
 
@@ -134,15 +169,27 @@ function Calculator({ lang }) {
     };
 
     const resetForm = () => {
+        // If we came from recipes page, preserve the product selection
+        const preservedProduct = location.state?.targetRecipe 
+            ? (() => {
+                const recipeToProduct = {
+                    'focaccia': 'focaccia',
+                    'pane': 'chleb',
+                    'pizza': 'pizza'
+                };
+                return recipeToProduct[location.state.targetRecipe] || '';
+            })()
+            : '';
+
         setForm({
             shape: '',
             length: '',
             depth: '',
             diameter: '',
-            product: '',
+            product: preservedProduct,
             quantity: '',
             season: '',
-            hydration: 80,
+            hydration: preservedProduct ? 70 : 80,
         });
         setRecipe(null);
         setIsModalOpen(false);
@@ -176,6 +223,7 @@ function Calculator({ lang }) {
                             value={form.product}
                             onChange={handleProductChange}
                             required
+                            disabled={!!location.state?.targetRecipe}
                         >
                             <option value="" disabled>{translations[lang].chooseOption}</option>
                             <option value="focaccia">{translations[lang].focaccia}</option>

@@ -1,13 +1,69 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from '../../contexts/AuthContext';
 import translations from "../../utils/translations";
-import { FaInstagram, FaWhatsapp, FaEnvelope, FaWindowClose } from "react-icons/fa";
+import { FaInstagram, FaWhatsapp, FaEnvelope, FaWindowClose, FaTrash } from "react-icons/fa";
 import "./Settings.css";
 import "../../App.css";
+import "../recipe-modal/Modal.css";
+
+const DeleteAccountModal = ({ isOpen, onClose, onConfirm, lang, loading }) => {
+    if (!isOpen) return null;
+
+    return (
+        <div className="modal-overlay" onClick={onClose}>
+            <div className="modal-content" onClick={e => e.stopPropagation()}>
+                <h2 style={{ color: 'var(--color-accent-dark)', marginBottom: '16px' }}>
+                    {translations[lang]?.deleteAccount?.title || 'Delete Account'}
+                </h2>
+                <div style={{ marginBottom: '20px' }}>
+                    <p style={{ marginBottom: '12px', fontSize: '1rem', lineHeight: '1.5' }}>
+                        {translations[lang]?.deleteAccount?.message || 'Are you sure you want to delete your account?'}
+                    </p>
+                    <p style={{ 
+                        color: 'var(--color-accent-dark)', 
+                        fontWeight: 'bold', 
+                        fontSize: '0.95rem',
+                        marginTop: '12px'
+                    }}>
+                        ⚠️ {translations[lang]?.deleteAccount?.warning || 'Warning: This action cannot be undone!'}
+                    </p>
+                </div>
+                <div className="modal-buttons-group">
+                    <button 
+                        className="modal-button modal-close-btn" 
+                        onClick={onClose}
+                        disabled={loading}
+                    >
+                        <FaWindowClose style={{ marginRight: "8px" }} />
+                        {translations[lang]?.deleteAccount?.cancel || 'Cancel'}
+                    </button>
+                    <button 
+                        className="modal-button" 
+                        onClick={onConfirm}
+                        disabled={loading}
+                        style={{
+                            background: 'linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%)',
+                            color: 'white'
+                        }}
+                    >
+                        <FaTrash style={{ marginRight: "8px" }} />
+                        {loading 
+                            ? (translations[lang]?.deleteAccount?.deleting || 'Deleting...')
+                            : (translations[lang]?.deleteAccount?.confirm || 'Yes, Delete Account')
+                        }
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
 
 const Settings = ({ lang, setLang }) => {
     const navigate = useNavigate();
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [deleteError, setDeleteError] = useState(null);
 
     const handleChangeLang = (e) => {
         const newLang = e.target.value;
@@ -15,7 +71,7 @@ const Settings = ({ lang, setLang }) => {
         localStorage.setItem("appLang", newLang);
     };
 
-    const { logout } = useAuth();
+    const { logout, deleteAccount } = useAuth();
 
     const handleLogout = async () => {
         try {
@@ -23,6 +79,20 @@ const Settings = ({ lang, setLang }) => {
             navigate('/login');
         } catch (err) {
             console.error('Logout failed', err);
+        }
+    };
+
+    const handleDeleteAccount = async () => {
+        setIsDeleting(true);
+        setDeleteError(null);
+        try {
+            await deleteAccount();
+            // Account eliminato con successo, reindirizza al login
+            navigate('/login');
+        } catch (err) {
+            console.error('Delete account failed', err);
+            setDeleteError(translations[lang]?.deleteAccount?.error || 'An error occurred while deleting the account.');
+            setIsDeleting(false);
         }
     };
 
@@ -115,7 +185,43 @@ const Settings = ({ lang, setLang }) => {
                 <button type="button" onClick={handleLogout} className="pages-button">
                     Logout
                 </button>
+                <button 
+                    type="button" 
+                    onClick={() => setShowDeleteModal(true)} 
+                    className="pages-button"
+                    style={{
+                        background: 'linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%)'
+                    }}
+                >
+                    <FaTrash style={{ marginRight: '8px', verticalAlign: 'middle' }} />
+                    {translations[lang]?.deleteAccount?.title || 'Delete Account'}
+                </button>
             </div>
+
+            {deleteError && (
+                <div style={{
+                    marginTop: '16px',
+                    padding: '12px',
+                    backgroundColor: '#ffebee',
+                    borderRadius: '4px',
+                    border: '1px solid #ffcdd2',
+                    color: 'var(--color-accent-dark)',
+                    fontSize: '0.9rem'
+                }}>
+                    {deleteError}
+                </div>
+            )}
+
+            <DeleteAccountModal
+                isOpen={showDeleteModal}
+                onClose={() => {
+                    setShowDeleteModal(false);
+                    setDeleteError(null);
+                }}
+                onConfirm={handleDeleteAccount}
+                lang={lang}
+                loading={isDeleting}
+            />
         </div>
     );
 };
