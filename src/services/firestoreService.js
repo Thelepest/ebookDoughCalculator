@@ -93,3 +93,9 @@ export const markAdminMessageRead = async (messageId) => {
   const ref = doc(db, 'adminMessages', messageId);
   await updateDoc(ref, { read: true });
 };
+
+// Generic user update
+export const updateUser = async (uid, data) => {
+  const ref = doc(db, 'users', uid);
+  await updateDoc(ref, data);
+};

@@ -201,3 +201,5 @@ const RecipeDetailPage = ({ lang }) => {
 
 export default RecipeDetailPage;
 
+
+

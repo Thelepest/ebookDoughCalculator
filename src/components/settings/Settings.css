@@ -116,3 +116,38 @@ html, body {
 }
 
 /* logout button removed from markup; styles removed */
+
+.user-profile {
+    border: 1px solid var(--color-accent-light);
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #f9f9f9;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-pic-default {
+    color: var(--color-primary-dark);
+}
+
+.user-details p {
+    margin: 0;
+}
+
+.subscription-status {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}

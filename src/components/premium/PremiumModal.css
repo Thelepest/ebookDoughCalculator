@@ -18,8 +18,8 @@
     border-radius: 15px;
     border: 3px solid #ffd700;
     max-width: 90vw;
-    width: min(92vw, 600px);
-    max-height: 80vh;
+    width: min(95vw, 800px);
+    max-height: 90vh;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -32,9 +32,19 @@
     align-items: center;
     justify-content: center;
     gap: 12px;
-    margin-bottom: 24px;
-    padding-bottom: 16px;
-    border-bottom: 2px solid #ffd700;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.close-btn-icon {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-muted);
 }
 
 .premium-icon {
@@ -65,43 +75,102 @@
     margin-bottom: 24px;
 }
 
-.premium-features {
-    background: var(--color-bg);
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid var(--color-primary);
+.premium-tiers {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 24px;
 }
 
-.premium-features h3 {
-    font-size: clamp(1.1rem, 3vw, 1.3rem);
-    font-weight: 700;
-    color: var(--color-primary-700);
-    margin-bottom: 12px;
-    text-transform: uppercase;
-}
-
-.premium-features ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.premium-features li {
-    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
-    color: var(--text-muted);
-    padding: 8px 0;
-    padding-left: 28px;
+.tier-card {
+    border: 2px solid var(--color-accent-light);
+    border-radius: 12px;
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    transition: all 0.3s ease;
     position: relative;
 }
 
-.premium-features li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    color: #ffd700;
-    font-weight: bold;
-    font-size: 1.3rem;
+.tier-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
+
+.tier-card.recommended {
+    border-color: var(--color-accent);
+    transform: scale(1.05);
+}
+
+.recommended-badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-accent);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.tier-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    color: var(--color-primary-dark);
+}
+
+.price {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--color-primary-dark);
+    margin-bottom: 8px;
+}
+
+.price span {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: normal;
+}
+
+.features-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    text-align: left;
+    flex-grow: 1;
+}
+
+.features-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    color: var(--text-muted);
+}
+
+.features-list li svg {
+    color: var(--color-accent);
+}
+
+.video-link {
+    display: block;
+    margin: 16px 0;
+    color: var(--color-accent);
+    text-decoration: underline;
+    font-size: 0.9rem;
+}
+
+.renewal-info {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 24px;
+}
+
 
 .premium-modal-buttons {
     display: flex;
@@ -111,35 +180,37 @@
 
 .premium-upgrade-btn {
     width: 100%;
-    background: linear-gradient(135deg, #ffd700 0%, #ffb300 100%);
-    color: #000;
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+    color: #fff;
     font-weight: 700;
     padding: 14px 20px;
     font-size: clamp(1rem, 2.5vw, 1.2rem);
 }
 
-.premium-upgrade-btn:hover {
+.premium-upgrade-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.premium-upgrade-btn:hover:not(:disabled) {
     filter: brightness(1.1);
     box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
 }
 
 .premium-close-btn {
     width: 100%;
-    background: linear-gradient(135deg, var(--color-success-light) 0%, var(--color-success) 100%);
+    background: var(--color-bg-light);
+    color: var(--text-muted);
+    border: 1px solid var(--color-border);
 }
 
 @media (max-width: 768px) {
-    .premium-modal-content {
-        padding: 20px;
-    }
-
-    .premium-modal-header {
+    .premium-tiers {
         flex-direction: column;
-        gap: 8px;
     }
 
-    .premium-icon {
-        font-size: 1.5rem;
+    .tier-card.recommended {
+        transform: scale(1);
     }
 }
 

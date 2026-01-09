@@ -1,0 +1,7 @@
+{
+  "paypal": {
+    "client_id": "AaIfSFzhvENaRdyJ4RHIjc2PBWvrNTiWVtqIcmEhBdkt4h_bRdz2ETq6KBwAuV1cXIKT0sFeEJsF0fL7",
+    "client_secret": "YOUR_PAYPAL_CLIENT_SECRET",
+    "webhook_id": "YOUR_PAYPAL_WEBHOOK_ID"
+  }
+}

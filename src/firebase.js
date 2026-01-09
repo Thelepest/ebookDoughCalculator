@@ -1,7 +1,6 @@
-// Firebase initialization (single consolidated file)
 import { initializeApp } from 'firebase/app';
-import { getAuth, signOut as fbSignOut } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { getAuth, signOut as fbSignOut, connectAuthEmulator } from 'firebase/auth';
+import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 // Use environment variables for keys. Create .env.local with REACT_APP_FIREBASE_* entries.
@@ -25,6 +24,20 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
+
+// Connect to emulators in development
+if (window.location.hostname === 'localhost') {
+  try {
+    console.log('🔌 Connecting to Firebase Emulators');
+    connectAuthEmulator(auth, 'http://localhost:9099');
+    connectFirestoreEmulator(db, 'localhost', 8080);
+    // If you're using the storage emulator, uncomment the following line
+    // connectStorageEmulator(storage, 'localhost', 9199);
+    console.log('✅ Successfully connected to Firebase Emulators');
+  } catch (error) {
+    console.error('⚠️ Error connecting to Firebase Emulators:', error);
+  }
+}
 
 export const logout = () => fbSignOut(auth);
 

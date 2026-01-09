@@ -39,3 +39,5 @@ const NetworkAlert = ({ lang }) => {
 
 export default NetworkAlert;
 
+
+

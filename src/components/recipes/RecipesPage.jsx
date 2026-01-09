@@ -11,7 +11,7 @@ import pic1 from '../../assets/pic1.jpg';
 
 const RecipesPage = ({ lang }) => {
     const navigate = useNavigate();
-    const { isPremium } = useAuth();
+    const { subscriptionTier } = useAuth();
     const [openAccordions, setOpenAccordions] = useState({});
     const [premiumModalOpen, setPremiumModalOpen] = useState(false);
 
@@ -85,7 +85,7 @@ const RecipesPage = ({ lang }) => {
         
         // Check if recipe is premium and user is not premium
         const isPremiumRecipe = recipe.groupKey === 'hard';
-        if (isPremiumRecipe && !isPremium) {
+        if (isPremiumRecipe && subscriptionTier === 'free') {
             setPremiumModalOpen(true);
             return;
         }
@@ -102,7 +102,7 @@ const RecipesPage = ({ lang }) => {
     const RecipeAccordion = ({ recipe, groupKey }) => {
         const isOpen = openAccordions[recipe.id];
         const isPremiumRecipe = groupKey === 'hard';
-        const isLocked = isPremiumRecipe && !isPremium;
+        const isLocked = isPremiumRecipe && subscriptionTier === 'free';
 
         return (
             <div className={`recipe-accordion ${isLocked ? 'recipe-accordion-locked' : ''}`}>

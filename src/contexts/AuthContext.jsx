@@ -20,72 +20,72 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [isPremium, setIsPremium] = useState(false);
-  const [premiumLoading, setPremiumLoading] = useState(true);
+  const [subscriptionTier, setSubscriptionTier] = useState('free');
+  const [subscriptionLoading, setSubscriptionLoading] = useState(true);
 
   useEffect(() => {
-    let unsubscribePremium = null;
+    let unsubscribeSubscription = null;
 
     const unsub = onAuthStateChanged(auth, async (u) => {
       setUser(u);
       setLoading(false);
       
-      // Cleanup previous premium listener
-      if (unsubscribePremium) {
-        unsubscribePremium();
-        unsubscribePremium = null;
+      // Cleanup previous subscription listener
+      if (unsubscribeSubscription) {
+        unsubscribeSubscription();
+        unsubscribeSubscription = null;
       }
 
-      // Reset premium state when user logs out
+      // Reset subscription state when user logs out
       if (!u) {
-        setIsPremium(false);
-        setPremiumLoading(false);
+        setSubscriptionTier('free');
+        setSubscriptionLoading(false);
         return;
       }
 
-      // Check premium status from Firestore
-      setPremiumLoading(true);
+      // Check subscription status from Firestore
+      setSubscriptionLoading(true);
       try {
         const userDocRef = doc(db, 'users', u.uid);
         const userDoc = await getDoc(userDocRef);
         
         if (userDoc.exists()) {
-          setIsPremium(userDoc.data().isPremium || false);
+          setSubscriptionTier(userDoc.data().subscriptionTier || 'free');
         } else {
           // Create user document if it doesn't exist
           await setDoc(userDocRef, {
             email: u.email,
-            isPremium: false,
+            subscriptionTier: 'free',
             createdAt: new Date().toISOString(),
           });
-          setIsPremium(false);
+          setSubscriptionTier('free');
         }
       } catch (error) {
-        console.error('Error checking premium status:', error);
+        console.error('Error checking subscription status:', error);
         if (isNetworkError(error)) {
           const handlePageError = getGlobalNetworkErrorHandler();
           if (handlePageError) {
             handlePageError(error);
           }
         }
-        setIsPremium(false);
+        setSubscriptionTier('free');
       } finally {
-        setPremiumLoading(false);
+        setSubscriptionLoading(false);
       }
 
-      // Listen to real-time updates for premium status
+      // Listen to real-time updates for subscription status
       const userDocRef = doc(db, 'users', u.uid);
-      unsubscribePremium = onSnapshot(
+      unsubscribeSubscription = onSnapshot(
         userDocRef, 
         (snapshot) => {
           if (snapshot.exists()) {
-            setIsPremium(snapshot.data().isPremium || false);
+            setSubscriptionTier(snapshot.data().subscriptionTier || 'free');
           } else {
-            setIsPremium(false);
+            setSubscriptionTier('free');
           }
         },
         (error) => {
-          console.error('Error in premium snapshot:', error);
+          console.error('Error in subscription snapshot:', error);
           if (isNetworkError(error)) {
             const handlePageError = getGlobalNetworkErrorHandler();
             if (handlePageError) {
@@ -98,8 +98,8 @@ export const AuthProvider = ({ children }) => {
 
     return () => {
       unsub();
-      if (unsubscribePremium) {
-        unsubscribePremium();
+      if (unsubscribeSubscription) {
+        unsubscribeSubscription();
       }
     };
   }, []);
@@ -143,8 +143,8 @@ export const AuthProvider = ({ children }) => {
 
   const value = {
     user,
-    loading: loading || premiumLoading,
-    isPremium,
+    loading: loading || subscriptionLoading,
+    subscriptionTier,
     signup,
     login,
     logout,

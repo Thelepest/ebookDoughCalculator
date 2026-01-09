@@ -4,13 +4,24 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './contexts/AuthContext';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+
+// TODO: Replace "YOUR_CLIENT_ID" with your actual PayPal Client ID.
+// You can get this from your PayPal Developer Dashboard.
+const initialOptions = {
+  "client-id": "AaIfSFzhvENaRdyJ4RHIjc2PBWvrNTiWVtqIcmEhBdkt4h_bRdz2ETq6KBwAuV1cXIKT0sFeEJsF0fL7",
+  intent: "subscription",
+  vault:true
+};
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+    <PayPalScriptProvider options={initialOptions}>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </PayPalScriptProvider>
   </React.StrictMode>
 );
 

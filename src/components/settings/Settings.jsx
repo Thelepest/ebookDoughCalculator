@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from '../../contexts/AuthContext';
+import { updateUser } from '../../services/firestoreService';
 import translations from "../../utils/translations";
-import { FaInstagram, FaWhatsapp, FaEnvelope, FaWindowClose, FaTrash } from "react-icons/fa";
+import { FaInstagram, FaWhatsapp, FaEnvelope, FaWindowClose, FaTrash, FaUserCircle, FaCrown } from "react-icons/fa";
+import PremiumModal from '../premium/PremiumModal';
 import "./Settings.css";
 import "../../App.css";
 import "../recipe-modal/Modal.css";
@@ -59,19 +61,65 @@ const DeleteAccountModal = ({ isOpen, onClose, onConfirm, lang, loading }) => {
     );
 };
 
+const CancelSubscriptionModal = ({ isOpen, onClose, onConfirm, lang, loading }) => {
+    if (!isOpen) return null;
+
+    return (
+        <div className="modal-overlay" onClick={onClose}>
+            <div className="modal-content" onClick={e => e.stopPropagation()}>
+                <h2 style={{ color: 'var(--color-accent-dark)', marginBottom: '16px' }}>
+                    {translations[lang]?.cancelSubscription?.title || 'Cancel Subscription'}
+                </h2>
+                <div style={{ marginBottom: '20px' }}>
+                    <p style={{ marginBottom: '12px', fontSize: '1rem', lineHeight: '1.5' }}>
+                        {translations[lang]?.cancelSubscription?.message || 'Are you sure you want to cancel your subscription? You will lose access to premium features.'}
+                    </p>
+                </div>
+                <div className="modal-buttons-group">
+                    <button 
+                        className="modal-button modal-close-btn" 
+                        onClick={onClose}
+                        disabled={loading}
+                    >
+                        {translations[lang]?.cancelSubscription?.cancel || 'Go Back'}
+                    </button>
+                    <button 
+                        className="modal-button" 
+                        onClick={onConfirm}
+                        disabled={loading}
+                    >
+                        {loading
+                            ? (translations[lang]?.cancelSubscription?.cancelling || 'Cancelling...')
+                            : (translations[lang]?.cancelSubscription?.confirm || 'Yes, Cancel')
+                        }
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const Settings = ({ lang, setLang }) => {
     const navigate = useNavigate();
+    const { user, subscriptionTier, logout, deleteAccount } = useAuth();
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
     const [deleteError, setDeleteError] = useState(null);
+    const [showPremiumModal, setShowPremiumModal] = useState(false);
+    const [showCancelSubscriptionModal, setShowCancelSubscriptionModal] = useState(false);
+    const [isCancelling, setIsCancelling] = useState(false);
+
+    const subscriptionTierName = {
+        free: 'Free User',
+        top_baker: 'Top Baker',
+        premium_baker: 'Premium Baker',
+    };
 
     const handleChangeLang = (e) => {
         const newLang = e.target.value;
         setLang(newLang);
         localStorage.setItem("appLang", newLang);
     };
-
-    const { logout, deleteAccount } = useAuth();
 
     const handleLogout = async () => {
         try {
@@ -87,12 +135,23 @@ const Settings = ({ lang, setLang }) => {
         setDeleteError(null);
         try {
             await deleteAccount();
-            // Account eliminato con successo, reindirizza al login
             navigate('/login');
         } catch (err) {
             console.error('Delete account failed', err);
             setDeleteError(translations[lang]?.deleteAccount?.error || 'An error occurred while deleting the account.');
             setIsDeleting(false);
+        }
+    };
+
+    const handleCancelSubscription = async () => {
+        setIsCancelling(true);
+        try {
+            await updateUser(user.uid, { subscriptionTier: 'free' });
+            setShowCancelSubscriptionModal(false);
+        } catch (error) {
+            console.error('Failed to cancel subscription', error);
+        } finally {
+            setIsCancelling(false);
         }
     };
 
@@ -135,6 +194,33 @@ const Settings = ({ lang, setLang }) => {
     return (
         <div className="page-container">
             <h2 className="section-title">{translations[lang].sectionTitles?.settings || translations[lang].sets}</h2>
+
+            <div className="info-section user-profile">
+                <h3><FaUserCircle style={{ marginRight: '8px' }} />User Profile</h3>
+                <div className="user-info">
+                    {user?.photoURL ? (
+                        <img src={user.photoURL} alt="Profile" className="profile-pic" />
+                    ) : (
+                        <FaUserCircle size={50} className="profile-pic-default" />
+                    )}
+                    <div className="user-details">
+                        <p>{user?.email}</p>
+                        <p className="subscription-status">
+                            <FaCrown style={{ marginRight: '5px', color: 'var(--color-accent)' }} />
+                            {subscriptionTierName[subscriptionTier]}
+                        </p>
+                    </div>
+                </div>
+                {subscriptionTier === 'free' ? (
+                    <button onClick={() => setShowPremiumModal(true)} className="pages-button">
+                        {translations[lang]?.upgradeToPremium || 'Go to Premium'}
+                    </button>
+                ) : (
+                    <button onClick={() => setShowCancelSubscriptionModal(true)} className="pages-button">
+                        {translations[lang]?.cancelSubscription?.title || 'Cancel Subscription'}
+                    </button>
+                )}
+            </div>
 
             <label htmlFor="language">🌐 Select Language:</label>
             <select id="language" value={lang} onChange={handleChangeLang}>
@@ -222,6 +308,22 @@ const Settings = ({ lang, setLang }) => {
                 lang={lang}
                 loading={isDeleting}
             />
+
+            <CancelSubscriptionModal
+                isOpen={showCancelSubscriptionModal}
+                onClose={() => setShowCancelSubscriptionModal(false)}
+                onConfirm={handleCancelSubscription}
+                lang={lang}
+                loading={isCancelling}
+            />
+
+            {showPremiumModal && (
+                <PremiumModal
+                    isOpen={showPremiumModal}
+                    onClose={() => setShowPremiumModal(false)}
+                    lang={lang}
+                />
+            )}
         </div>
     );
 };
