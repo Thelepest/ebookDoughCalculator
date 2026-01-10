@@ -23,8 +23,8 @@ const Register = ({ lang }) => {
   useEffect(() => {
     if (user) {
       // Controlla prima localStorage (cache veloce)
-      const privacyAccepted = localStorage.getItem(`privacy_accepted_${user.uid}`);
-      const privacyVersion = localStorage.getItem(`privacy_version_${user.uid}`);
+      const privacyAccepted = localStorage.getItem(`privacy_accepted_${user.id}`);
+      const privacyVersion = localStorage.getItem(`privacy_version_${user.id}`);
       const currentVersion = '1.0'; // Versione attuale della privacy policy
       
       // Se non accettata o versione diversa, mostra la privacy policy
@@ -60,12 +60,7 @@ const Register = ({ lang }) => {
       // setShowPrivacy verrà impostato dall'useEffect quando user sarà disponibile
     } catch (err) {
       setLoading(false);
-      let code = err?.code || '';
-      if (!code && err?.message) {
-        const m = err.message.match(/\((auth\/[^)]+)\)/);
-        if (m && m[1]) code = m[1];
-      }
-      const mapped = translations[lang]?.authErrors?.[code];
+      const mapped = translations[lang]?.authErrors?.[err.message];
       setError(mapped || err.message || 'Registration failed');
     }
   };
@@ -78,12 +73,7 @@ const Register = ({ lang }) => {
       // Non navigare subito, aspetta che l'utente accetti privacy/terms
     } catch (err) {
       setLoading(false);
-      let code = err?.code || '';
-      if (!code && err?.message) {
-        const m = err.message.match(/\((auth\/[^)]+)\)/);
-        if (m && m[1]) code = m[1];
-      }
-      const mapped = translations[lang]?.authErrors?.[code];
+      const mapped = translations[lang]?.authErrors?.[err.message];
       setError(mapped || err.message || 'Google sign up failed');
     }
   };

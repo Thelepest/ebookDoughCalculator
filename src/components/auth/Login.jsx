@@ -39,12 +39,7 @@ const Login = ({ lang }) => {
       if (handleError(err, true)) {
         return; // Error handled by network error handler
       }
-      let code = err?.code || '';
-      if (!code && err?.message) {
-        const m = err.message.match(/\((auth\/[^)]+)\)/);
-        if (m && m[1]) code = m[1];
-      }
-      const mapped = translations[lang]?.authErrors?.[code];
+      const mapped = translations[lang]?.authErrors?.[err.message];
       setError(mapped || err.message || 'Login failed');
     }
   };
@@ -74,12 +69,7 @@ const Login = ({ lang }) => {
         setLoading(false);
         return; // Error handled by network error handler
       }
-      let code = err?.code || '';
-      if (!code && err?.message) {
-        const m = err.message.match(/\((auth\/[^)]+)\)/);
-        if (m && m[1]) code = m[1];
-      }
-      const mapped = translations[lang]?.authErrors?.[code];
+      const mapped = translations[lang]?.authErrors?.[err.message];
       setError(mapped || err.message || 'Failed to send reset email');
     } finally {
       setLoading(false);
@@ -98,12 +88,7 @@ const Login = ({ lang }) => {
       if (handleError(err, true)) {
         return; // Error handled by network error handler
       }
-      let code = err?.code || '';
-      if (!code && err?.message) {
-        const m = err.message.match(/\((auth\/[^)]+)\)/);
-        if (m && m[1]) code = m[1];
-      }
-      const mapped = translations[lang]?.authErrors?.[code];
+      const mapped = translations[lang]?.authErrors?.[err.message];
       setError(mapped || err.message || 'Google sign in failed');
     }
   };

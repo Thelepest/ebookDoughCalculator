@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { FaInstagram, FaWhatsapp, FaEnvelope, FaWindowClose } from "react-icons/fa";
 import translations from "../../utils/translations";
 import "./ContactModal.css";
+import { useAuth } from "../../contexts/AuthContext.jsx";
 
 const ContactModal = ({ isOpen, onClose, message, lang }) => {
     const [editableMessage, setEditableMessage] = useState(message || "");
+    const { subscriptionTier } = useAuth();
 
     useEffect(() => {
         // Reset editable message when modal opens or message prop changes
@@ -88,14 +90,16 @@ const ContactModal = ({ isOpen, onClose, message, lang }) => {
                         <span>Instagram</span>
                     </button>
 
-                    <button
-                        className="contact-icon-btn"
-                        onClick={handleWhatsapp}
-                        aria-label="WhatsApp"
-                    >
-                        <FaWhatsapp size={40} className="icon-whatsapp" />
-                        <span>WhatsApp</span>
-                    </button>
+                    {(subscriptionTier === 'premium_baker' || subscriptionTier === 'top_baker') && (
+                        <button
+                            className="contact-icon-btn"
+                            onClick={handleWhatsapp}
+                            aria-label="WhatsApp"
+                        >
+                            <FaWhatsapp size={40} className="icon-whatsapp" />
+                            <span>WhatsApp</span>
+                        </button>
+                    )}
 
                     <button
                         className="contact-icon-btn"

@@ -240,14 +240,16 @@ const Settings = ({ lang, setLang }) => {
                     >
                         <FaInstagram size={34} />
                     </button>
-                    <button
-                        type="button"
-                        onClick={handleWhatsapp}
-                        className="contact-icon"
-                        aria-label="WhatsApp"
-                    >
-                        <FaWhatsapp size={34} />
-                    </button>
+                    {(subscriptionTier === 'premium_baker' || subscriptionTier === 'top_baker') && (
+                        <button
+                            type="button"
+                            onClick={handleWhatsapp}
+                            className="contact-icon"
+                            aria-label="WhatsApp"
+                        >
+                            <FaWhatsapp size={34} />
+                        </button>
+                    )}
                     <button
                         type="button"
                         onClick={handleEmail}

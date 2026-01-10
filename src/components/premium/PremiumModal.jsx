@@ -3,7 +3,7 @@ import './PremiumModal.css';
 import '../../App.css';
 import translations from '../../utils/translations';
 import { useAuth } from '../../contexts/AuthContext';
-import { updateUser } from '../../services/firestoreService';
+import { updateUser } from '../../services/supabaseService';
 import { FaWindowClose, FaCrown, FaCheckCircle } from 'react-icons/fa';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 
@@ -31,11 +31,11 @@ const PayPalSubscriptionButton = ({ tier, onSubscriptionComplete }) => {
 
     const onApprove = async (data, actions) => {
         try {
-            await updateUser(user.uid, {
+            await updateUser(user.id, {
                 subscriptionTier: tier,
                 paypalSubscriptionId: data.subscriptionID,
             });
-            console.log(`Subscription ${`data.subscriptionID`} approved! User ${`user.uid`} updated to ${tier}.`);
+            console.log(`Subscription ${data.subscriptionID} approved! User ${user.id} updated to ${tier}.`);
             onSubscriptionComplete();
         } catch (error) {
             console.error("Failed to update user after subscription approval:", error);
@@ -142,4 +142,3 @@ const PremiumModal = ({ isOpen, onClose, lang }) => {
 };
 
 export default PremiumModal;
-
