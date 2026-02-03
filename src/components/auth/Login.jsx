@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNetworkErrorHandler } from '../../utils/networkErrorHandler';
@@ -8,7 +8,7 @@ import '../../App.css';
 import { FaGoogle } from 'react-icons/fa';
 
 const Login = ({ lang }) => {
-  const { login, signInWithGoogle, resetPassword } = useAuth();
+  const { user, login, signInWithGoogle, resetPassword } = useAuth();
   const { handleError } = useNetworkErrorHandler();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,6 +18,12 @@ const Login = ({ lang }) => {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,9 +36,11 @@ const Login = ({ lang }) => {
     }
 
     setLoading(true);
+    let didNavigate = false;
     try {
       await login(email, password);
       navigate('/');
+      didNavigate = true;
     } catch (err) {
       setLoading(false);
       // Handle network errors
@@ -41,6 +49,10 @@ const Login = ({ lang }) => {
       }
       const mapped = translations[lang]?.authErrors?.[err.message];
       setError(mapped || err.message || 'Login failed');
+    } finally {
+      if (!didNavigate) {
+        setLoading(false);
+      }
     }
   };
 
@@ -56,7 +68,7 @@ const Login = ({ lang }) => {
 
     setLoading(true);
     try {
-      await resetPassword(resetEmail, lang);
+      await resetPassword(resetEmail);
       setSuccess(translations[lang]?.forgotPassword?.success || 'Password reset email sent! Check your inbox.');
       setResetEmail('');
       setTimeout(() => {
@@ -81,7 +93,6 @@ const Login = ({ lang }) => {
     setLoading(true);
     try {
       await signInWithGoogle();
-      navigate('/');
     } catch (err) {
       setLoading(false);
       // Handle network errors
@@ -90,10 +101,10 @@ const Login = ({ lang }) => {
       }
       const mapped = translations[lang]?.authErrors?.[err.message];
       setError(mapped || err.message || 'Google sign in failed');
+    } finally {
+      setLoading(false);
     }
   };
-
-
 
   if (showForgotPassword) {
     return (
@@ -209,7 +220,11 @@ const Login = ({ lang }) => {
         <div style={{marginTop: '8px', marginBottom: '8px'}}>
           <button 
             type="button" 
-            onClick={() => setShowForgotPassword(true)}
+            onClick={() => {
+              setShowForgotPassword(true);
+              setError(null);
+              setSuccess(null);
+            }}
             style={{
               background: 'none',
               border: 'none',

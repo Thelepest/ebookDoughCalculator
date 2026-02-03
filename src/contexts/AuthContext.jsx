@@ -1,17 +1,8 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { auth, db } from '../firebase';
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged,
-  sendPasswordResetEmail,
-  GoogleAuthProvider,
-  signInWithPopup,
-  deleteUser,
-} from 'firebase/auth';
-import { doc, getDoc, setDoc, onSnapshot } from 'firebase/firestore';
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
+import { supabase } from '../supabase';
 import { isNetworkError, getGlobalNetworkErrorHandler } from '../contexts/NetworkErrorContext';
+import { getUser } from '../services/supabaseService';
+import { deleteAccountRequest } from '../services/apiService';
 
 const AuthContext = createContext();
 
@@ -22,129 +13,267 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [subscriptionTier, setSubscriptionTier] = useState('free');
   const [subscriptionLoading, setSubscriptionLoading] = useState(true);
+  const [needsPrivacyAcceptance, setNeedsPrivacyAcceptance] = useState(false);
+  const subscriptionChannelRef = useRef(null);
+  const privacyVersion = '1.0';
 
   useEffect(() => {
-    let unsubscribeSubscription = null;
+    const handleOAuthRedirect = async () => {
+      const url = new URL(window.location.href);
+      const code = url.searchParams.get('code');
+      if (!code) return;
 
-    const unsub = onAuthStateChanged(auth, async (u) => {
-      setUser(u);
-      setLoading(false);
-      
-      // Cleanup previous subscription listener
-      if (unsubscribeSubscription) {
-        unsubscribeSubscription();
-        unsubscribeSubscription = null;
+      const { error } = await supabase.auth.exchangeCodeForSession(code);
+      if (error) {
+        console.error('OAuth code exchange failed:', error);
       }
 
-      // Reset subscription state when user logs out
-      if (!u) {
-        setSubscriptionTier('free');
-        setSubscriptionLoading(false);
-        return;
-      }
+      url.searchParams.delete('code');
+      url.searchParams.delete('state');
+      url.searchParams.delete('error');
+      url.searchParams.delete('error_description');
+      window.history.replaceState({}, document.title, url.pathname + url.search + url.hash);
+    };
 
-      // Check subscription status from Firestore
-      setSubscriptionLoading(true);
+    handleOAuthRedirect();
+
+    // Get initial session
+    const getInitialSession = async () => {
       try {
-        const userDocRef = doc(db, 'users', u.uid);
-        const userDoc = await getDoc(userDocRef);
-        
-        if (userDoc.exists()) {
-          setSubscriptionTier(userDoc.data().subscriptionTier || 'free');
+        const { data: { session } } = await supabase.auth.getSession();
+        setUser(session?.user ?? null);
+
+        if (session?.user) {
+          await loadUserSubscription(session.user.id);
         } else {
-          // Create user document if it doesn't exist
-          await setDoc(userDocRef, {
-            email: u.email,
-            subscriptionTier: 'free',
-            createdAt: new Date().toISOString(),
-          });
           setSubscriptionTier('free');
         }
       } catch (error) {
-        console.error('Error checking subscription status:', error);
-        if (isNetworkError(error)) {
-          const handlePageError = getGlobalNetworkErrorHandler();
-          if (handlePageError) {
-            handlePageError(error);
-          }
-        }
+        console.error('Error getting initial session:', error);
+        setUser(null);
         setSubscriptionTier('free');
       } finally {
+        setLoading(false);
         setSubscriptionLoading(false);
       }
+    };
 
-      // Listen to real-time updates for subscription status
-      const userDocRef = doc(db, 'users', u.uid);
-      unsubscribeSubscription = onSnapshot(
-        userDocRef, 
-        (snapshot) => {
-          if (snapshot.exists()) {
-            setSubscriptionTier(snapshot.data().subscriptionTier || 'free');
-          } else {
+    getInitialSession();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        try {
+          setUser(session?.user ?? null);
+          setLoading(false);
+
+          // Cleanup previous subscription listener
+          if (subscriptionChannelRef.current) {
+            supabase.removeChannel(subscriptionChannelRef.current);
+            subscriptionChannelRef.current = null;
+          }
+
+          // Reset subscription state when user logs out
+          if (!session?.user) {
             setSubscriptionTier('free');
+            setSubscriptionLoading(false);
+            return;
           }
-        },
-        (error) => {
-          console.error('Error in subscription snapshot:', error);
-          if (isNetworkError(error)) {
-            const handlePageError = getGlobalNetworkErrorHandler();
-            if (handlePageError) {
-              handlePageError(error);
-            }
-          }
+
+          // Ensure user record exists in public.users table
+          await ensureUserRecord(session.user.id, session.user.email);
+
+          await loadUserSubscription(session.user.id);
+        } catch (error) {
+          console.error('Error handling auth change:', error);
+          setSubscriptionTier('free');
+          setSubscriptionLoading(false);
         }
-      );
-    });
+      }
+    );
 
     return () => {
-      unsub();
-      if (unsubscribeSubscription) {
-        unsubscribeSubscription();
+      subscription.unsubscribe();
+      if (subscriptionChannelRef.current) {
+        supabase.removeChannel(subscriptionChannelRef.current);
+        subscriptionChannelRef.current = null;
       }
     };
   }, []);
 
-  const signup = (email, password) => createUserWithEmailAndPassword(auth, email, password);
-  const login = (email, password) => signInWithEmailAndPassword(auth, email, password);
-  const logout = () => signOut(auth);
-  
-  // resetPassword con supporto per lingua e URL personalizzato
-  const resetPassword = (email, lang = 'EN') => {
-    // Mappa le lingue dell'app ai codici lingua Firebase
-    const langMap = {
-      'PL': 'pl',
-      'EN': 'en',
-      'IT': 'it'
+  useEffect(() => {
+    if (!user) {
+      setNeedsPrivacyAcceptance(false);
+      return;
+    }
+
+    const privacyAccepted = localStorage.getItem(`privacy_accepted_${user.id}`);
+    const privacyVersionStored = localStorage.getItem(`privacy_version_${user.id}`);
+    setNeedsPrivacyAcceptance(!privacyAccepted || privacyVersionStored !== privacyVersion);
+  }, [user]);
+
+    const ensureUserRecord = async (userId, email) => {
+      try {
+        const { error } = await supabase
+          .from('users')
+          .upsert(
+            {
+              id: userId,
+              email: email,
+              subscriptiontier: 'free',
+            },
+            { onConflict: 'id' }
+          );
+
+        if (error) {
+          console.error('Error ensuring user record:', error);
+        }
+      } catch (error) {
+        console.error('Error ensuring user record:', error);
+      }
     };
-    const firebaseLang = langMap[lang] || 'en';
-    
-    // Costruisci l'URL di redirect con parametro lingua
-    const continueUrl = `${window.location.origin}/login?lang=${lang}&mode=resetPassword`;
-    
-    return sendPasswordResetEmail(auth, email, {
-      url: continueUrl,
-      handleCodeInApp: false,
-      // Imposta la lingua dell'email (se supportata da Firebase)
-      // Nota: Firebase usa la lingua del browser dell'utente, ma possiamo provare a forzarla
+
+  const loadUserSubscription = async (userId) => {
+    setSubscriptionLoading(true);
+    try {
+      const userData = await getUser(userId);
+      setSubscriptionTier(userData?.subscriptiontier || userData?.subscriptionTier || 'free');
+
+      // Listen to real-time updates for subscription status
+      subscriptionChannelRef.current = supabase
+        .channel('user_subscription_changes')
+        .on(
+          'postgres_changes',
+          {
+            event: 'UPDATE',
+            schema: 'public',
+            table: 'users',
+            filter: `id=eq.${userId}`,
+          },
+          (payload) => {
+            setSubscriptionTier(payload.new.subscriptiontier || payload.new.subscriptionTier || 'free');
+          }
+        )
+        .subscribe();
+
+      // Store the channel reference for cleanup
+      // Note: This is a simplified approach; in production you might want better state management
+    } catch (error) {
+      console.error('Error checking subscription status:', error);
+      if (isNetworkError(error)) {
+        const handlePageError = getGlobalNetworkErrorHandler();
+        if (handlePageError) {
+          handlePageError(error);
+        }
+      }
+      setSubscriptionTier('free');
+    } finally {
+      setSubscriptionLoading(false);
+    }
+  };
+
+  const signup = async (email, password) => {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
     });
+    if (error) throw error;
+
+    // Wait a moment for the auth user to be created, then create the public user record
+    if (data.user) {
+      // Small delay to ensure auth user is fully created
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await ensureUserRecord(data.user.id, data.user.email);
+    }
+
+    return data;
+  };
+
+  const login = async (email, password) => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (error) throw error;
+    return data;
+  };
+
+  const clearAuthState = () => {
+    if (subscriptionChannelRef.current) {
+      supabase.removeChannel(subscriptionChannelRef.current);
+      subscriptionChannelRef.current = null;
+    }
+    setUser(null);
+    setSubscriptionTier('free');
+    setSubscriptionLoading(false);
+    setLoading(false);
+  };
+
+  const signOutWithTimeout = async (scope, timeoutMs) => {
+    return Promise.race([
+      supabase.auth.signOut({ scope }),
+      new Promise((_, reject) => {
+        setTimeout(() => reject(new Error(`signOut ${scope} timeout`)), timeoutMs);
+      }),
+    ]);
+  };
+
+  const signOutSafely = async () => {
+    try {
+      await signOutWithTimeout('global', 5000);
+    } catch (error) {
+      console.warn('Global sign out failed or timed out:', error);
+    }
+
+    try {
+      await supabase.auth.signOut({ scope: 'local' });
+    } catch (error) {
+      console.warn('Local sign out failed:', error);
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await signOutSafely();
+    } finally {
+      clearAuthState();
+    }
+  };
+
+  const resetPassword = async (email) => {
+    const redirectTo = process.env.REACT_APP_PASSWORD_RESET_REDIRECT_URL;
+    const options = redirectTo ? { redirectTo } : undefined;
+    const { error } = await supabase.auth.resetPasswordForEmail(email, options);
+    if (error) throw error;
   };
 
   const signInWithGoogle = async () => {
-    const provider = new GoogleAuthProvider();
-    return signInWithPopup(auth, provider);
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/login`,
+      },
+    });
+    if (error) throw error;
+    return data;
   };
 
   const deleteAccount = async () => {
-    if (!auth.currentUser) {
-      throw new Error('No user logged in');
+    await deleteAccountRequest();
+    try {
+      await signOutSafely();
+    } finally {
+      clearAuthState();
     }
-    return deleteUser(auth.currentUser);
   };
 
   const value = {
     user,
-    loading: loading || subscriptionLoading,
+    loading,
+    subscriptionLoading,
     subscriptionTier,
+    needsPrivacyAcceptance,
+    setNeedsPrivacyAcceptance,
     signup,
     login,
     logout,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { subscribeToEvents, createEvent } from '../../services/firestoreService';
-import { subscribeToNotes } from '../../services/firestoreService';
+import { subscribeToEvents, createEvent } from '../../services/supabaseService';
+import { subscribeToNotes } from '../../services/supabaseService';
 import '../../App.css';
 import './CalendarPage.css';
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { subscribeToAdminMessagesForUser, sendAdminMessage, markAdminMessageRead } from '../../services/firestoreService';
+import { subscribeToAdminMessagesForUser, sendAdminMessage, markAdminMessageRead } from '../../services/supabaseService';
 import '../../App.css';
 import './AdminChat.css';
 
@@ -33,7 +33,7 @@ const AdminChat = ({ lang }) => {
           {messages.map(m => (
             <div key={m.id} className={`chat-item ${m.read ? 'read' : 'unread'}`}>
               <div className="chat-body">{m.message}</div>
-              <div className="chat-meta">{m.fromDisplayName} — {m.createdAt?.toDate ? new Date(m.createdAt.toDate()).toLocaleString() : ''}</div>
+              <div className="chat-meta">{m.fromDisplayName} - {m.createdAt?.toDate ? new Date(m.createdAt.toDate()).toLocaleString() : ''}</div>
               {!m.read && <button className="pages-button" onClick={() => handleMarkRead(m.id)}>Mark read</button>}
             </div>
           ))}

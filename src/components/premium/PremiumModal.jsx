@@ -3,17 +3,18 @@ import './PremiumModal.css';
 import '../../App.css';
 import translations from '../../utils/translations';
 import { useAuth } from '../../contexts/AuthContext';
-import { updateUser } from '../../services/supabaseService';
+import { confirmPayPalSubscription } from '../../services/apiService';
 import { FaWindowClose, FaCrown, FaCheckCircle } from 'react-icons/fa';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 
 const PayPalSubscriptionButton = ({ tier, onSubscriptionComplete }) => {
     const { user } = useAuth();
-    // Ho aggiunto isRejected e options per il debug
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [isSaving, setIsSaving] = useState(false);
+    // Debug: show SDK state during integration
     const [{ options, isPending, isRejected }] = usePayPalScriptReducer();
 
-    // Aggiungo un log per vedere lo stato
-    console.log("STATO PAYPAL SDK:", { isPending, isRejected, options });
+    console.log("PayPal SDK state:", { isPending, isRejected, options });
 
     // TODO: Replace with your actual Plan IDs from the PayPal Developer Dashboard
     const planIds = {
@@ -31,33 +32,43 @@ const PayPalSubscriptionButton = ({ tier, onSubscriptionComplete }) => {
 
     const onApprove = async (data, actions) => {
         try {
-            await updateUser(user.id, {
-                subscriptionTier: tier,
-                paypalSubscriptionId: data.subscriptionID,
+            setIsSaving(true);
+            setErrorMessage(null);
+            await confirmPayPalSubscription({
+                subscriptionId: data.subscriptionID,
+                tier,
+                userId: user.id,
             });
-            console.log(`Subscription ${data.subscriptionID} approved! User ${user.id} updated to ${tier}.`);
+            console.log(`Subscription ${data.subscriptionID} confirmed for user ${user.id}.`);
             onSubscriptionComplete();
         } catch (error) {
             console.error("Failed to update user after subscription approval:", error);
+            setErrorMessage("We could not confirm your subscription. Please contact support.");
+        } finally {
+            setIsSaving(false);
         }
     };
 
     const onError = (err) => {
         console.error("PayPal subscription error:", err);
+        setErrorMessage("PayPal error. Please try again or contact support.");
     };
 
     if (isPending) {
-        console.log("PayPal SDK è in caricamento (isPending=true)... mostro lo spinner.");
+        console.log("PayPal SDK loading...");
         return <div className="spinner" />;
     }
     
     if (isRejected) {
-        console.error("ERRORE: Il caricamento dello script di PayPal è fallito (isRejected=true). Controlla il Client ID.");
-        return <p style={{color: 'red', textAlign: 'center'}}>Errore nel caricamento di PayPal. Controlla il Client ID.</p>;
+        console.error("PayPal SDK failed to load. Check the Client ID.");
+        return <p style={{color: 'red', textAlign: 'center'}}>PayPal failed to load. Check the Client ID.</p>;
     }
 
-    // Se arriviamo qui, i pulsanti dovrebbero essere renderizzati
-    console.log("Provo a renderizzare i pulsanti PayPal.");
+    console.log("Rendering PayPal buttons.");
+    if (!user) {
+        return <p style={{ color: 'red', textAlign: 'center' }}>Please log in to subscribe.</p>;
+    }
+
     return (
         <div style={{ position: 'relative', zIndex: 10 }}>
             <PayPalButtons
@@ -65,7 +76,10 @@ const PayPalSubscriptionButton = ({ tier, onSubscriptionComplete }) => {
                 createSubscription={createSubscription}
                 onApprove={onApprove}
                 onError={onError}
+                disabled={isSaving}
             />
+            {isSaving && <p style={{ textAlign: 'center' }}>Finalizing your subscription...</p>}
+            {errorMessage && <p style={{ color: 'red', textAlign: 'center' }}>{errorMessage}</p>}
         </div>
     );
 };
@@ -97,7 +111,7 @@ const PremiumModal = ({ isOpen, onClose, lang }) => {
                         {/* Top Baker Tier */}
                         <div className="tier-card">
                             <h3>Top Baker</h3>
-                            <div className="price">€69<span>/year</span></div>
+                            <div className="price">69 EUR<span>/year</span></div>
                             <ul className="features-list">
                                 <li><FaCheckCircle /> {translations[lang].premiumFeature1 || 'Premium Recipes'}</li>
                                 <li><FaCheckCircle /> {translations[lang].whatsappSupport || 'WhatsApp Support'}</li>
@@ -109,7 +123,7 @@ const PremiumModal = ({ isOpen, onClose, lang }) => {
                         <div className="tier-card recommended">
                             <span className="recommended-badge">Recommended</span>
                             <h3>Premium Baker</h3>
-                            <div className="price">€99<span>/year</span></div>
+                            <div className="price">99 EUR<span>/year</span></div>
                             <ul className="features-list">
                                 <li><FaCheckCircle /> {translations[lang].premiumFeature1 || 'Premium Recipes'}</li>
                                 <li><FaCheckCircle /> {translations[lang].whatsappSupport || 'WhatsApp Support'}</li>

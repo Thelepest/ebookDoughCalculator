@@ -15,7 +15,9 @@ const Register = ({ lang }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(null);
   const [showPrivacy, setShowPrivacy] = useState(false);
+  const [pendingPrivacy, setPendingPrivacy] = useState(false);
   const [showSpinner, setShowSpinner] = useState(false);
   const navigate = useNavigate();
 
@@ -30,14 +32,19 @@ const Register = ({ lang }) => {
       // Se non accettata o versione diversa, mostra la privacy policy
       if (!privacyAccepted || privacyVersion !== currentVersion) {
         setShowPrivacy(true);
+        setPendingPrivacy(false);
+      } else if (pendingPrivacy) {
+        setPendingPrivacy(false);
+        navigate('/');
       }
     }
-  }, [user]);
+  }, [user, pendingPrivacy, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-    
+    setSuccess(null);
+
     if (!email || !password || !confirmPassword) {
       setError(translations[lang]?.authErrors?.['empty-fields'] || 'Please fill in all fields.');
       return;
@@ -55,22 +62,34 @@ const Register = ({ lang }) => {
 
     setLoading(true);
     try {
-      await signup(email, password);
-      // Non navigare subito, aspetta che l'utente accetti privacy/terms
-      // setShowPrivacy verrà impostato dall'useEffect quando user sarà disponibile
+      const data = await signup(email, password);
+      setLoading(false);
+      if (!data?.session) {
+        setSuccess(translations[lang]?.registerForm?.confirmEmail || 'Registration successful. Please check your email to confirm your account.');
+        return;
+      }
+      setPendingPrivacy(true);
+      setShowPrivacy(true);
+      return;
     } catch (err) {
       setLoading(false);
-      const mapped = translations[lang]?.authErrors?.[err.message];
+      const mapped =
+        translations[lang]?.authErrors?.[err.code] ||
+        translations[lang]?.authErrors?.[err.message];
       setError(mapped || err.message || 'Registration failed');
     }
   };
 
   const handleGoogle = async () => {
     setError(null);
+    setSuccess(null);
     setLoading(true);
     try {
       await signInWithGoogle();
-      // Non navigare subito, aspetta che l'utente accetti privacy/terms
+      setLoading(false);
+      setPendingPrivacy(true);
+      setShowPrivacy(true);
+      return;
     } catch (err) {
       setLoading(false);
       const mapped = translations[lang]?.authErrors?.[err.message];
@@ -137,6 +156,7 @@ const Register = ({ lang }) => {
           />
         </div>
         {error && <div style={{color:'red', marginTop: '8px', marginBottom: '8px'}}>{error}</div>}
+        {success && <div style={{color:'green', marginTop: '8px', marginBottom: '8px'}}>{success}</div>}
         <div className="login-button-row">
           <button className="pages-button" type="submit" disabled={!email || !password || !confirmPassword || loading}>
             {loading ? (translations[lang]?.registerForm?.registering || 'Registering...') : (translations[lang]?.register || 'Register')}

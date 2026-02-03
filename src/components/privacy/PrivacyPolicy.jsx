@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import { db } from '../../firebase';
-import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { supabase } from '../../supabase';
 import translations from '../../utils/translations';
 import Header from '../header/Header';
 import '../../App.css';
@@ -11,33 +10,37 @@ const PrivacyPolicy = ({ lang, onAccept }) => {
   const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState(null);
   const navigate = useNavigate();
   const { user } = useAuth();
 
   const handleAccept = async () => {
     if (acceptedPrivacy && acceptedTerms && user) {
       setSaving(true);
+      setSaveError(null);
       try {
-        const acceptanceData = {
-          privacyAccepted: true,
-          termsAccepted: true,
-          acceptedAt: serverTimestamp(),
-          acceptedDate: new Date().toISOString(),
-          privacyVersion: '1.0', // Versione della privacy policy
-          termsVersion: '1.0', // Versione dei termini
-          userEmail: user.email,
-          ipAddress: null, // Puoi aggiungere se necessario (richiede backend)
-        };
+        // Save acceptance data to localStorage
+        localStorage.setItem(`privacy_accepted_${user.id}`, 'true');
+        localStorage.setItem(`terms_accepted_${user.id}`, 'true');
+        localStorage.setItem(`privacy_accepted_date_${user.id}`, new Date().toISOString());
+        localStorage.setItem(`privacy_version_${user.id}`, '1.0');
 
-        // Salva in Firestore per traccia permanente
-        await setDoc(doc(db, 'users', user.uid, 'legal', 'acceptance'), acceptanceData);
-        
-        // Salva anche in localStorage come cache locale
-        localStorage.setItem(`privacy_accepted_${user.uid}`, 'true');
-        localStorage.setItem(`terms_accepted_${user.uid}`, 'true');
-        localStorage.setItem(`privacy_accepted_date_${user.uid}`, new Date().toISOString());
-        localStorage.setItem(`privacy_version_${user.uid}`, '1.0');
-        
+        const { error: acceptanceError } = await supabase
+          .from('legal_acceptances')
+          .insert({
+            user_id: user.id,
+            privacy_accepted: true,
+            terms_accepted: true,
+            privacy_version: '1.0',
+            terms_version: '1.0',
+            user_email: user.email,
+          });
+
+        if (acceptanceError) {
+          console.error('Error saving legal acceptance:', acceptanceError);
+          setSaveError(translations[lang]?.privacyPolicy?.saveError || 'Failed to save your acceptance. Please try again.');
+        }
+
         if (onAccept) {
           onAccept();
         } else {
@@ -45,16 +48,7 @@ const PrivacyPolicy = ({ lang, onAccept }) => {
         }
       } catch (error) {
         console.error('Error saving privacy acceptance:', error);
-        // Fallback: salva solo in localStorage se Firestore fallisce
-        localStorage.setItem(`privacy_accepted_${user.uid}`, 'true');
-        localStorage.setItem(`terms_accepted_${user.uid}`, 'true');
-        localStorage.setItem(`privacy_accepted_date_${user.uid}`, new Date().toISOString());
-        
-        if (onAccept) {
-          onAccept();
-        } else {
-          navigate('/');
-        }
+        setSaveError(translations[lang]?.privacyPolicy?.saveError || 'Failed to save your acceptance. Please try again.');
       } finally {
         setSaving(false);
       }
@@ -84,8 +78,8 @@ const PrivacyPolicy = ({ lang, onAccept }) => {
             {translations[lang]?.privacyPolicy?.privacyTitle || 'Privacy Policy'}
           </h3>
           <p style={{ marginBottom: '16px' }}>
-            {translations[lang]?.privacyPolicy?.privacyText || 
-              'We collect and process your personal data (email address, authentication data) to provide you with our services. Your data is stored securely using Firebase Authentication and Firestore. We do not share your personal information with third parties without your consent.'}
+            {translations[lang]?.privacyPolicy?.privacyText ||
+              'We collect and process your personal data (email address, authentication data) to provide you with our services. Your data is stored securely using Supabase Authentication and Database. We do not share your personal information with third parties without your consent.'}
           </p>
           
           <h3 style={{ fontSize: '1.2rem', marginTop: '24px', marginBottom: '12px' }}>
@@ -118,8 +112,8 @@ const PrivacyPolicy = ({ lang, onAccept }) => {
           </p>
           <p style={{ marginBottom: '12px' }}>
             <strong>{translations[lang]?.privacyPolicy?.dataTransferTitle || 'Data Transfer:'}</strong>{' '}
-            {translations[lang]?.privacyPolicy?.dataTransfer || 
-              'Your data may be processed outside the EU (Firebase - USA) with adequate safeguards.'}
+            {translations[lang]?.privacyPolicy?.dataTransfer ||
+              'Your data may be processed outside the EU (Supabase - USA) with adequate safeguards.'}
           </p>
 
           <h3 style={{ fontSize: '1.2rem', marginTop: '24px', marginBottom: '12px' }}>
@@ -187,6 +181,19 @@ const PrivacyPolicy = ({ lang, onAccept }) => {
         </label>
       </div>
 
+      {saveError && (
+        <div style={{
+          marginBottom: '12px',
+          padding: '10px',
+          backgroundColor: '#ffebee',
+          borderRadius: '4px',
+          border: '1px solid #ffcdd2',
+          color: 'var(--color-accent-dark)',
+          fontSize: '0.9rem'
+        }}>
+          {saveError}
+        </div>
+      )}
       <div className="login-button-row">
         <button 
           className="pages-button" 

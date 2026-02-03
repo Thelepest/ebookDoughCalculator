@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Routes, Route, Navigate } from "react-router-dom";
+import { Link, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import Spinner from "../spinner/Spinner";
 import PageTransition from "../navigation/PageTransition";
@@ -18,6 +18,7 @@ import Header from "../header/Header";
 import NetworkAlert from "../network/NetworkAlert";
 import allproducts from "../../assets/allproducts.jpg";
 import "../../App.css";
+import PrivacyPolicy from "../privacy/PrivacyPolicy";
 
 const Home = ({ lang }) => (
     <div className="container">
@@ -58,6 +59,25 @@ const DefaultRoute = ({ lang }) => {
 };
 
 const MainContent = ({ lang, setLang }) => {
+    const { user, loading, needsPrivacyAcceptance, setNeedsPrivacyAcceptance } = useAuth();
+    const navigate = useNavigate();
+
+    if (loading) {
+        return <Spinner />;
+    }
+
+    if (user && needsPrivacyAcceptance) {
+        return (
+            <PrivacyPolicy
+                lang={lang}
+                onAccept={() => {
+                    setNeedsPrivacyAcceptance(false);
+                    navigate('/');
+                }}
+            />
+        );
+    }
+
     return (
         <>
             <NetworkAlert lang={lang} />

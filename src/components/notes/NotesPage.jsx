@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { subscribeToNotes, createNote } from '../../services/firestoreService';
+import { subscribeToNotes, createNote } from '../../services/supabaseService';
 import { uploadImageFile } from '../../services/storageService';
 import '../../App.css';
 import './NotesPage.css';

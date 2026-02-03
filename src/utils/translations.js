@@ -146,7 +146,7 @@ const translations = {
             success: 'Email resetujący został wysłany! Sprawdź swoją skrzynkę (również folder spam).',
             back: 'Powrót do logowania',
             link: 'Zapomniałeś hasła?',
-            description: 'Wprowadź swój adres email, a wyślemy Ci link do resetowania hasła.'
+            description: 'Wprowadź swój adres email, a wyślemy Ci link do resetowania hasła.',
         },
         registerForm: {
             confirmPassword: 'Potwierdź hasło',
@@ -157,7 +157,7 @@ const translations = {
         privacyPolicy: {
             title: 'Polityka Prywatności i Warunki Użytkowania',
             privacyTitle: 'Polityka Prywatności',
-            privacyText: 'Zbieramy i przetwarzamy Twoje dane osobowe (adres e-mail, dane uwierzytelniające) w celu świadczenia naszych usług. Twoje dane są przechowywane bezpiecznie za pomocą Firebase Authentication i Firestore. Nie udostępniamy Twoich danych osobowych stronom trzecim bez Twojej zgody.',
+            privacyText: 'Zbieramy i przetwarzamy Twoje dane osobowe (adres e-mail, dane uwierzytelniające) w celu świadczenia naszych usług. Twoje dane są przechowywane bezpiecznie za pomocą Supabase Authentication i Supabase Database. Nie udostępniamy Twoich danych osobowych stronom trzecim bez Twojej zgody.',
             dataRightsTitle: 'Twoje Prawa',
             dataRightsText: 'Masz prawo do dostępu, modyfikacji lub usunięcia swoich danych osobowych w dowolnym momencie poprzez ustawienia aplikacji. Możesz również poprosić o kopię swoich danych lub wycofać zgodę w dowolnym momencie.',
             termsTitle: 'Warunki Użytkowania',
@@ -174,7 +174,7 @@ const translations = {
             dataRetentionTitle: 'Okres Przechowywania:',
             dataRetention: 'Twoje dane są przechowywane do czasu usunięcia konta lub wycofania zgody.',
             dataTransferTitle: 'Transfer Danych:',
-            dataTransfer: 'Twoje dane mogą być przetwarzane poza UE (Firebase - USA) z adekwatnymi zabezpieczeniami.'
+            dataTransfer: 'Twoje dane mogą być przetwarzane poza UE (Supabase - USA) z adekwatnymi zabezpieczeniami.'
         },
         deleteAccount: {
             title: 'Usuń konto',
@@ -192,6 +192,8 @@ const translations = {
             'auth/user-disabled': 'Konto zostało wyłączone. Skontaktuj się z pomocą techniczną.',
             'auth/invalid-credential': 'Nieprawidłowe dane do logowania. Sprawdź e-mail i hasło.',
             'auth/email-already-in-use': 'Ten e-mail jest już zarejestrowany. Spróbuj zalogować się lub zresetować hasło.',
+            'user_already_exists': 'Ten e-mail jest już zarejestrowany. Spróbuj zalogować się lub zresetować hasło.',
+            'User already registered': 'Ten e-mail jest już zarejestrowany. Spróbuj zalogować się lub zresetować hasło.',
             'auth/weak-password': 'Hasło jest za słabe. Użyj co najmniej 6 znaków.',
             'auth/user-not-found': 'Nie znaleziono konta z tym adresem e-mail.',
             'auth/wrong-password': 'Nieprawidłowe hasło. Spróbuj ponownie.',
@@ -350,7 +352,7 @@ const translations = {
             success: 'Password reset email sent! Check your inbox (including spam folder).',
             back: 'Back to Login',
             link: 'Forgot password?',
-            description: 'Enter your email address and we will send you a link to reset your password.'
+            description: 'Enter your email address and we will send you a link to reset your password.',
         },
         registerForm: {
             confirmPassword: 'Confirm Password',
@@ -361,7 +363,7 @@ const translations = {
         privacyPolicy: {
             title: 'Privacy Policy & Terms of Service',
             privacyTitle: 'Privacy Policy',
-            privacyText: 'We collect and process your personal data (email address, authentication data) to provide you with our services. Your data is stored securely using Firebase Authentication and Firestore. We do not share your personal information with third parties without your consent.',
+            privacyText: 'We collect and process your personal data (email address, authentication data) to provide you with our services. Your data is stored securely using Supabase Authentication and Supabase Database. We do not share your personal information with third parties without your consent.',
             dataRightsTitle: 'Your Rights',
             dataRightsText: 'You have the right to access, modify, or delete your personal data at any time through the app settings. You can also request a copy of your data or withdraw your consent at any time.',
             termsTitle: 'Terms of Service',
@@ -378,7 +380,7 @@ const translations = {
             dataRetentionTitle: 'Data Retention:',
             dataRetention: 'Your data is stored until account deletion or consent withdrawal.',
             dataTransferTitle: 'Data Transfer:',
-            dataTransfer: 'Your data may be processed outside the EU (Firebase - USA) with adequate safeguards.'
+            dataTransfer: 'Your data may be processed outside the EU (Supabase - USA) with adequate safeguards.'
         },
         deleteAccount: {
             title: 'Delete Account',
@@ -395,6 +397,8 @@ const translations = {
             'auth/user-disabled': 'This account has been disabled. Contact support.',
             'auth/invalid-credential': 'Invalid credentials provided. Check email and password.',
             'auth/email-already-in-use': 'This email is already registered. Try logging in or use password reset.',
+            'user_already_exists': 'This email is already registered. Try logging in or use password reset.',
+            'User already registered': 'This email is already registered. Try logging in or use password reset.',
             'auth/weak-password': 'Password is too weak. Use at least 6 characters.',
             'auth/user-not-found': 'No account found with this email.',
             'auth/wrong-password': 'Incorrect password. Please try again.',
@@ -555,7 +559,7 @@ const translations = {
             success: 'Email di reset inviata! Controlla la tua casella di posta (anche la cartella spam).',
             back: 'Torna al Login',
             link: 'Password dimenticata?',
-            description: 'Inserisci il tuo indirizzo email e ti invieremo un link per reimpostare la password.'
+            description: 'Inserisci il tuo indirizzo email e ti invieremo un link per reimpostare la password.',
         },
         registerForm: {
             confirmPassword: 'Conferma Password',
@@ -566,7 +570,7 @@ const translations = {
         privacyPolicy: {
             title: 'Privacy Policy e Termini di Servizio',
             privacyTitle: 'Privacy Policy',
-            privacyText: 'Raccogliamo e processiamo i tuoi dati personali (indirizzo email, dati di autenticazione) per fornirti i nostri servizi. I tuoi dati sono memorizzati in modo sicuro utilizzando Firebase Authentication e Firestore. Non condividiamo le tue informazioni personali con terze parti senza il tuo consenso.',
+            privacyText: 'Raccogliamo e processiamo i tuoi dati personali (indirizzo email, dati di autenticazione) per fornirti i nostri servizi. I tuoi dati sono memorizzati in modo sicuro utilizzando Supabase Authentication e Supabase Database. Non condividiamo le tue informazioni personali con terze parti senza il tuo consenso.',
             dataRightsTitle: 'I Tuoi Diritti',
             dataRightsText: 'Hai il diritto di accedere, modificare o eliminare i tuoi dati personali in qualsiasi momento attraverso le impostazioni dell\'app. Puoi anche richiedere una copia dei tuoi dati o revocare il tuo consenso in qualsiasi momento.',
             termsTitle: 'Termini di Servizio',
@@ -583,7 +587,7 @@ const translations = {
             dataRetentionTitle: 'Conservazione Dati:',
             dataRetention: 'I tuoi dati sono conservati fino alla cancellazione dell\'account o al ritiro del consenso.',
             dataTransferTitle: 'Trasferimento Dati:',
-            dataTransfer: 'I tuoi dati possono essere processati fuori dall\'UE (Firebase - USA) con garanzie adeguate.'
+            dataTransfer: 'I tuoi dati possono essere processati fuori dall\'UE (Supabase - USA) con garanzie adeguate.'
         },
         deleteAccount: {
             title: 'Elimina Account',
@@ -600,6 +604,8 @@ const translations = {
             'auth/user-disabled': "Account disabilitato. Contatta l'assistenza.",
             'auth/invalid-credential': 'Credenziali non valide. Controlla email e password.',
             'auth/email-already-in-use': 'Questa email è già registrata. Prova a effettuare il login o il reset della password.',
+            'user_already_exists': 'Questa email è già registrata. Prova a effettuare il login o il reset della password.',
+            'User already registered': 'Questa email è già registrata. Prova a effettuare il login o il reset della password.',
             'auth/weak-password': "La password è troppo debole. Usa almeno 6 caratteri.",
             'auth/user-not-found': "Nessun account trovato con questa email.",
             'auth/wrong-password': 'Password errata. Riprova.',
@@ -612,3 +618,7 @@ const translations = {
 };
 
 export default translations;
+
+
+
+

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from '../../contexts/AuthContext';
-import { updateUser } from '../../services/firestoreService';
+import { cancelPayPalSubscription } from '../../services/apiService';
 import translations from "../../utils/translations";
 import { FaInstagram, FaWhatsapp, FaEnvelope, FaWindowClose, FaTrash, FaUserCircle, FaCrown } from "react-icons/fa";
 import PremiumModal from '../premium/PremiumModal';
@@ -28,7 +28,7 @@ const DeleteAccountModal = ({ isOpen, onClose, onConfirm, lang, loading }) => {
                         fontSize: '0.95rem',
                         marginTop: '12px'
                     }}>
-                        ⚠️ {translations[lang]?.deleteAccount?.warning || 'Warning: This action cannot be undone!'}
+                        {translations[lang]?.deleteAccount?.warning || 'Warning: This action cannot be undone!'}
                     </p>
                 </div>
                 <div className="modal-buttons-group">
@@ -108,6 +108,7 @@ const Settings = ({ lang, setLang }) => {
     const [showPremiumModal, setShowPremiumModal] = useState(false);
     const [showCancelSubscriptionModal, setShowCancelSubscriptionModal] = useState(false);
     const [isCancelling, setIsCancelling] = useState(false);
+    const [cancelError, setCancelError] = useState(null);
 
     const subscriptionTierName = {
         free: 'Free User',
@@ -124,32 +125,38 @@ const Settings = ({ lang, setLang }) => {
     const handleLogout = async () => {
         try {
             await logout();
-            navigate('/login');
         } catch (err) {
             console.error('Logout failed', err);
+        } finally {
+            navigate('/login', { replace: true });
         }
     };
 
     const handleDeleteAccount = async () => {
+        if (isDeleting) return;
         setIsDeleting(true);
         setDeleteError(null);
+        setShowDeleteModal(false);
         try {
             await deleteAccount();
             navigate('/login');
         } catch (err) {
             console.error('Delete account failed', err);
             setDeleteError(translations[lang]?.deleteAccount?.error || 'An error occurred while deleting the account.');
+        } finally {
             setIsDeleting(false);
         }
     };
 
     const handleCancelSubscription = async () => {
         setIsCancelling(true);
+        setCancelError(null);
         try {
-            await updateUser(user.uid, { subscriptionTier: 'free' });
+            await cancelPayPalSubscription();
             setShowCancelSubscriptionModal(false);
         } catch (error) {
             console.error('Failed to cancel subscription', error);
+            setCancelError(translations[lang]?.cancelSubscription?.error || 'Failed to cancel subscription. Please try again.');
         } finally {
             setIsCancelling(false);
         }
@@ -198,8 +205,12 @@ const Settings = ({ lang, setLang }) => {
             <div className="info-section user-profile">
                 <h3><FaUserCircle style={{ marginRight: '8px' }} />User Profile</h3>
                 <div className="user-info">
-                    {user?.photoURL ? (
-                        <img src={user.photoURL} alt="Profile" className="profile-pic" />
+                    {user?.user_metadata?.avatar_url || user?.user_metadata?.picture ? (
+                        <img
+                            src={user.user_metadata.avatar_url || user.user_metadata.picture}
+                            alt="Profile"
+                            className="profile-pic"
+                        />
                     ) : (
                         <FaUserCircle size={50} className="profile-pic-default" />
                     )}
@@ -207,7 +218,7 @@ const Settings = ({ lang, setLang }) => {
                         <p>{user?.email}</p>
                         <p className="subscription-status">
                             <FaCrown style={{ marginRight: '5px', color: 'var(--color-accent)' }} />
-                            {subscriptionTierName[subscriptionTier]}
+                            {subscriptionTierName[subscriptionTier] || 'Free User'}
                         </p>
                     </div>
                 </div>
@@ -222,7 +233,7 @@ const Settings = ({ lang, setLang }) => {
                 )}
             </div>
 
-            <label htmlFor="language">🌐 Select Language:</label>
+            <label htmlFor="language">Select Language:</label>
             <select id="language" value={lang} onChange={handleChangeLang}>
                 <option value="EN">English</option>
                 <option value="PL">Polski</option>
@@ -230,7 +241,7 @@ const Settings = ({ lang, setLang }) => {
             </select>
 
             <div className="info-section">
-                <h3>📞 Contacts</h3>
+                <h3>Contacts</h3>
                 <div className="contacts-icons">
                     <button
                         type="button"
@@ -262,8 +273,8 @@ const Settings = ({ lang, setLang }) => {
             </div>
 
             <div className="info-section">
-                <p>🔢 Version: 2.0.1</p>
-                <p>© 2025 Marco Biasone - All rights reserved.</p>
+                <p>Version: 2.0.1</p>
+                <p>2025 Marco Biasone - All rights reserved.</p>
             </div>
             <div className="button-group centered-buttons">
                 <button type="button" onClick={() => navigate('/')} className="home-btn pages-button">
@@ -297,6 +308,19 @@ const Settings = ({ lang, setLang }) => {
                     fontSize: '0.9rem'
                 }}>
                     {deleteError}
+                </div>
+            )}
+            {cancelError && (
+                <div style={{
+                    marginTop: '16px',
+                    padding: '12px',
+                    backgroundColor: '#ffebee',
+                    borderRadius: '4px',
+                    border: '1px solid #ffcdd2',
+                    color: 'var(--color-accent-dark)',
+                    fontSize: '0.9rem'
+                }}>
+                    {cancelError}
                 </div>
             )}
 

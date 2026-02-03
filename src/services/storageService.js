@@ -1,5 +1,4 @@
-import { storage } from '../firebase';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { supabase } from '../supabase';
 
 // Resize image client-side using canvas to limit size before upload
 export const resizeImageFile = (file, maxWidth = 1024, quality = 0.75) => {
@@ -31,21 +30,29 @@ export const resizeImageFile = (file, maxWidth = 1024, quality = 0.75) => {
   });
 };
 
-export const uploadImageFile = (uid, file, path = 'attachments') => {
+export const uploadImageFile = (uid, file, bucket = 'attachments') => {
   return new Promise(async (resolve, reject) => {
     try {
       const compressed = await resizeImageFile(file, 1200, 0.77);
-      const storageRef = ref(storage, `${path}/${uid}/${Date.now()}_${compressed.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, compressed);
-      uploadTask.on(
-        'state_changed',
-        null,
-        (error) => reject(error),
-        async () => {
-          const url = await getDownloadURL(uploadTask.snapshot.ref);
-          resolve(url);
-        }
-      );
+      const filePath = `${bucket}/${uid}/${Date.now()}_${compressed.name}`;
+
+      const { data, error } = await supabase.storage
+        .from(bucket)
+        .upload(filePath, compressed, {
+          cacheControl: '3600',
+          upsert: false,
+        });
+
+      if (error) {
+        reject(error);
+      } else {
+        // Get public URL
+        const { data: urlData } = supabase.storage
+          .from(bucket)
+          .getPublicUrl(filePath);
+
+        resolve(urlData.publicUrl);
+      }
     } catch (err) {
       reject(err);
     }
