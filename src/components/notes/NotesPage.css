@@ -1,11 +1,22 @@
 .note-editor input, .note-editor textarea {
   width: 100%;
-  padding: 8px;
+  padding: 10px 12px;
   margin-bottom: 8px;
   border-radius: 6px;
   border: 1px solid #dfe6f3;
   font-family: "Space Grotesk", sans-serif;
+  box-sizing: border-box;
+  font-size: clamp(1rem, 2.5vw, 1.05rem);
 }
-.note-editor textarea { min-height: 100px; resize: vertical }
-.notes-list { margin-top: 16px; display:flex;flex-direction:column;gap:12px }
-.note-item { background:#fff;padding:12px;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06) }
+.note-editor input { min-height: var(--min-touch, 44px); }
+.note-editor textarea { min-height: 100px; resize: vertical; }
+.notes-list { margin-top: 16px; display: flex; flex-direction: column; gap: 12px; overflow-x: hidden; }
+.note-item { background: #fff; padding: 12px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); word-break: break-word; }
+
+@media (max-width: 480px) {
+  .note-editor input, .note-editor textarea { padding: 12px; }
+  .note-item { padding: 10px; }
+}
+@media (max-width: 360px) {
+  .note-editor textarea { min-height: 80px; }
+}

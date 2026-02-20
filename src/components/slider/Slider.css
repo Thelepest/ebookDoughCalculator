@@ -35,10 +35,16 @@
     background: rgba(255, 255, 255, 0.4);
     border-radius: 50%;
     border: none;
+    min-width: var(--min-touch, 44px);
+    min-height: var(--min-touch, 44px);
     padding: 6px 8px;
     cursor: pointer;
     z-index: 1;
     transition: background 0.3s ease, color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .arrow:hover {
@@ -63,7 +69,15 @@
     padding: 1rem;
 }
 
-@media (max-width: 420px){
-    .arrow{font-size:1.1rem;padding:6px}
-    .slide h3{padding:0.6rem}
+@media (max-width: 480px) {
+    .arrow { font-size: 1.2rem; min-width: 40px; min-height: 40px; }
+    .slide h3 { padding: 0.75rem; font-size: 1.1rem; }
+}
+@media (max-width: 420px) {
+    .arrow { font-size: 1.1rem; padding: 6px; min-width: 36px; min-height: 36px; }
+    .slide h3 { padding: 0.6rem; }
+}
+@media (max-width: 360px) {
+    .arrow.left { left: 4px; }
+    .arrow.right { right: 4px; }
 }

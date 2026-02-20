@@ -9,6 +9,28 @@ import "./Settings.css";
 import "../../App.css";
 import "../recipe-modal/Modal.css";
 
+/** Avatar da user_metadata (OAuth). Fallback su placeholder se URL assente o load fallisce. */
+const ProfileAvatar = ({ user }) => {
+  const [imgError, setImgError] = useState(false);
+  const avatarUrl =
+    user?.user_metadata?.avatar_url ||
+    user?.user_metadata?.picture ||
+    user?.user_metadata?.image;
+  const showImg = avatarUrl && !imgError;
+
+  if (!showImg) {
+    return <FaUserCircle size={50} className="profile-pic-default" />;
+  }
+  return (
+    <img
+      src={avatarUrl}
+      alt="Profile"
+      className="profile-pic"
+      onError={() => setImgError(true)}
+    />
+  );
+};
+
 const DeleteAccountModal = ({ isOpen, onClose, onConfirm, lang, loading }) => {
     if (!isOpen) return null;
 
@@ -136,13 +158,13 @@ const Settings = ({ lang, setLang }) => {
         if (isDeleting) return;
         setIsDeleting(true);
         setDeleteError(null);
-        setShowDeleteModal(false);
         try {
             await deleteAccount();
-            navigate('/login');
+            setShowDeleteModal(false);
+            navigate('/login', { replace: true });
         } catch (err) {
             console.error('Delete account failed', err);
-            setDeleteError(translations[lang]?.deleteAccount?.error || 'An error occurred while deleting the account.');
+            setDeleteError(err?.message || translations[lang]?.deleteAccount?.error || 'An error occurred while deleting the account.');
         } finally {
             setIsDeleting(false);
         }
@@ -205,15 +227,7 @@ const Settings = ({ lang, setLang }) => {
             <div className="info-section user-profile">
                 <h3><FaUserCircle style={{ marginRight: '8px' }} />User Profile</h3>
                 <div className="user-info">
-                    {user?.user_metadata?.avatar_url || user?.user_metadata?.picture ? (
-                        <img
-                            src={user.user_metadata.avatar_url || user.user_metadata.picture}
-                            alt="Profile"
-                            className="profile-pic"
-                        />
-                    ) : (
-                        <FaUserCircle size={50} className="profile-pic-default" />
-                    )}
+                    <ProfileAvatar user={user} />
                     <div className="user-details">
                         <p>{user?.email}</p>
                         <p className="subscription-status">

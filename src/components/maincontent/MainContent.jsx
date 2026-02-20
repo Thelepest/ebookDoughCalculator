@@ -10,7 +10,6 @@ import NotesPage from "../notes/NotesPage";
 import CalendarPage from "../calendar/CalendarPage";
 import AdminChat from "../messages/AdminChat";
 import Login from "../auth/Login";
-import Register from "../auth/Register";
 import RecipesPage from "../recipes/RecipesPage";
 import RecipeDetailPage from "../recipes/RecipeDetailPage";
 import translations from "../../utils/translations";
@@ -84,7 +83,7 @@ const MainContent = ({ lang, setLang }) => {
             <PageTransition />
             <Routes>
             <Route path="/login" element={<Login lang={lang} />} />
-            <Route path="/register" element={<Register lang={lang} />} />
+            <Route path="/register" element={<Navigate to="/login" replace />} />
 
             <Route path="/" element={<RequireAuth><Home lang={lang} /></RequireAuth>} />
             <Route path="/calculator" element={<RequireAuth><Calculator lang={lang} /></RequireAuth>} />

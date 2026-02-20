@@ -1,6 +1,7 @@
 .head-img-sourdough img {
     width: 100%;
     max-width: 720px;
+    max-height: min(280px, 45vh);
     height: auto;
     margin: 0 auto 12px auto;
     display: block;
@@ -8,17 +9,18 @@
 }
 
 .slider-page-title {
-    font-size: 1.6rem;
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
     text-transform: uppercase;
     color: #013baf;
-    text-align:center;
+    text-align: center;
     margin-bottom: 0;
 }
 
 .slider-page-bottom-image {
-    width: 180%;
+    width: min(180%, 100vw);
     max-width: 1000px;
     height: auto;
+    max-height: min(400px, 50vh);
     object-fit: contain;
 }
 
@@ -34,10 +36,17 @@
     justify-content: center;
 }
 
-@media(max-width: 768px) {
+@media (max-width: 768px) {
     .head-img-sourdough img {
-        max-height:125px;
+        max-height: min(200px, 35vh);
         margin: 0 auto 10px auto;
-        display: block;
     }
+}
+@media (max-width: 480px) {
+    .head-img-sourdough img { max-height: min(160px, 30vh); }
+    .slider-page-title { font-size: 1.15rem; }
+    .slider-page-bottom-image { max-height: min(280px, 40vh); }
+}
+@media (max-width: 360px) {
+    .head-img-sourdough img { max-height: min(140px, 28vh); }
 }

@@ -8,6 +8,13 @@
   /* Layout */
   --max-content-width: 980px;
   --page-padding: 16px;
+  /* Safe area for notched devices (used where needed) */
+  --safe-area-top: env(safe-area-inset-top, 0);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0);
+  --safe-area-left: env(safe-area-inset-left, 0);
+  --safe-area-right: env(safe-area-inset-right, 0);
+  /* Minimum touch target (accessibility) */
+  --min-touch: 44px;
 
   /* Primary Colors */
   --color-primary: #75a0f6;
@@ -26,10 +33,14 @@
   /* Social Colors */
   --color-google-light: #4285F4;
   --color-google-dark: #1a73e8;
+  --color-facebook: #1877F2;
+  --color-facebook-dark: #0d65d9;
 
   /* Background & Surface */
   --color-surface: #ffffff;
   --color-bg: #f8efe0;
+  --color-bg-light: #f5f5f5;
+  --color-border: #ddd;
 
   /* Text Colors */
   --text-primary: #333333;
@@ -55,6 +66,7 @@
 .page-container{
   background:#fff;
   padding:16px;
+  padding-bottom: calc(16px + var(--safe-area-bottom));
   display:flex;
   flex-direction:column;
   box-sizing:border-box;
@@ -62,7 +74,10 @@
   max-width:var(--max-content-width);
   margin:16px auto;
   border-radius:6px;
-  overflow: hidden;
+  overflow-x: hidden;
+  /* Content grows with page; vertical scroll is on body for natural mobile scroll */
+  min-height: 0;
+  -webkit-overflow-scrolling: touch;
 }
 
 .pages-button{
@@ -101,7 +116,15 @@ button:disabled{background:#ccc;cursor:not-allowed}
 /* center single back buttons when requested */
 .centered-buttons{justify-content:center!important}
 
-html,body{font-family:"Space Grotesk",sans-serif;min-height:100vh;margin:0;padding:0;background:var(--color-bg)}
+html, body {
+  font-family: "Space Grotesk", sans-serif;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg);
+  overflow-x: hidden;
+}
 
 .error{color:red;display:none;margin-top:5px}
 
@@ -176,30 +199,66 @@ header h3 {
 @media (max-width: 768px){
   :root{--max-content-width:720px}
   .container{padding:12px}
-  .page-container{padding:12px;margin:10px}
+  .page-container{
+    padding:12px;
+    padding-bottom: calc(12px + var(--safe-area-bottom));
+    margin:10px auto;
+  }
   .homepage-button{gap:10px}
   .button-group{flex-direction:column;align-items:center}
-  .button-group button{width:100%;margin-bottom:8px}
+  .button-group button{width:100%;margin-bottom:8px;min-height:var(--min-touch)}
 }
 
-@media (max-width:420px){
-  :root{--max-content-width:420px}
-  .page-container{padding:10px;margin:8px}
+@media (max-width: 480px){
+  :root{--max-content-width:100%}
+  .container{padding:10px}
+  .page-container{
+    padding:10px;
+    padding-bottom: calc(10px + var(--safe-area-bottom));
+    margin:8px auto;
+    border-radius:4px;
+  }
   .page-container h2{font-size:clamp(1.2rem,5vw,1.6rem)}
-  .homepage-button button{font-size:14px;padding:10px}
+  .homepage-button button{font-size:14px;padding:12px 14px;min-height:var(--min-touch)}
+}
+
+@media (max-width: 420px){
+  :root{--max-content-width:100%}
+  .page-container{padding:8px;padding-bottom: calc(8px + var(--safe-area-bottom));margin:6px auto}
+  .homepage-button button{font-size:13px;padding:10px}
+}
+
+@media (max-width: 360px){
+  .container{padding:8px}
+  .page-container h2{font-size:1.15rem}
+}
+
+@media (max-width: 320px){
+  .homepage-button button{min-width:120px;padding:10px 12px}
 }
 
 /* Ensure home banner images follow same sizing as calculator header */
-.head-img-calculator img{
-  width:70%;
-  height:auto;
-  display:block;
-  margin:20px auto 0 auto;
-  object-fit:contain}
+.head-img-calculator img {
+  width: 70%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 20px auto 0 auto;
+  object-fit: contain;
+}
+.smaller img {
+  width: 40% !important;
+}
 
-  .smaller img{
-  width:40% !important;
-  }
+@media (max-width: 480px) {
+  .head-img-calculator img { width: 85%; margin-top: 12px; }
+  .title-with-icon h2 { font-size: clamp(1.8rem, 8vw, 2.5rem) !important; }
+  .header-icon { width: 32px; height: 32px; }
+}
+@media (max-width: 360px) {
+  .head-img-calculator img { width: 90%; }
+  .title-with-icon h2 { font-size: 1.6rem !important; }
+}
 
 @media (prefers-reduced-motion: no-preference){
   .App-logo{animation:App-logo-spin infinite 20s linear}
@@ -225,6 +284,7 @@ header h3 {
   max-width: 720px;
   margin-left: auto;
   margin-right: auto;
+  padding-top: calc(16px + var(--safe-area-top));
 }
 
 .login-button-row{
@@ -254,3 +314,35 @@ header h3 {
 
 /* Social specific colors */
 .pages-button.social.google{ background: linear-gradient(135deg,var(--color-google-light) 0%,var(--color-google-dark) 100%); }
+.pages-button.social.facebook{ background: linear-gradient(135deg,var(--color-facebook) 0%,var(--color-facebook-dark) 100%); }
+
+.login-subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin: 0 0 20px 0;
+  text-transform: none;
+}
+
+.login-providers { margin-top: 8px; }
+
+.login-error {
+  color: var(--color-accent-dark);
+  margin-bottom: 12px;
+  padding: 10px;
+  background-color: #ffebee;
+  border-radius: 4px;
+  border: 1px solid #ffcdd2;
+  font-size: 0.9rem;
+  text-transform: none;
+}
+
+.provider-icon { margin-right: 8px; vertical-align: middle; }
+
+/* Optional: use on inner wrappers when you want scroll inside the page instead of body */
+.scrollable-y {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  min-height: 0;
+}

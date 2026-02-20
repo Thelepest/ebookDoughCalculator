@@ -128,6 +128,9 @@ const translations = {
             "którą następnie odświeżysz i przechowasz w lodówce — tam może pozostać przez 2 dni,\n" +
             "czekając na kolejne pieczenie!",
         login: 'Zaloguj się',
+        loginSubtitle: 'Użyj swojego konta społecznościowego, aby kontynuować',
+        signInWithGoogle: 'Google',
+        signInWithFacebook: 'Facebook',
         register: 'Zarejestruj się',
         emailLabel: 'Email',
         emailPlaceholder: 'Email',
@@ -334,6 +337,9 @@ const translations = {
             "which you will then feed and store in the fridge — where it can stay for up to 2 days,\n" +
             "waiting for your next baking session!",
         login: 'Login',
+        loginSubtitle: 'Use your social account to continue',
+        signInWithGoogle: 'Google',
+        signInWithFacebook: 'Facebook',
         register: 'Register',
         emailLabel: 'Email',
         emailPlaceholder: 'Email',
@@ -541,6 +547,9 @@ const translations = {
             " piccola parte di lievito madre nel barattolo, che andrai a rinfrescare e conservare in frigo, dove " +
             "potrà stare per 2 giorni, in attesa della prossima panificazione!",
         login: 'Accedi',
+        loginSubtitle: 'Usa il tuo account social per continuare',
+        signInWithGoogle: 'Google',
+        signInWithFacebook: 'Facebook',
         register: 'Registrati',
         emailLabel: 'Email',
         emailPlaceholder: 'Email',

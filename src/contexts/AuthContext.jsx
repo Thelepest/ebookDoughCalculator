@@ -8,6 +8,17 @@ const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
+/**
+ * Redirect URL per OAuth. In web usa l'origine corrente.
+ * Per app Capacitor (Android/iOS) configura in Supabase Dashboard una URL di tipo:
+ * - Web: https://tuodominio.com/login
+ * - App: aggiungi lo custom URL scheme (es. it.marcobiasone://login) in Authentication > URL Configuration
+ */
+const getRedirectUrl = () => {
+  if (typeof window === 'undefined') return undefined;
+  return `${window.location.origin}/login`;
+};
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -37,7 +48,6 @@ export const AuthProvider = ({ children }) => {
 
     handleOAuthRedirect();
 
-    // Get initial session
     const getInitialSession = async () => {
       try {
         const { data: { session } } = await supabase.auth.getSession();
@@ -60,29 +70,24 @@ export const AuthProvider = ({ children }) => {
 
     getInitialSession();
 
-    // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         try {
           setUser(session?.user ?? null);
           setLoading(false);
 
-          // Cleanup previous subscription listener
           if (subscriptionChannelRef.current) {
             supabase.removeChannel(subscriptionChannelRef.current);
             subscriptionChannelRef.current = null;
           }
 
-          // Reset subscription state when user logs out
           if (!session?.user) {
             setSubscriptionTier('free');
             setSubscriptionLoading(false);
             return;
           }
 
-          // Ensure user record exists in public.users table
           await ensureUserRecord(session.user.id, session.user.email);
-
           await loadUserSubscription(session.user.id);
         } catch (error) {
           console.error('Error handling auth change:', error);
@@ -106,32 +111,24 @@ export const AuthProvider = ({ children }) => {
       setNeedsPrivacyAcceptance(false);
       return;
     }
-
     const privacyAccepted = localStorage.getItem(`privacy_accepted_${user.id}`);
     const privacyVersionStored = localStorage.getItem(`privacy_version_${user.id}`);
     setNeedsPrivacyAcceptance(!privacyAccepted || privacyVersionStored !== privacyVersion);
   }, [user]);
 
-    const ensureUserRecord = async (userId, email) => {
-      try {
-        const { error } = await supabase
-          .from('users')
-          .upsert(
-            {
-              id: userId,
-              email: email,
-              subscriptiontier: 'free',
-            },
-            { onConflict: 'id' }
-          );
-
-        if (error) {
-          console.error('Error ensuring user record:', error);
-        }
-      } catch (error) {
-        console.error('Error ensuring user record:', error);
-      }
-    };
+  const ensureUserRecord = async (userId, email) => {
+    try {
+      const { error } = await supabase
+        .from('users')
+        .upsert(
+          { id: userId, email: email || '', subscriptiontier: 'free' },
+          { onConflict: 'id' }
+        );
+      if (error) console.error('Error ensuring user record:', error);
+    } catch (error) {
+      console.error('Error ensuring user record:', error);
+    }
+  };
 
   const loadUserSubscription = async (userId) => {
     setSubscriptionLoading(true);
@@ -139,63 +136,26 @@ export const AuthProvider = ({ children }) => {
       const userData = await getUser(userId);
       setSubscriptionTier(userData?.subscriptiontier || userData?.subscriptionTier || 'free');
 
-      // Listen to real-time updates for subscription status
       subscriptionChannelRef.current = supabase
         .channel('user_subscription_changes')
         .on(
           'postgres_changes',
-          {
-            event: 'UPDATE',
-            schema: 'public',
-            table: 'users',
-            filter: `id=eq.${userId}`,
-          },
+          { event: 'UPDATE', schema: 'public', table: 'users', filter: `id=eq.${userId}` },
           (payload) => {
             setSubscriptionTier(payload.new.subscriptiontier || payload.new.subscriptionTier || 'free');
           }
         )
         .subscribe();
-
-      // Store the channel reference for cleanup
-      // Note: This is a simplified approach; in production you might want better state management
     } catch (error) {
       console.error('Error checking subscription status:', error);
       if (isNetworkError(error)) {
         const handlePageError = getGlobalNetworkErrorHandler();
-        if (handlePageError) {
-          handlePageError(error);
-        }
+        if (handlePageError) handlePageError(error);
       }
       setSubscriptionTier('free');
     } finally {
       setSubscriptionLoading(false);
     }
-  };
-
-  const signup = async (email, password) => {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-    if (error) throw error;
-
-    // Wait a moment for the auth user to be created, then create the public user record
-    if (data.user) {
-      // Small delay to ensure auth user is fully created
-      await new Promise(resolve => setTimeout(resolve, 100));
-      await ensureUserRecord(data.user.id, data.user.email);
-    }
-
-    return data;
-  };
-
-  const login = async (email, password) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) throw error;
-    return data;
   };
 
   const clearAuthState = () => {
@@ -209,26 +169,19 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   };
 
-  const signOutWithTimeout = async (scope, timeoutMs) => {
-    return Promise.race([
-      supabase.auth.signOut({ scope }),
-      new Promise((_, reject) => {
-        setTimeout(() => reject(new Error(`signOut ${scope} timeout`)), timeoutMs);
-      }),
-    ]);
-  };
-
   const signOutSafely = async () => {
     try {
-      await signOutWithTimeout('global', 5000);
-    } catch (error) {
-      console.warn('Global sign out failed or timed out:', error);
+      await Promise.race([
+        supabase.auth.signOut({ scope: 'global' }),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 5000)),
+      ]);
+    } catch (e) {
+      console.warn('Global sign out failed or timed out:', e);
     }
-
     try {
       await supabase.auth.signOut({ scope: 'local' });
-    } catch (error) {
-      console.warn('Local sign out failed:', error);
+    } catch (e) {
+      console.warn('Local sign out failed:', e);
     }
   };
 
@@ -240,24 +193,25 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const resetPassword = async (email) => {
-    const redirectTo = process.env.REACT_APP_PASSWORD_RESET_REDIRECT_URL;
-    const options = redirectTo ? { redirectTo } : undefined;
-    const { error } = await supabase.auth.resetPasswordForEmail(email, options);
-    if (error) throw error;
-  };
-
-  const signInWithGoogle = async () => {
+  /**
+   * Login solo tramite provider OAuth (Google, Facebook, ecc.).
+   * Supabase non supporta "Login with Instagram" come provider; per altri provider
+   * aggiungili in Authentication > Providers nel dashboard Supabase.
+   */
+  const signInWithOAuth = async (provider) => {
+    const redirectTo = getRedirectUrl();
     const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/login`,
-      },
+      provider,
+      options: { redirectTo },
     });
     if (error) throw error;
     return data;
   };
 
+  /**
+   * Cancellazione account: chiama l'edge function (che elimina dati + auth user).
+   * Solo in caso di successo viene fatto logout e clear state.
+   */
   const deleteAccount = async () => {
     await deleteAccountRequest();
     try {
@@ -274,11 +228,8 @@ export const AuthProvider = ({ children }) => {
     subscriptionTier,
     needsPrivacyAcceptance,
     setNeedsPrivacyAcceptance,
-    signup,
-    login,
     logout,
-    resetPassword,
-    signInWithGoogle,
+    signInWithOAuth,
     deleteAccount,
   };
 

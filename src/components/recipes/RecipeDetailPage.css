@@ -1,6 +1,7 @@
 .recipe-detail-content {
     width: 100%;
     margin-top: 20px;
+    overflow-x: hidden;
 }
 
 .recipe-detail-image-container {
@@ -83,15 +84,30 @@
     }
 }
 
+@media (max-width: 480px) {
+    .recipe-detail-image-container {
+        height: 260px;
+        margin-bottom: 20px;
+    }
+    .recipe-detail-ingredients h3,
+    .recipe-detail-process h3 { font-size: 1.1rem; }
+}
+
 @media (max-width: 420px) {
     .recipe-detail-image-container {
-        height: 250px;
+        height: 220px;
     }
 
     .recipe-detail-ingredients,
     .recipe-detail-process {
         padding: 12px;
     }
+}
+
+@media (max-width: 360px) {
+    .recipe-detail-image-container { height: 200px; }
+    .recipe-detail-ingredients li,
+    .recipe-detail-process p { font-size: 0.95rem; }
 }
 
 

@@ -19,7 +19,11 @@ const invokeFunction = async (name, body, headers = {}) => {
     headers: mergedHeaders,
   });
   if (error) {
-    throw new Error(error.message || 'Function request failed');
+    const msg = data?.error || error.message || 'Function request failed';
+    throw new Error(typeof msg === 'string' ? msg : JSON.stringify(msg));
+  }
+  if (data?.error && data?.success !== true) {
+    throw new Error(typeof data.error === 'string' ? data.error : 'Request failed');
   }
   return data;
 };

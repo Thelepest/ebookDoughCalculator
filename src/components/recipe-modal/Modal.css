@@ -7,26 +7,32 @@
     left: 0;
     right: 0;
     bottom: 0;
+    padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
     background: rgba(126, 175, 253, 0.7);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .modal-content {
     background: #fff;
     padding: clamp(12px, 3.5vw, 40px);
+    padding-bottom: calc(clamp(12px, 3.5vw, 40px) + env(safe-area-inset-bottom, 0));
     border-radius: 15px;
     border: 2px solid #ff6f61;
-    max-width: 90vw;
-    width: min(92vw,640px);
-    max-height: 80vh;
+    max-width: min(92vw, calc(100vw - 20px));
+    width: min(92vw, 640px);
+    max-height: min(80vh, 85dvh);
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
 }
 
 
@@ -62,6 +68,7 @@
 .modal-button {
     flex: 1;
     min-width: 120px;
+    min-height: var(--min-touch, 44px);
     padding: 10px 14px;
     font-size: clamp(12px, 2.5vw, 14px);
     font-weight: 600;

@@ -78,7 +78,9 @@ serve(async (req) => {
     }
 
     return jsonResponse({ success: true });
-  } catch (error) {
-    return jsonResponse({ error: error.message }, 500);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("admin-delete-account error:", message);
+    return jsonResponse({ error: message }, 500);
   }
 });

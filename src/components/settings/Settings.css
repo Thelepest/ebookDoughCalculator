@@ -10,6 +10,7 @@ html, body {
 .page-container {
     background: white;
     padding: 12px;
+    padding-bottom: calc(12px + var(--safe-area-bottom, 0));
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -17,11 +18,12 @@ html, body {
     max-width: 720px;
     margin: 20px auto;
     border-radius: 6px;
+    overflow-x: hidden;
 }
 
 .page-container h2 {
     font-family: "Limelight", cursive;
-    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-size: clamp(1.2rem, 4vw, 2rem);
     color: #333;
     margin-top: 0;
     text-transform: uppercase;
@@ -150,4 +152,18 @@ html, body {
     font-weight: bold;
     display: flex;
     align-items: center;
+}
+
+@media (max-width: 480px) {
+    .info-section { margin-top: 16px; }
+    .info-section h3 { font-size: 1.1rem; }
+    .user-info { flex-wrap: wrap; gap: 12px; }
+    .contacts-icons { gap: 12px; }
+    .contact-icon { min-width: var(--min-touch, 44px); min-height: var(--min-touch, 44px); }
+    .button-group.centered-buttons button { min-height: var(--min-touch, 44px); }
+}
+
+@media (max-width: 360px) {
+    .page-container select { width: 100%; min-height: 44px; }
+    .user-profile { padding: 12px; }
 }

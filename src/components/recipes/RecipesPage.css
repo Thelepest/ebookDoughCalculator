@@ -1,6 +1,7 @@
 .recipes-list-content {
     width: 100%;
     margin-top: 20px;
+    overflow-x: hidden;
 }
 
 .recipe-group {
@@ -41,6 +42,7 @@
 
 .recipe-accordion-header {
     width: 100%;
+    min-height: var(--min-touch, 44px);
     padding: 16px 20px;
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-700) 100%);
     border: none;
@@ -50,6 +52,7 @@
     align-items: center;
     text-align: left;
     transition: background 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .recipe-accordion-header:hover {
@@ -180,12 +183,23 @@
     filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.5));
 }
 
+@media (max-width: 480px) {
+    .recipe-group-title { font-size: clamp(1.1rem, 4vw, 1.5rem); margin-bottom: 16px; }
+    .recipe-accordion-header { padding: 14px 12px; min-height: 48px; }
+    .recipe-accordion-title { font-size: 0.95rem; }
+}
+
 @media (max-width: 420px) {
     .recipe-accordion-image-container {
-        height: 150px;
+        height: 140px;
     }
 
     .recipe-accordion-content {
         padding: 12px;
     }
+}
+
+@media (max-width: 360px) {
+    .recipe-accordion-image-container { height: 120px; }
+    .recipe-premium-overlay { font-size: 0.9rem; }
 }
